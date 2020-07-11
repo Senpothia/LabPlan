@@ -22,7 +22,6 @@ public class Sequence {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	public Sequence(Integer id, String nom, LocalDateTime debut, LocalDateTime fin, int numero, String profil,
 			String niveau, String commentaire, boolean resultat, Essai essai, Echantillon echantillon) {
 		super();
