@@ -1,15 +1,28 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Qualification {
 	
+	@Id
+	@GeneratedValue
 	private Integer id;
 	private String produit;
 	private String projet;
 	private LocalDateTime date;
 	private String objet;
 	private boolean resultat;
+	
+	@OneToMany(mappedBy="qualification")
+	private List<Essai> essais = new ArrayList<Essai>();
 	
 	public Qualification() {
 		super();
