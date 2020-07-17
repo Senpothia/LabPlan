@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Rapport {
@@ -14,12 +15,14 @@ public class Rapport {
 	@GeneratedValue
 	private Integer id;
 	private String titre;
+	
+	@ManyToOne
 	private Utilisateur auteur;
+	
 	private LocalDateTime date;
 	private String identifiant; // exemple : R10-15
 	private Integer version;
-	private List<Essai> essais;
-	
+
 	
 	public Rapport() {
 		super();
@@ -27,8 +30,8 @@ public class Rapport {
 	}
 
 
-	public Rapport(Integer id, String titre, Utilisateur auteur, LocalDateTime date, String identifiant, Integer version,
-			List<Essai> essais) {
+	public Rapport(Integer id, String titre, Utilisateur auteur, LocalDateTime date, String identifiant,
+			Integer version) {
 		super();
 		this.id = id;
 		this.titre = titre;
@@ -36,7 +39,6 @@ public class Rapport {
 		this.date = date;
 		this.identifiant = identifiant;
 		this.version = version;
-		this.essais = essais;
 	}
 
 
@@ -100,17 +102,6 @@ public class Rapport {
 	}
 
 
-	public List<Essai> getEssais() {
-		return essais;
-	}
-
-
-	public void setEssais(List<Essai> essais) {
-		this.essais = essais;
-	}
-	
-	
-	
 	
 
 }

@@ -1,12 +1,13 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -20,20 +21,23 @@ public class Echantillon {
 	private Integer version;
 	private String caracteristique;
 	
-	
+	@ManyToMany(mappedBy = "echantillons")
+	private List<Sequence> sequences;
 	
 	public Echantillon() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Echantillon(Integer id, Integer numero, LocalDateTime date, Integer version, String caracteristique) {
+	public Echantillon(Integer id, Integer numero, LocalDateTime date, Integer version, String caracteristique,
+			List<Sequence> sequences) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.date = date;
 		this.version = version;
 		this.caracteristique = caracteristique;
+		this.sequences = sequences;
 	}
 
 	public Integer getId() {
@@ -75,8 +79,15 @@ public class Echantillon {
 	public void setCaracteristique(String caracteristique) {
 		this.caracteristique = caracteristique;
 	}
-	
-	
+
+	public List<Sequence> getSequences() {
+		return sequences;
+	}
+
+	public void setSequences(List<Sequence> sequences) {
+		this.sequences = sequences;
+	}
+
 	
 	
 
