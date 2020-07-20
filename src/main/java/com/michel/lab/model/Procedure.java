@@ -13,9 +13,9 @@ public class Procedure {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	private String nom;
-	private String referentiel;
-	private String version;
+	private String nom;   // nom de l'essai: ESD, Ondes de choc
+	private String referentiel;  // EN 61000-4-5
+	private String version;      // 2015, V1.8.1
 	
 	@OneToMany(mappedBy = "procedure")
 	private List<Essai> essais;

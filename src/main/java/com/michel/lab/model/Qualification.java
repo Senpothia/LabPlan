@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class Qualification {
 	
-	
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -20,7 +19,9 @@ public class Qualification {
 	private String projet;
 	private LocalDateTime date;
 	private String objet;
+	private boolean statut;  // Ouverte, cloturée
 	private boolean resultat;
+	
 	
 	@OneToMany(mappedBy="qualification")
 	private List<Essai> essais = new ArrayList<Essai>();
@@ -97,7 +98,15 @@ public class Qualification {
 	public void setEssais(List<Essai> essais) {
 		this.essais = essais;
 	}
-	
 
+	public boolean isStatut() {
+		return statut;
+	}
+
+	public void setStatut(boolean statut) {
+		this.statut = statut;
+	}
+	
+	
 	
 }

@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-
 @Entity
 public class Echantillon {
 	
@@ -19,7 +18,8 @@ public class Echantillon {
 	private Integer numero;
 	private LocalDateTime date;
 	private Integer version;
-	private String caracteristique;
+	private String caracteristique;    // Variantes pouvant distinguer les échantillons
+	private boolean actif;
 	
 	@ManyToMany(mappedBy = "echantillons")
 	private List<Sequence> sequences;
@@ -86,6 +86,14 @@ public class Echantillon {
 
 	public void setSequences(List<Sequence> sequences) {
 		this.sequences = sequences;
+	}
+
+	public boolean isActif() {
+		return actif;
+	}
+
+	public void setActif(boolean actif) {
+		this.actif = actif;
 	}
 
 	

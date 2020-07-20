@@ -26,6 +26,7 @@ public class Sequence {
 	private String niveau;  // exemple: 1kV; 40°c, etc...
 	private String commentaire;  // observation faite en cours d'essai
 	private boolean resultat; 
+	private boolean statut;
 	
 	@ManyToOne
 	private Essai essai;
@@ -170,5 +171,16 @@ public class Sequence {
 		this.echantillons = echantillons;
 	}
 
+
+	public boolean isStatut() {
+		return statut;
+	}
+
+
+	public void setStatut(boolean statut) {
+		this.statut = statut;
+	}
+
+	
 	
 }

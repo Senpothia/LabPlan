@@ -20,6 +20,7 @@ public class Essai {
 	private Integer id;
 	private Integer numero;
 	private LocalDateTime date;
+	private boolean statut;
 	
 	@ManyToOne
 	private Procedure procedure;
@@ -115,6 +116,14 @@ public class Essai {
 
 	public void setSequences(List<Sequence> sequences) {
 		this.sequences = sequences;
+	}
+
+	public boolean isStatut() {
+		return statut;
+	}
+
+	public void setStatut(boolean statut) {
+		this.statut = statut;
 	}
 
 	
