@@ -18,6 +18,7 @@ public class Utilisateur {
 	private String role;
 	private String email; 
 	private String password;
+	private boolean enabled;
 	
 	@OneToMany(mappedBy="auteur")
 	private List<Rapport> rapports;
@@ -93,6 +94,23 @@ public class Utilisateur {
 
 	public void setRapports(List<Rapport> rapports) {
 		this.rapports = rapports;
+	}
+
+	public String getUsername() {
+		return email;
+	}
+
+
+	public void setUsername(String username) {
+		this.email = email;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	
