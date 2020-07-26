@@ -23,13 +23,17 @@ public class Utilisateur {
 	@OneToMany(mappedBy="auteur")
 	private List<Rapport> rapports;
 	
+	@OneToMany(mappedBy="createur")
+	private List<Qualification> qualifications;
+	
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+
 	public Utilisateur(Integer id, String nom, String prenom, String role, String email, String password,
-			List<Rapport> rapports) {
+			boolean enabled, List<Rapport> rapports, List<Qualification> qualifications) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -37,8 +41,12 @@ public class Utilisateur {
 		this.role = role;
 		this.email = email;
 		this.password = password;
+		this.enabled = enabled;
 		this.rapports = rapports;
+		this.qualifications = qualifications;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -101,7 +109,7 @@ public class Utilisateur {
 	}
 
 
-	public void setUsername(String username) {
+	public void setUsername(String email) {
 		this.email = email;
 	}
 
@@ -111,6 +119,14 @@ public class Utilisateur {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public List<Qualification> getQualifications() {
+		return qualifications;
+	}
+
+	public void setQualifications(List<Qualification> qualifications) {
+		this.qualifications = qualifications;
 	}
 
 	

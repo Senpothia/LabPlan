@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -21,6 +22,9 @@ public class Qualification {
 	private String objet;
 	private boolean statut;  // Ouverte, cloturée
 	private boolean resultat;
+	
+	@ManyToOne
+	private Utilisateur createur;
 	
 	
 	@OneToMany(mappedBy="qualification")
@@ -105,6 +109,14 @@ public class Qualification {
 
 	public void setStatut(boolean statut) {
 		this.statut = statut;
+	}
+
+	public Utilisateur getCreateur() {
+		return createur;
+	}
+
+	public void setCreateur(Utilisateur createur) {
+		this.createur = createur;
 	}
 	
 	
