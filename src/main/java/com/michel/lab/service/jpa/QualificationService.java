@@ -22,7 +22,8 @@ public class QualificationService implements IQualificationService{
 
 	@Override
 	public void modifierQualification(Qualification qualification) {
-		// TODO Auto-generated method stub
+		
+		qualificationRepo.save(qualification);
 		
 	}
 	

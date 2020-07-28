@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -17,9 +18,11 @@ public class Procedure {
 	private String referentiel;  // EN 61000-4-5
 	private String version;      // 2015, V1.8.1
 	
+	@ManyToOne
+	private Domaine domaine;
+	
 	@OneToMany(mappedBy = "procedure")
 	private List<Essai> essais;
-	
 	
 	public Procedure() {
 		super();
@@ -27,15 +30,15 @@ public class Procedure {
 	}
 
 
-	public Procedure(Integer id, String nom, String referentiel, String version, List<Essai> essais) {
+	public Procedure(Integer id, String nom, String referentiel, String version, Domaine domaine, List<Essai> essais) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.referentiel = referentiel;
 		this.version = version;
+		this.domaine = domaine;
 		this.essais = essais;
 	}
-
 
 	public Integer getId() {
 		return id;
@@ -84,6 +87,16 @@ public class Procedure {
 
 	public void setEssais(List<Essai> essais) {
 		this.essais = essais;
+	}
+
+
+	public Domaine getDomaine() {
+		return domaine;
+	}
+
+
+	public void setDomaine(Domaine domaine) {
+		this.domaine = domaine;
 	}
 
 
