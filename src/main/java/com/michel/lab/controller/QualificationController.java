@@ -15,6 +15,7 @@ import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
 import com.michel.lab.model.Procedure;
 import com.michel.lab.model.Qualification;
+import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.service.jpa.DomaineService;
 import com.michel.lab.service.jpa.ProcedureService;
 import com.michel.lab.service.jpa.QualificationService;
@@ -64,8 +65,22 @@ public class QualificationController {
 		System.out.println("nom du domaine récupéré: " + nomDomaine);
 		
 		
-		Domaine domaine = domaineService.obtenirDomaine(nomDomaine);
-		
+		List<Domaine> domaines = domaineService.obtenirDomaine(nomDomaine);
+		if (domaines.isEmpty()) {
+			
+			System.out.println("Liste domaines vides");
+			Domaine domaine = new Domaine();
+			domaine.setNom(formProcedure.getNom());
+			procedure.setDomaine(domaine);
+			domaineService.ajouterDomaine(domaine);
+			procedureService.ajouterProcedure(procedure);
+			
+			
+		}else {
+			
+			System.out.println("taille domaines: " + domaines.size());
+			System.out.println("nom domaine: " + domaines.get(0).getNom());
+		}
 		/*
 		
 		if (domaine.equals(null)) {
