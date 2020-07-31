@@ -16,6 +16,8 @@ public class Qualification {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	private Integer numero;
+	private String reference;
 	private String produit;
 	private String projet;
 	private LocalDateTime date;
@@ -35,15 +37,20 @@ public class Qualification {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Qualification(Integer id, String produit, String projet, LocalDateTime date, String objet, boolean resultat,
+	public Qualification(Integer id, Integer numero, String reference, String produit, String projet,
+			LocalDateTime date, String objet, boolean statut, boolean resultat, Utilisateur createur,
 			List<Essai> essais) {
 		super();
 		this.id = id;
+		this.numero = numero;
+		this.reference = reference;
 		this.produit = produit;
 		this.projet = projet;
 		this.date = date;
 		this.objet = objet;
+		this.statut = statut;
 		this.resultat = resultat;
+		this.createur = createur;
 		this.essais = essais;
 	}
 
@@ -53,6 +60,22 @@ public class Qualification {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 	public String getProduit() {
@@ -87,12 +110,28 @@ public class Qualification {
 		this.objet = objet;
 	}
 
+	public boolean isStatut() {
+		return statut;
+	}
+
+	public void setStatut(boolean statut) {
+		this.statut = statut;
+	}
+
 	public boolean isResultat() {
 		return resultat;
 	}
 
 	public void setResultat(boolean resultat) {
 		this.resultat = resultat;
+	}
+
+	public Utilisateur getCreateur() {
+		return createur;
+	}
+
+	public void setCreateur(Utilisateur createur) {
+		this.createur = createur;
 	}
 
 	public List<Essai> getEssais() {
@@ -103,22 +142,5 @@ public class Qualification {
 		this.essais = essais;
 	}
 
-	public boolean isStatut() {
-		return statut;
-	}
-
-	public void setStatut(boolean statut) {
-		this.statut = statut;
-	}
-
-	public Utilisateur getCreateur() {
-		return createur;
-	}
-
-	public void setCreateur(Utilisateur createur) {
-		this.createur = createur;
-	}
-	
-	
 	
 }

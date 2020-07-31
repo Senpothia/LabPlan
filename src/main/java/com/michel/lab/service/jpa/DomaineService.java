@@ -1,5 +1,6 @@
 package com.michel.lab.service.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,28 @@ public class DomaineService implements IDomaineService{
 		List<Domaine> domaines = domaineRepo.findByNom(nomDomaine);
 		return domaines;
 	}
+
+	@Override
+	public List<Domaine> TousLesDomaines() {
+		List<Domaine> domaines = domaineRepo.findAll();
+		
+		return domaines;
+	}
+
+	@Override
+	public List<String> tousLesNomsDomaines() {
+		List<Domaine> domaines = domaineRepo.findAll();
+		List<String> nomsDomaines = new ArrayList<String>();
+		
+		for (Domaine dom: domaines) {
+			
+			nomsDomaines.add(dom.getNom());
+			
+		}
+		
+		return nomsDomaines;
+	}
+	
+	
 
 }

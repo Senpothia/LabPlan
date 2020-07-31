@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,27 +81,22 @@ public class QualificationController {
 			
 			System.out.println("taille domaines: " + domaines.size());
 			System.out.println("nom domaine: " + domaines.get(0).getNom());
-		}
-		/*
-		
-		if (domaine.equals(null)) {
-			
-			System.out.println("aucun domaine!");
-		}
-		/*
-		if (domaine == null) {
-			
-			System.out.println("le domaine n'existe pas");
-			domaine = new Domaine();
-			domaine.setNom(formProcedure.getDomaine());
-			domaineService.ajouterDomaine(domaine);
+			Domaine domaine = new Domaine();
+			domaine.setNom(domaines.get(0).getNom());
+			procedure.setDomaine(domaines.get(0));
+			//domaineService.ajouterDomaine(domaine);
+			procedureService.ajouterProcedure(procedure);
 			
 		}
 		
-		List<Procedure> procedures = domaine.getProcedures();
-		procedures.add(procedure);
-		procedureService.ajouterProcedure(procedure);
-		*/
+	}
+	
+	@GetMapping("/private/domaines")       // récupération de la liste des domaines
+	public List<String> tousLesDomaines(){
+		
+		List<String> nomsDomaines = domaineService.tousLesNomsDomaines();
+		
+		return nomsDomaines;
 	}
 
 }
