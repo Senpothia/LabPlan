@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
 import com.michel.lab.model.Procedure;
 import com.michel.lab.model.Qualification;
+import com.michel.lab.model.QualificationAux;
 import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.service.jpa.DomaineService;
 import com.michel.lab.service.jpa.ProcedureService;
@@ -42,6 +44,8 @@ public class QualificationController {
 	public void saveQualification(@RequestBody FormQualif formQualif) {
 		
 		Qualification qualification = new Qualification();
+		qualification.setNumero(formQualif.getNumero());
+		qualification.setReference(formQualif.getReference());
 		qualification.setProjet(formQualif.getProjet());
 		qualification.setProduit(formQualif.getProduit());
 		qualification.setObjet(formQualif.getObjet());
@@ -98,5 +102,29 @@ public class QualificationController {
 		
 		return nomsDomaines;
 	}
-
+	
+	@GetMapping("/private/qualifications")       // récupération de la liste de toutes les qualifications
+	public List<QualificationAux> toutesLesQualifications(){
+		
+		List<QualificationAux> qualifications = qualificationService.tousLesQualifications();
+		
+		return qualifications;
+	}
+	
+	@GetMapping("/private/historique/{id}")       // récupération de la liste de toutes les qualifications
+	public List<QualificationAux> mesQualifications(@PathVariable (name = "id") Integer id){
+		
+		List<QualificationAux> qualifications = qualificationService.mesQualifications(id);
+		return qualifications;
+		
+	}
+	
+	@GetMapping("/private/qualifications/{id}")  
+	public List<QualificationAux> mesQualificationsEnCours(@PathVariable (name = "id") Integer id){
+		
+		List<QualificationAux> qualifications = qualificationService.mesQualificationsEnCours(id);
+		return qualifications;
+		
+		
+	}
 }

@@ -1,24 +1,26 @@
 package com.michel.lab.model;
 
+import java.time.LocalDateTime;
+
 public class QualificationAux {
 	
-	private String numero;
+	private Integer numero;
 	private String reference;
 	private String produit;
-	private String date;
+	private LocalDateTime date;
 	private String objet;
 	private String projet;
 	private String createur;
-	private boolean resultat;
-	private boolean statut;
+	private String resultat;
+	private String statut;
 	
 	public QualificationAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public QualificationAux(String numero, String reference, String produit, String date, String objet, String projet,
-			String createur, boolean resultat, boolean statut) {
+	public QualificationAux(Integer numero, String reference, String produit, LocalDateTime date, String objet,
+			String projet, String createur, String resultat, String statut) {
 		super();
 		this.numero = numero;
 		this.reference = reference;
@@ -30,12 +32,60 @@ public class QualificationAux {
 		this.resultat = resultat;
 		this.statut = statut;
 	}
+	
+	public QualificationAux(Qualification qualification) {
+		
+		boolean result = qualification.isResultat();
+		boolean stat = qualification.isStatut();
+		
+		
+		this.numero = qualification.getNumero();
+		this.reference = qualification.getReference();
+		this.produit = qualification.getProduit();
+		this.date = qualification.getDate();
+		this.objet = qualification.getObjet();
+		this.projet = qualification.getProjet();
+		this.createur = qualification.getCreateur().getNom();
+		
+		if (stat) {  // Qualification en cours
+			
+			if (result) {
+				
+				this.resultat = "En cours";
+				this.statut = "En cours";
+				
+			}else {
+				
+				this.resultat = "En cours";
+				this.statut = "En cours";
+			}
+			
+			
+			
+		} else {   // Qualification terminée
+			
+			this.statut = "Terminée";
+			
+			if (result) {
+				
+				this.resultat = "Conforme";
+				
+			} else {
+				
+				this.resultat = "Non conforme";
+			}
+			
+		}
+		
+		
+	
+	}
 
-	public String getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
@@ -55,11 +105,11 @@ public class QualificationAux {
 		this.produit = produit;
 	}
 
-	public String getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
@@ -87,21 +137,22 @@ public class QualificationAux {
 		this.createur = createur;
 	}
 
-	public boolean isResultat() {
+	public String getResultat() {
 		return resultat;
 	}
 
-	public void setResultat(boolean resultat) {
+	public void setResultat(String resultat) {
 		this.resultat = resultat;
 	}
 
-	public boolean isStatut() {
+	public String getStatut() {
 		return statut;
 	}
 
-	public void setStatut(boolean statut) {
+	public void setStatut(String statut) {
 		this.statut = statut;
 	}
-	
-	
+
+
+
 }

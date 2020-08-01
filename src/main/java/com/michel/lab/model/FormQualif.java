@@ -5,12 +5,14 @@ import java.util.Date;
 
 public class FormQualif {
 	
+	private Integer numero;
+	private String reference;
 	private String produit;
 	private String projet;
 	//private Date date;
 	private String objet;
-	private boolean statut;  // Ouverte, cloturée
-	private boolean resultat;
+	private String statut;  // Ouverte, cloturée
+	private String resultat;
 	private Integer createurId;
 	
 	
@@ -20,13 +22,37 @@ public class FormQualif {
 	}
 
 
-	public FormQualif(String produit, String projet, String objet, boolean statut, boolean resultat) {
+	public FormQualif(Integer numero, String reference, String produit, String projet, String objet, String statut,
+			String resultat, Integer createurId) {
 		super();
+		this.numero = numero;
+		this.reference = reference;
 		this.produit = produit;
 		this.projet = projet;
 		this.objet = objet;
 		this.statut = statut;
 		this.resultat = resultat;
+		this.createurId = createurId;
+	}
+
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+
+	public String getReference() {
+		return reference;
+	}
+
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 
@@ -60,26 +86,25 @@ public class FormQualif {
 	}
 
 
-	public boolean isStatut() {
+	public String getStatut() {
 		return statut;
 	}
 
 
-	public void setStatut(boolean statut) {
+	public void setStatut(String statut) {
 		this.statut = statut;
 	}
 
 
-	public boolean isResultat() {
+	public String getResultat() {
 		return resultat;
 	}
 
 
-	public void setResultat(boolean resultat) {
+	public void setResultat(String resultat) {
 		this.resultat = resultat;
 	}
 
-	
 
 	public Integer getCreateurId() {
 		return createurId;
@@ -91,11 +116,6 @@ public class FormQualif {
 	}
 
 
-	@Override
-	public String toString() {
-		return "FormQualif [produit=" + produit + ", projet=" + projet + ", objet=" + objet + ", statut=" + statut
-				+ ", resultat=" + resultat + ", createurId=" + createurId + "]";
-	}
-
-
+	
+	
 }
