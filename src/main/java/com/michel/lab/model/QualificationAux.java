@@ -1,25 +1,27 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class QualificationAux {
 	
 	private Integer numero;
 	private String reference;
 	private String produit;
-	private LocalDateTime date;
+	private String date;
 	private String objet;
 	private String projet;
 	private String createur;
 	private String resultat;
 	private String statut;
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	
 	public QualificationAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public QualificationAux(Integer numero, String reference, String produit, LocalDateTime date, String objet,
+	public QualificationAux(Integer numero, String reference, String produit, String date, String objet,
 			String projet, String createur, String resultat, String statut) {
 		super();
 		this.numero = numero;
@@ -42,7 +44,7 @@ public class QualificationAux {
 		this.numero = qualification.getNumero();
 		this.reference = qualification.getReference();
 		this.produit = qualification.getProduit();
-		this.date = qualification.getDate();
+		this.date = qualification.getDate().format(formatter);
 		this.objet = qualification.getObjet();
 		this.projet = qualification.getProjet();
 		this.createur = qualification.getCreateur().getNom();
@@ -105,12 +107,22 @@ public class QualificationAux {
 		this.produit = produit;
 	}
 
-	public LocalDateTime getDate() {
+	
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public DateTimeFormatter getFormatter() {
+		return formatter;
+	}
+
+	public void setFormatter(DateTimeFormatter formatter) {
+		this.formatter = formatter;
 	}
 
 	public String getObjet() {
