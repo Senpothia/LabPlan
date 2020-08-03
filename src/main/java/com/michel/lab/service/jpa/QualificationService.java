@@ -87,10 +87,16 @@ public class QualificationService implements IQualificationService{
 		return toutesLesQualifications;
 	}
 
-	public QualificationAux obtenirQualification(Integer id) {
+	public Qualification obtenirQualification(Integer id) {
 		
-		QualificationAux qualification = qualificationRepo.findByNumero(id);
+		Qualification qualification = qualificationRepo.findByNumero(id);
 		return qualification;
+	}
+
+	public Qualification obtenirQualificationParNumero(Integer qualification) {
+		
+		Qualification qualif = qualificationRepo.findByNumero(qualification);
+		return qualif;
 	}
 	
 	

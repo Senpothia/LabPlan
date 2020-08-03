@@ -42,4 +42,10 @@ public class ProcedureService implements IProcedureService{
 		return procedures;
 	}
 
+	public Procedure obtenirProcedure(Integer id) {
+		
+		Procedure procedure = procedureRepo.getOne(id);
+		return procedure;
+	}
+
 }

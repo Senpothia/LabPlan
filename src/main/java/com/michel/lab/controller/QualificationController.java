@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.michel.lab.model.Domaine;
 import com.michel.lab.model.DomaineAux;
+import com.michel.lab.model.Essai;
 import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
 import com.michel.lab.model.Procedure;
 import com.michel.lab.model.ProcedureAux;
 import com.michel.lab.model.Qualification;
 import com.michel.lab.model.QualificationAux;
+import com.michel.lab.model.Utilisateur;
 import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.service.jpa.DomaineService;
+import com.michel.lab.service.jpa.EssaiService;
 import com.michel.lab.service.jpa.ProcedureService;
 import com.michel.lab.service.jpa.QualificationService;
 import com.michel.lab.service.jpa.UserService;
@@ -42,6 +45,9 @@ public class QualificationController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	EssaiService essaiService;
 
 	@PostMapping("/save/qualification")
 	public void saveQualification(@RequestBody FormQualif formQualif) {
@@ -132,9 +138,10 @@ public class QualificationController {
 												// utilisateur
 	public QualificationAux obtenirQualification(@PathVariable(name = "id") Integer id) {
 
-		QualificationAux qualification = qualificationService.obtenirQualification(id);
-
-		return qualification;
+		Qualification qualification = qualificationService.obtenirQualification(id);
+		QualificationAux qualifAux = new QualificationAux(qualification);
+		
+		return qualifAux;
 	}
 
 	@GetMapping("/private/procedures")
@@ -183,6 +190,27 @@ public class QualificationController {
 		
 		
 		return listeProcedures;
+		
+	}
+	
+	
+	@PostMapping("/essai/ajouter/procedure/{id}/{qualification}/{idUser}")
+	public void ajouterProcedure(@PathVariable (name = "id") Integer id
+			, @PathVariable (name = "qualification") Integer qualification
+			, @PathVariable (name = "idUser") Integer idUser){
+		
+		Utilisateur technicien = userService.obtenirUser(idUser);
+		Qualification qualif = qualificationService.obtenirQualificationParNumero(qualification);
+		Procedure procedure =  procedureService.obtenirProcedure(id);
+		Essai essai = new Essai();
+		essai.setQualification(qualif);
+		essai.setTechnicien(technicien);
+		essai.setResultat(false);  // En cours ou non conforme
+		essai.setStatut(true);     // l'essai est en cours
+		essai.setProcedure(procedure);
+		essai.setDate(LocalDateTime.now());
+		
+		essaiService.ajouterEssai(essai);
 		
 	}
 }

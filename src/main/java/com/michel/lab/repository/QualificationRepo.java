@@ -13,7 +13,9 @@ public interface QualificationRepo extends JpaRepository<Qualification, Integer>
 	
 	List<Qualification> findByCreateur(Utilisateur createur);
 
-	QualificationAux findByNumero(Integer id);
+	Qualification findByNumero(Integer qualification);
+
+	//QualificationAux findByNumero(Integer id);
 	
 
 }
