@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.michel.lab.model.Domaine;
 import com.michel.lab.model.DomaineAux;
 import com.michel.lab.model.Essai;
+import com.michel.lab.model.EssaiAux;
 import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
 import com.michel.lab.model.Groupe;
@@ -251,4 +252,20 @@ public class QualificationController {
 		
 		return idProcedures;
 	}
+	
+	@GetMapping("/private/liste/essais/{id}")
+	public List<EssaiAux> obtenirEssaisParQualification(
+			@PathVariable (name = "id") Integer id){
+		
+		
+		System.out.println("*** Entrée méthode obtenirEssaisParQualification - service");
+		System.out.println("Numéro qualif reçu: " + id);
+		
+		List<EssaiAux> essais = essaiService.obtenirEssaisParQualification(id);
+		
+		return essais;
+		
+	}
+	
+	
 }

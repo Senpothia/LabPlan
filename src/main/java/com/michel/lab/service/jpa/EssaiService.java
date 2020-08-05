@@ -1,11 +1,17 @@
 package com.michel.lab.service.jpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.michel.lab.model.Essai;
+import com.michel.lab.model.EssaiAux;
+import com.michel.lab.model.Qualification;
 import com.michel.lab.repository.EssaiRepo;
 import com.michel.lab.repository.ProcedureRepo;
+import com.michel.lab.repository.QualificationRepo;
 import com.michel.lab.service.IEssaiService;
 import com.michel.lab.service.IProcedureService;
 
@@ -18,6 +24,9 @@ public class EssaiService  implements IEssaiService{
 	
 	@Autowired
 	ProcedureRepo userRepo;
+	
+	@Autowired
+	QualificationRepo qualificationRepo;
 	
 	public void ajouterEssai(Essai essai) {
 		
@@ -34,6 +43,22 @@ public class EssaiService  implements IEssaiService{
 		
 		Essai essai = essaiRepo.getOne(idEssai);
 		return essai;
+	}
+
+	public List<EssaiAux> obtenirEssaisParQualification(Integer qualification) {
+		
+		Qualification qualif = qualificationRepo.findByNumero(qualification);
+		List<Essai> essais = qualif.getEssais();
+		List<EssaiAux> listeEssais = new ArrayList<EssaiAux>();
+		
+		for (Essai es:essais) {
+			
+			EssaiAux esAux = new EssaiAux(es);
+			listeEssais.add(esAux);
+			
+		}
+		
+		return listeEssais;
 	}
 
 	
