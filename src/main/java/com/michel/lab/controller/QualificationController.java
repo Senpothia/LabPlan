@@ -17,6 +17,7 @@ import com.michel.lab.model.Domaine;
 import com.michel.lab.model.DomaineAux;
 import com.michel.lab.model.Essai;
 import com.michel.lab.model.EssaiAux;
+import com.michel.lab.model.FormEchantillon;
 import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
 import com.michel.lab.model.Groupe;
@@ -27,6 +28,7 @@ import com.michel.lab.model.QualificationAux;
 import com.michel.lab.model.Utilisateur;
 import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.service.jpa.DomaineService;
+import com.michel.lab.service.jpa.EchantillonService;
 import com.michel.lab.service.jpa.EssaiService;
 import com.michel.lab.service.jpa.ProcedureService;
 import com.michel.lab.service.jpa.QualificationService;
@@ -50,6 +52,9 @@ public class QualificationController {
 
 	@Autowired
 	EssaiService essaiService;
+	
+	@Autowired
+	EchantillonService echantillonService;
 
 	@PostMapping("/save/qualification")
 	public void saveQualification(@RequestBody FormQualif formQualif) {
@@ -264,6 +269,13 @@ public class QualificationController {
 		List<EssaiAux> essais = essaiService.obtenirEssaisParQualification(id);
 		
 		return essais;
+		
+	}
+	
+	@PostMapping("private/echantillon/save")  // Enregistrement d'une procédure
+	public void saveEchantillon(@RequestBody FormEchantillon formEchantillon) {
+		
+		echantillonService.enregistrerEchantillon(formEchantillon);
 		
 	}
 	

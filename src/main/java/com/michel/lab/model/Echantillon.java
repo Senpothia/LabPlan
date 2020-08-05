@@ -30,13 +30,14 @@ public class Echantillon {
 	}
 
 	public Echantillon(Integer id, Integer numero, LocalDateTime date, Integer version, String caracteristique,
-			List<Sequence> sequences) {
+			boolean actif, List<Sequence> sequences) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.date = date;
 		this.version = version;
 		this.caracteristique = caracteristique;
+		this.actif = actif;
 		this.sequences = sequences;
 	}
 
@@ -80,14 +81,6 @@ public class Echantillon {
 		this.caracteristique = caracteristique;
 	}
 
-	public List<Sequence> getSequences() {
-		return sequences;
-	}
-
-	public void setSequences(List<Sequence> sequences) {
-		this.sequences = sequences;
-	}
-
 	public boolean isActif() {
 		return actif;
 	}
@@ -96,7 +89,14 @@ public class Echantillon {
 		this.actif = actif;
 	}
 
-	
+	public List<Sequence> getSequences() {
+		return sequences;
+	}
+
+	public void setSequences(List<Sequence> sequences) {
+		this.sequences = sequences;
+	}
+
 	
 
 }
