@@ -48,4 +48,10 @@ public class ProcedureService implements IProcedureService{
 		return procedure;
 	}
 
+	public List<Procedure> obtenirProceduresParQualifPourDomaine(Integer id) {
+		
+		
+		return null;
+	}
+
 }

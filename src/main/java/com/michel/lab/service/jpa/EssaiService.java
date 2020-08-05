@@ -30,6 +30,12 @@ public class EssaiService  implements IEssaiService{
 		
 	}
 
+	public Essai obtenirParId(Integer idEssai) {
+		
+		Essai essai = essaiRepo.getOne(idEssai);
+		return essai;
+	}
+
 	
 
 }

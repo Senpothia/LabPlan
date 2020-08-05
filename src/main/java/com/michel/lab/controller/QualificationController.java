@@ -18,6 +18,7 @@ import com.michel.lab.model.DomaineAux;
 import com.michel.lab.model.Essai;
 import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
+import com.michel.lab.model.Groupe;
 import com.michel.lab.model.Procedure;
 import com.michel.lab.model.ProcedureAux;
 import com.michel.lab.model.Qualification;
@@ -45,7 +46,7 @@ public class QualificationController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	EssaiService essaiService;
 
@@ -140,7 +141,7 @@ public class QualificationController {
 
 		Qualification qualification = qualificationService.obtenirQualification(id);
 		QualificationAux qualifAux = new QualificationAux(qualification);
-		
+
 		return qualifAux;
 	}
 
@@ -159,58 +160,95 @@ public class QualificationController {
 
 		return listeProcedures;
 	}
-	
-	@GetMapping("/private/liste/domaines") 
-	public List<DomaineAux> obtenirDomaines(){
-		
+
+	@GetMapping("/private/liste/domaines")
+	public List<DomaineAux> obtenirDomaines() {
+
 		List<Domaine> domaines = domaineService.TousLesDomaines();
 		List<DomaineAux> listeDomaines = new ArrayList<DomaineAux>();
-		for(Domaine dom:domaines) {
-			
+		for (Domaine dom : domaines) {
+
 			DomaineAux domaine = new DomaineAux(dom);
 			listeDomaines.add(domaine);
 		}
-		
+
 		return listeDomaines;
 	}
-	
-	@GetMapping("/private/liste/domaine/{id}") 
-	public List<ProcedureAux> obtenirDomainesParDomaine(@PathVariable(name = "id") Integer id){
-		
-		
+
+	@GetMapping("/private/liste/domaine/{id}")
+	public List<ProcedureAux> obtenirDomainesParDomaine(@PathVariable(name = "id") Integer id) {
+
 		List<Procedure> procedures = procedureService.obtenirProceduresDuDomaine(id);
 		List<ProcedureAux> listeProcedures = new ArrayList<ProcedureAux>();
-		
+
 		for (Procedure pro : procedures) {
 
 			ProcedureAux procedure = new ProcedureAux(pro);
 			listeProcedures.add(procedure);
 
 		}
-		
-		
+
 		return listeProcedures;
-		
+
 	}
-	
-	
+
 	@PostMapping("/essai/ajouter/procedure/{id}/{qualification}/{idUser}")
-	public void ajouterProcedure(@PathVariable (name = "id") Integer id
-			, @PathVariable (name = "qualification") Integer qualification
-			, @PathVariable (name = "idUser") Integer idUser){
-		
+	public void ajouterProcedure(@PathVariable(name = "id") Integer id,
+			@PathVariable(name = "qualification") Integer qualification,
+			@PathVariable(name = "idUser") Integer idUser) {
+
 		Utilisateur technicien = userService.obtenirUser(idUser);
 		Qualification qualif = qualificationService.obtenirQualificationParNumero(qualification);
-		Procedure procedure =  procedureService.obtenirProcedure(id);
+		Procedure procedure = procedureService.obtenirProcedure(id);
 		Essai essai = new Essai();
 		essai.setQualification(qualif);
 		essai.setTechnicien(technicien);
-		essai.setResultat(false);  // En cours ou non conforme
-		essai.setStatut(true);     // l'essai est en cours
+		essai.setResultat(false); // En cours ou non conforme
+		essai.setStatut(true); // l'essai est en cours
 		essai.setProcedure(procedure);
 		essai.setDate(LocalDateTime.now());
-		
+
 		essaiService.ajouterEssai(essai);
+
+	}
+
+	@PostMapping("/private/liste/procedure/selection") 
+	public List<Integer> obtenirSelectionProcedure(@RequestBody Groupe groupe){  // id = identifiant du domaine
 		
+		Integer idDomaine = groupe.getDomaine();
+		Integer numero = groupe.getQualification();
+		
+		System.out.println("***  Méthode obtenirSelectionProcedure ***");
+		System.out.println("Domaine: " + idDomaine);
+		System.out.println("Qualification: " + numero);
+		
+		Qualification qualification = qualificationService.obtenirQualificationParNumero(numero);
+		List<Essai> essais = qualification.getEssais();
+		List<Integer> idEssais = new ArrayList<Integer>();
+		
+		for (Essai es: essais) {
+			
+			Integer id = es.getId();
+			Procedure procedure = es.getProcedure();
+			Domaine domaine = procedure.getDomaine();
+			Integer idDom = domaine.getId();
+			
+			if (idDom == idDomaine) {
+				
+			idEssais.add(id);
+			
+			}
+		}
+		
+		List<Integer> idProcedures = new ArrayList<Integer>();
+		for (Integer idEssai : idEssais) {
+			
+			Essai ess = essaiService.obtenirParId(idEssai);
+			Procedure procedure = ess.getProcedure();
+			Integer idProcedure = procedure.getId();
+			idProcedures.add(idProcedure);
+		}
+		
+		return idProcedures;
 	}
 }
