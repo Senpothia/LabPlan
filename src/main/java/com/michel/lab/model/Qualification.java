@@ -28,9 +28,11 @@ public class Qualification {
 	@ManyToOne
 	private Utilisateur createur;
 	
-	
 	@OneToMany(mappedBy="qualification")
 	private List<Essai> essais = new ArrayList<Essai>();
+	
+	@OneToMany(mappedBy="qualification")
+	private List<Echantillon> echantillons; 
 	
 	public Qualification() {
 		super();
@@ -140,6 +142,14 @@ public class Qualification {
 
 	public void setEssais(List<Essai> essais) {
 		this.essais = essais;
+	}
+
+	public List<Echantillon> getEchantillons() {
+		return echantillons;
+	}
+
+	public void setEchantillons(List<Echantillon> echantillons) {
+		this.echantillons = echantillons;
 	}
 
 	

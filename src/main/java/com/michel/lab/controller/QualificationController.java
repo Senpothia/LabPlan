@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.michel.lab.model.Domaine;
 import com.michel.lab.model.DomaineAux;
+import com.michel.lab.model.Echantillon;
+import com.michel.lab.model.EchantillonAux;
 import com.michel.lab.model.Essai;
 import com.michel.lab.model.EssaiAux;
 import com.michel.lab.model.FormEchantillon;
@@ -279,5 +282,51 @@ public class QualificationController {
 		
 	}
 	
+	@GetMapping("/private/echantillon/voir/{id}")
+	public List<EchantillonAux> obtenirEchantillonsParQualification(@PathVariable(name = "id") Integer id){
+		
+		List<Echantillon> echantillons = echantillonService.obtenirEchantillonParQualification(id);
+		List<EchantillonAux> echantillonsAux = new ArrayList<EchantillonAux>();
+		
+		for (Echantillon ech: echantillons) {
+			
+			EchantillonAux echantillonAux = new EchantillonAux(ech);
+			echantillonsAux.add(echantillonAux);
+		}
+		return echantillonsAux;
+	}
+	
+	
+	
+	@GetMapping("/private/echantillon/voir")
+	public List<EchantillonAux> obtenirEchantillonsParQualification2(@RequestParam(name = "id") Integer id){
+		
+		List<Echantillon> echantillons = echantillonService.obtenirEchantillonParQualification(id);
+		List<EchantillonAux> echantillonsAux = new ArrayList<EchantillonAux>();
+		
+		for (Echantillon ech: echantillons) {
+			
+			EchantillonAux echantillonAux = new EchantillonAux(ech);
+			echantillonsAux.add(echantillonAux);
+		}
+		return echantillonsAux;
+		
+	}
+	
+	@GetMapping("/private/echantillon/activer/{id}/{qualification}")
+	public void activerEchantillon(@PathVariable(name = "id") Integer id,
+			@PathVariable(name = "qualification") Integer qualification) {
+		
+		echantillonService.setActif(id, true);
+	}
+	
+	@GetMapping("/private/echantillon/desactiver/{id}/{qualification}")
+	public void desactiverEchantillon(@PathVariable(name = "id") Integer id
+			, @PathVariable(name = "qualification") Integer qualification) {
+		
+		echantillonService.setActif(id, false);
+		
+	}
+
 	
 }

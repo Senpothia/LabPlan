@@ -1,39 +1,26 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-
-@Entity
-public class Echantillon {
+public class EchantillonAux {
 	
-	@Id
-	@GeneratedValue
 	private Integer id;
 	private Integer numero;
 	private LocalDateTime date;
 	private Integer version;
 	private String caracteristique;    // Variantes pouvant distinguer les échantillons
-	private boolean actif;
+	private String actif;
+	private boolean statut;
 	
-	@ManyToMany(mappedBy = "echantillons")
-	private List<Sequence> sequences;
-	
-	@ManyToOne
-	private Qualification qualification;
-	
-	public Echantillon() {
+	public EchantillonAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Echantillon(Integer id, Integer numero, LocalDateTime date, Integer version, String caracteristique,
-			boolean actif, List<Sequence> sequences) {
+	
+	
+	public EchantillonAux(Integer id, Integer numero, LocalDateTime date, Integer version, String caracteristique,
+			String actif, boolean statut) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -41,7 +28,31 @@ public class Echantillon {
 		this.version = version;
 		this.caracteristique = caracteristique;
 		this.actif = actif;
-		this.sequences = sequences;
+		this.statut = statut;
+	}
+
+
+
+	public EchantillonAux(Echantillon echantillon) {
+		
+		this.id = echantillon.getId();
+		this.numero = echantillon.getNumero();
+		this.date = echantillon.getDate();
+		this.version = echantillon.getVersion();
+		this.caracteristique = echantillon.getCaracteristique();
+		
+		if (echantillon.isActif()) {
+			
+			this.actif = "Actif";
+			this.statut = true;
+			
+		}else {
+			
+			this.actif = "Inactif";
+			this.statut = false;
+		}
+		
+		
 	}
 
 	public Integer getId() {
@@ -84,22 +95,25 @@ public class Echantillon {
 		this.caracteristique = caracteristique;
 	}
 
-	public boolean isActif() {
+	public String getActif() {
 		return actif;
 	}
 
-	public void setActif(boolean actif) {
+	public void setActif(String actif) {
 		this.actif = actif;
 	}
 
-	public List<Sequence> getSequences() {
-		return sequences;
+
+
+	public boolean isStatut() {
+		return statut;
 	}
 
-	public void setSequences(List<Sequence> sequences) {
-		this.sequences = sequences;
+
+
+	public void setStatut(boolean statut) {
+		this.statut = statut;
 	}
 
-	
 
 }
