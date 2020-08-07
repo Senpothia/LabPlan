@@ -100,6 +100,14 @@ public class Echantillon {
 		this.sequences = sequences;
 	}
 
+	public Qualification getQualification() {
+		return qualification;
+	}
+
+	public void setQualification(Qualification qualification) {
+		this.qualification = qualification;
+	}
+
 	
 
 }

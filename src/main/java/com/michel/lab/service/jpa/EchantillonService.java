@@ -25,13 +25,16 @@ public class EchantillonService implements IEchantillonService{
 	@Override
 	public void enregistrerEchantillon(FormEchantillon formEchantillon) {
 		
+		Qualification qualification = qualificationRepo.findByNumero(formEchantillon.getQualification());
+	    System.out.println("numero qualification enregistrement ech: " + qualification.getId());
 		Echantillon echantillon = new Echantillon();
 		echantillon.setActif(true);
 		echantillon.setCaracteristique(formEchantillon.getCaracteristique());
 		echantillon.setDate(LocalDateTime.now());
 		echantillon.setNumero(formEchantillon.getNumero());
 		echantillon.setVersion(formEchantillon.getVersion());
-		
+		echantillon.setQualification(qualification);
+	
 		echantillonRepo.save(echantillon);
 		
 	}
