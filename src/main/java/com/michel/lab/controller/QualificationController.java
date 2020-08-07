@@ -28,6 +28,8 @@ import com.michel.lab.model.Procedure;
 import com.michel.lab.model.ProcedureAux;
 import com.michel.lab.model.Qualification;
 import com.michel.lab.model.QualificationAux;
+import com.michel.lab.model.Sequence;
+import com.michel.lab.model.SequenceAux;
 import com.michel.lab.model.Utilisateur;
 import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.service.jpa.DomaineService;
@@ -35,6 +37,7 @@ import com.michel.lab.service.jpa.EchantillonService;
 import com.michel.lab.service.jpa.EssaiService;
 import com.michel.lab.service.jpa.ProcedureService;
 import com.michel.lab.service.jpa.QualificationService;
+import com.michel.lab.service.jpa.SequenceService;
 import com.michel.lab.service.jpa.UserService;
 
 @RestController
@@ -58,6 +61,9 @@ public class QualificationController {
 	
 	@Autowired
 	EchantillonService echantillonService;
+	
+	@Autowired
+	SequenceService sequenceService;
 
 	@PostMapping("/save/qualification")
 	public void saveQualification(@RequestBody FormQualif formQualif) {
@@ -325,6 +331,42 @@ public class QualificationController {
 			, @PathVariable(name = "qualification") Integer qualification) {
 		
 		echantillonService.setActif(id, false);
+		
+	}
+	
+	@GetMapping("/private/sequences/voir/{id}/{num}/{domaine}")
+	public List<SequenceAux> obtenirSequencesParEssai(@PathVariable(name="id") Integer id, 
+			@PathVariable(name="num")Integer num, 
+			@PathVariable(name="domaine")String domaine){
+		
+		List<Sequence> sequences = sequenceService.obtenirSequencesParEssai(num);
+		List<SequenceAux> listeSequences = new ArrayList<SequenceAux>();
+		
+		for (Sequence seq : sequences) {
+			
+			SequenceAux s = new SequenceAux(seq);
+			listeSequences.add(s);
+		
+		}
+		return listeSequences;
+	}
+	
+	@GetMapping("/private/essai/{num}")
+	public EssaiAux obtenirEssaiParNumero(@PathVariable(name="num") Integer num) {
+		
+		Essai es = essaiService.obtenirEssaiParNum(num);
+		EssaiAux essai = new EssaiAux(es);
+		return essai;
+	}
+	
+	@GetMapping("/private/qualification/numero/{id}")
+	public QualificationAux obtenirQualificationParNumero(@PathVariable(name="id") Integer id) {
+		
+		Qualification qual = qualificationService.obtenirQualificationParNumero(id);
+		QualificationAux qualification = new QualificationAux(qual);
+		
+		return qualification;
+		
 		
 	}
 

@@ -13,7 +13,6 @@ import com.michel.lab.repository.EssaiRepo;
 import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.repository.QualificationRepo;
 import com.michel.lab.service.IEssaiService;
-import com.michel.lab.service.IProcedureService;
 
 @Service
 public class EssaiService  implements IEssaiService{
@@ -60,6 +59,21 @@ public class EssaiService  implements IEssaiService{
 		
 		return listeEssais;
 	}
+
+	public Essai obtenirEssaiParNum(Integer num) {  // num = id de l'essai
+
+		Essai essai = essaiRepo.getOne(num);
+		return essai;
+	}
+
+	@Override
+	public Essai obtenirEssaiParId(Integer id) {
+		
+		Essai essai = essaiRepo.getOne(id);
+		return essai;
+	}
+
+
 
 	
 
