@@ -23,6 +23,7 @@ import com.michel.lab.model.EssaiAux;
 import com.michel.lab.model.FormEchantillon;
 import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
+import com.michel.lab.model.FormSequence;
 import com.michel.lab.model.Groupe;
 import com.michel.lab.model.Procedure;
 import com.michel.lab.model.ProcedureAux;
@@ -370,5 +371,13 @@ public class QualificationController {
 		
 	}
 
+	@PostMapping("private/sequence/save") 
+	public void enregistrerSequence(@RequestBody FormSequence formSequence) {
+		
+		System.out.println("méthode enregistrerSequence ");
+		System.out.println(formSequence.toString());
+		sequenceService.enregistrerSequence(formSequence);
+		
+	}
 	
 }
