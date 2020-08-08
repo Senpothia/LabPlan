@@ -335,10 +335,11 @@ public class QualificationController {
 		
 	}
 	
-	@GetMapping("/private/sequences/voir/{id}/{num}/{domaine}")
+//	@GetMapping("/private/sequences/voir/{id}/{num}/{domaine}")
+	@GetMapping("/private/sequences/voir/{id}/{num}")
 	public List<SequenceAux> obtenirSequencesParEssai(@PathVariable(name="id") Integer id, 
-			@PathVariable(name="num")Integer num, 
-			@PathVariable(name="domaine")String domaine){
+			@PathVariable(name="num")Integer num){
+			//@PathVariable(name="domaine")String domaine){
 		
 		List<Sequence> sequences = sequenceService.obtenirSequencesParEssai(num);
 		List<SequenceAux> listeSequences = new ArrayList<SequenceAux>();
