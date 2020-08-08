@@ -66,24 +66,27 @@ public class SequenceAux {
 		this.nomDomaine = sequence.getEssai().getProcedure().getDomaine().getNom();
 		this.statut = sequence.isStatut();
 		
-		if (!sequence.isStatut()) {
+		if (sequence.isStatut()) {
 			
-			this.actif = "Terminée";
+			this.actif = "En cours";
+			this.avis = "En cours";
 			
 		}else {
 			
-			this.actif = "En cours";
+			this.actif = "Terminée";
 		}
 		
 		this.qualification = sequence.getEssai().getQualification().getId();
 		
 		this.resultat = sequence.isResultat();
 		
-		if (this.resultat) {
+		if (this.resultat && !sequence.isStatut()) {
 			
 			this.avis = "Conforme";
 			
-		}else {
+		}
+		
+		if (!this.resultat && !sequence.isStatut()){
 			
 			this.avis = "Non conforme";
 		}

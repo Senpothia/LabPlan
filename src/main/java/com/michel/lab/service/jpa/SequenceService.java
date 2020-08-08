@@ -50,6 +50,7 @@ public class SequenceService {
 		sequence.setDebut(formSequence.getDebut());
 		sequence.setFin(formSequence.getFin());
 		sequence.setProfil(formSequence.getProfil());
+		sequence.setStatut(true);
 		sequence.setCommentaire(formSequence.getCommentaire());
 		
 		Essai essai = essaiService.obtenirEssaiParId(formSequence.getEssai());
@@ -57,6 +58,13 @@ public class SequenceService {
 		
 		sequenceRepo.save(sequence);
 		
+	}
+
+	public Sequence obtenirSequenceParId(Integer id) {
+		
+		Sequence sequence =  sequenceRepo.getOne(id);
+		
+		return sequence;
 	}
 	
 	

@@ -381,4 +381,14 @@ public class QualificationController {
 		
 	}
 	
+	@GetMapping("private/sequence/{id}")
+	public SequenceAux obtenirSequenceParId(@PathVariable(name="id") Integer id) {
+		
+		Sequence seq = sequenceService.obtenirSequenceParId(id);
+		SequenceAux sequence = new SequenceAux(seq);
+		
+		return sequence;
+		
+	}
+	
 }
