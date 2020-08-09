@@ -59,10 +59,10 @@ public class QualificationController {
 
 	@Autowired
 	EssaiService essaiService;
-	
+
 	@Autowired
 	EchantillonService echantillonService;
-	
+
 	@Autowired
 	SequenceService sequenceService;
 
@@ -228,167 +228,171 @@ public class QualificationController {
 
 	}
 
-	@PostMapping("/private/liste/procedure/selection") 
-	public List<Integer> obtenirSelectionProcedure(@RequestBody Groupe groupe){  // id = identifiant du domaine
-		
+	@PostMapping("/private/liste/procedure/selection")
+	public List<Integer> obtenirSelectionProcedure(@RequestBody Groupe groupe) { // id = identifiant du domaine
+
 		Integer idDomaine = groupe.getDomaine();
 		Integer numero = groupe.getQualification();
-		
+
 		System.out.println("***  Méthode obtenirSelectionProcedure ***");
 		System.out.println("Domaine: " + idDomaine);
 		System.out.println("Qualification: " + numero);
-		
+
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numero);
 		List<Essai> essais = qualification.getEssais();
 		List<Integer> idEssais = new ArrayList<Integer>();
-		
-		for (Essai es: essais) {
-			
+
+		for (Essai es : essais) {
+
 			Integer id = es.getId();
 			Procedure procedure = es.getProcedure();
 			Domaine domaine = procedure.getDomaine();
 			Integer idDom = domaine.getId();
-			
+
 			if (idDom == idDomaine) {
-				
-			idEssais.add(id);
-			
+
+				idEssais.add(id);
+
 			}
 		}
-		
+
 		List<Integer> idProcedures = new ArrayList<Integer>();
 		for (Integer idEssai : idEssais) {
-			
+
 			Essai ess = essaiService.obtenirParId(idEssai);
 			Procedure procedure = ess.getProcedure();
 			Integer idProcedure = procedure.getId();
 			idProcedures.add(idProcedure);
 		}
-		
+
 		return idProcedures;
 	}
-	
+
 	@GetMapping("/private/liste/essais/{id}")
-	public List<EssaiAux> obtenirEssaisParQualification(
-			@PathVariable (name = "id") Integer id){
-		
-		
+	public List<EssaiAux> obtenirEssaisParQualification(@PathVariable(name = "id") Integer id) {
+
 		System.out.println("*** Entrée méthode obtenirEssaisParQualification - service");
 		System.out.println("Numéro qualif reçu: " + id);
-		
+
 		List<EssaiAux> essais = essaiService.obtenirEssaisParQualification(id);
-		
+
 		return essais;
-		
+
 	}
-	
-	@PostMapping("private/echantillon/save")  // Enregistrement d'une procédure
+
+	@PostMapping("private/echantillon/save") // Enregistrement d'une procédure
 	public void saveEchantillon(@RequestBody FormEchantillon formEchantillon) {
-		
+
 		echantillonService.enregistrerEchantillon(formEchantillon);
-		
+
 	}
-	
+
 	@GetMapping("/private/echantillon/voir/{id}")
-	public List<EchantillonAux> obtenirEchantillonsParQualification(@PathVariable(name = "id") Integer id){
-		
+	public List<EchantillonAux> obtenirEchantillonsParQualification(@PathVariable(name = "id") Integer id) {
+
 		List<Echantillon> echantillons = echantillonService.obtenirEchantillonParQualification(id);
 		List<EchantillonAux> echantillonsAux = new ArrayList<EchantillonAux>();
-		
-		for (Echantillon ech: echantillons) {
-			
+
+		for (Echantillon ech : echantillons) {
+
 			EchantillonAux echantillonAux = new EchantillonAux(ech);
 			echantillonsAux.add(echantillonAux);
 		}
 		return echantillonsAux;
 	}
-	
-	
-	
+
 	@GetMapping("/private/echantillon/voir")
-	public List<EchantillonAux> obtenirEchantillonsParQualification2(@RequestParam(name = "id") Integer id){
-		
+	public List<EchantillonAux> obtenirEchantillonsParQualification2(@RequestParam(name = "id") Integer id) {
+
 		List<Echantillon> echantillons = echantillonService.obtenirEchantillonParQualification(id);
 		List<EchantillonAux> echantillonsAux = new ArrayList<EchantillonAux>();
-		
-		for (Echantillon ech: echantillons) {
-			
+
+		for (Echantillon ech : echantillons) {
+
 			EchantillonAux echantillonAux = new EchantillonAux(ech);
 			echantillonsAux.add(echantillonAux);
 		}
 		return echantillonsAux;
-		
+
 	}
-	
+
 	@GetMapping("/private/echantillon/activer/{id}/{qualification}")
 	public void activerEchantillon(@PathVariable(name = "id") Integer id,
 			@PathVariable(name = "qualification") Integer qualification) {
-		
+
 		echantillonService.setActif(id, true);
 	}
-	
+
 	@GetMapping("/private/echantillon/desactiver/{id}/{qualification}")
-	public void desactiverEchantillon(@PathVariable(name = "id") Integer id
-			, @PathVariable(name = "qualification") Integer qualification) {
-		
+	public void desactiverEchantillon(@PathVariable(name = "id") Integer id,
+			@PathVariable(name = "qualification") Integer qualification) {
+
 		echantillonService.setActif(id, false);
-		
+
 	}
-	
+
 //	@GetMapping("/private/sequences/voir/{id}/{num}/{domaine}")
 	@GetMapping("/private/sequences/voir/{id}/{num}")
-	public List<SequenceAux> obtenirSequencesParEssai(@PathVariable(name="id") Integer id, 
-			@PathVariable(name="num")Integer num){
-			//@PathVariable(name="domaine")String domaine){
-		
+	public List<SequenceAux> obtenirSequencesParEssai(@PathVariable(name = "id") Integer id,
+			@PathVariable(name = "num") Integer num) {
+		// @PathVariable(name="domaine")String domaine){
+
 		List<Sequence> sequences = sequenceService.obtenirSequencesParEssai(num);
 		List<SequenceAux> listeSequences = new ArrayList<SequenceAux>();
-		
+
 		for (Sequence seq : sequences) {
-			
+
 			SequenceAux s = new SequenceAux(seq);
 			listeSequences.add(s);
-		
+
 		}
 		return listeSequences;
 	}
-	
+
 	@GetMapping("/private/essai/{num}")
-	public EssaiAux obtenirEssaiParNumero(@PathVariable(name="num") Integer num) {
-		
+	public EssaiAux obtenirEssaiParNumero(@PathVariable(name = "num") Integer num) {
+
 		Essai es = essaiService.obtenirEssaiParNum(num);
 		EssaiAux essai = new EssaiAux(es);
 		return essai;
 	}
-	
+
 	@GetMapping("/private/qualification/numero/{id}")
-	public QualificationAux obtenirQualificationParNumero(@PathVariable(name="id") Integer id) {
-		
+	public QualificationAux obtenirQualificationParNumero(@PathVariable(name = "id") Integer id) {
+
 		Qualification qual = qualificationService.obtenirQualificationParNumero(id);
 		QualificationAux qualification = new QualificationAux(qual);
-		
+
 		return qualification;
-		
-		
+
 	}
 
-	@PostMapping("private/sequence/save") 
+	@PostMapping("private/sequence/save")
 	public void enregistrerSequence(@RequestBody FormSequence formSequence) {
-		
+
 		System.out.println("méthode enregistrerSequence ");
 		System.out.println(formSequence.toString());
 		sequenceService.enregistrerSequence(formSequence);
-		
+
 	}
-	
+
 	@GetMapping("private/sequence/{id}")
-	public SequenceAux obtenirSequenceParId(@PathVariable(name="id") Integer id) {
-		
+	public SequenceAux obtenirSequenceParId(@PathVariable(name = "id") Integer id) {
+
 		Sequence seq = sequenceService.obtenirSequenceParId(id);
 		SequenceAux sequence = new SequenceAux(seq);
-		
+
 		return sequence;
-		
+
 	}
-	
+
+	@PostMapping("private/sequence/modifier")
+	public void modifierSequence(@RequestBody FormSequence formSequence) {
+
+		System.out.println("méthode enregistrerSequence ");
+		System.out.println(formSequence.toString());
+		sequenceService.modifierSequence(formSequence);
+
+	}
+
 }

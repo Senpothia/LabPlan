@@ -66,6 +66,23 @@ public class SequenceService {
 		
 		return sequence;
 	}
+
+	public void modifierSequence(FormSequence formSequence) {
+		
+		Integer id = formSequence.getId();
+		Sequence sequence =  sequenceRepo.getOne(id);
+		
+		sequence.setNumero(formSequence.getNumero());
+		sequence.setNom(formSequence.getNom());
+		sequence.setNiveau(formSequence.getNiveau());
+		sequence.setDebut(formSequence.getDebut());
+		sequence.setFin(formSequence.getFin());
+		sequence.setProfil(formSequence.getProfil());
+		sequence.setCommentaire(formSequence.getCommentaire());
+	
+		sequenceRepo.save(sequence);
+		
+	}
 	
 	
 
