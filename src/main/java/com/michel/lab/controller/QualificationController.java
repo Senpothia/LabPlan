@@ -399,23 +399,56 @@ public class QualificationController {
 	public void ajouterEchantillon(
 			@PathVariable(name = "echantillon") Integer idEchantillon,
 			@PathVariable(name = "qualification") Integer numQualification,
-			@PathVariable(name = "sequence") Integer idSequence) 
-	{
-		
+			@PathVariable(name = "sequence") Integer idSequence) {
+
 		Sequence seq = sequenceService.obtenirSequenceParId(idSequence);
 		List<Echantillon> echantillons = seq.getEchantillons();
 		if (echantillons == null) {
-			
+
 			echantillons = new ArrayList<Echantillon>();
-			
+
 		}
-		
+
 		Echantillon ech = new Echantillon();
 		ech.setId(idEchantillon);
 		echantillons.add(ech);
-		
+
 		sequenceService.ajouterEchantillon(seq);
+
+	}
+
+	@PostMapping("private/echantillon/retirer/{echantillon}/{qualification}/{sequence}")
+	public void retirerEchantillon(
+			@PathVariable(name = "echantillon") Integer idEchantillon,
+			@PathVariable(name = "qualification") Integer numQualification,
+			@PathVariable(name = "sequence") Integer idSequence) {
+
+		Sequence seq = sequenceService.obtenirSequenceParId(idSequence);
+		List<Echantillon> echantillons = seq.getEchantillons();
+		System.out.println("taille liste echantillons avant:  " +  echantillons.size());
+		System.out.println("id de ech: " + idEchantillon);
 		
+		
+		for (Echantillon ech : echantillons) {
+
+			Integer id = ech.getId();
+			System.out.println("id de ech dans boucle for: " + id);
+			if (id == idEchantillon) {
+				
+				System.out.println("echantillon trouvé!");
+				echantillons.remove(ech);
+			}
+		}
+		
+		/*
+		Echantillon ech= new Echantillon();
+		ech.setId(idEchantillon);
+		echantillons.remove(ech);
+		*/
+		System.out.println("taille liste echantillons après:  " +  echantillons.size());
+		seq.setEchantillons(echantillons);
+		
+		sequenceService.retirerEchantillon(seq);
 
 	}
 
