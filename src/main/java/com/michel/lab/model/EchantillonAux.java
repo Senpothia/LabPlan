@@ -1,6 +1,7 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class EchantillonAux {
 	
@@ -9,8 +10,9 @@ public class EchantillonAux {
 	private LocalDateTime date;
 	private Integer version;
 	private String caracteristique;    // Variantes pouvant distinguer les échantillons
-	private String actif;
-	private boolean statut;
+	private String actif;			   // Lié à statut 
+	private boolean statut;			  // lié à actif
+	private boolean selection;         // indicateur de sélection/présence dans la sequence de test
 	
 	public EchantillonAux() {
 		super();
@@ -113,6 +115,40 @@ public class EchantillonAux {
 
 	public void setStatut(boolean statut) {
 		this.statut = statut;
+	}
+
+
+
+	public boolean isSelection() {
+		return selection;
+	}
+
+
+
+	public void setSelection(boolean selection) {
+		this.selection = selection;
+	}
+
+	public void setSelection(List<Echantillon> echantillons) {
+		
+		boolean ok = false;
+		boolean estSelectionne = false;
+		int i = 0;
+		while (!ok) {
+			
+			Echantillon ech =  echantillons.get(i);
+			Integer idEch = ech.getId();
+			if (this.id == idEch) {
+				
+				ok= true;
+			estSelectionne = true;
+				
+			}
+			
+			i++;
+		}
+		
+		this.selection = estSelectionne;
 	}
 
 

@@ -429,27 +429,33 @@ public class QualificationController {
 		System.out.println("id de ech: " + idEchantillon);
 		
 		
-		for (Echantillon ech : echantillons) {
-
-			Integer id = ech.getId();
-			System.out.println("id de ech dans boucle for: " + id);
-			if (id == idEchantillon) {
+		boolean ok = false;
+		
+		int i = 0;
+		while (!ok && i<echantillons.size()) {
+			
+			Echantillon ech =  echantillons.get(i);
+			Integer idEch = ech.getId();
+			if (idEchantillon == idEch) {
 				
-				System.out.println("echantillon trouvé!");
-				echantillons.remove(ech);
+			ok= true;
+			
 			}
+			
+			System.out.println("indice i avant sortie" + i);
+			i++;
 		}
 		
-		/*
-		Echantillon ech= new Echantillon();
-		ech.setId(idEchantillon);
+		System.out.println("indice i après sortie" + i);
+		Echantillon ech= echantillons.get(i-1);
+		//ech.setId(idEchantillon);
 		echantillons.remove(ech);
-		*/
+		
 		System.out.println("taille liste echantillons après:  " +  echantillons.size());
 		seq.setEchantillons(echantillons);
 		
 		sequenceService.retirerEchantillon(seq);
-
+		 
 	}
 
 }
