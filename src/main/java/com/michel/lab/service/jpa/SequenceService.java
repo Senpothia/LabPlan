@@ -83,6 +83,12 @@ public class SequenceService {
 		sequenceRepo.save(sequence);
 		
 	}
+
+	public void ajouterEchantillon(Sequence seq) {
+		
+		sequenceRepo.save(seq);
+		
+	}
 	
 	
 

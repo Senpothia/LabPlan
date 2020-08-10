@@ -395,4 +395,28 @@ public class QualificationController {
 
 	}
 
+	@PostMapping("private/echantillon/ajouter/{echantillon}/{qualification}/{sequence}")
+	public void ajouterEchantillon(
+			@PathVariable(name = "echantillon") Integer idEchantillon,
+			@PathVariable(name = "qualification") Integer numQualification,
+			@PathVariable(name = "sequence") Integer idSequence) 
+	{
+		
+		Sequence seq = sequenceService.obtenirSequenceParId(idSequence);
+		List<Echantillon> echantillons = seq.getEchantillons();
+		if (echantillons == null) {
+			
+			echantillons = new ArrayList<Echantillon>();
+			
+		}
+		
+		Echantillon ech = new Echantillon();
+		ech.setId(idEchantillon);
+		echantillons.add(ech);
+		
+		sequenceService.ajouterEchantillon(seq);
+		
+
+	}
+
 }

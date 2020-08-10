@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
@@ -31,7 +32,7 @@ public class Sequence {
 	@ManyToOne
 	private Essai essai;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			  name = "echantillonnage", 
 			  joinColumns = @JoinColumn(name = "idsequence"), 
