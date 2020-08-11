@@ -447,7 +447,8 @@ public class QualificationController {
 		}
 		
 		System.out.println("indice i après sortie" + i);
-		Echantillon ech= echantillons.get(i-1);
+		int j; 
+		Echantillon ech= echantillons.get(j = i<0 ? i-1 : 0);
 		//ech.setId(idEchantillon);
 		echantillons.remove(ech);
 		
@@ -457,5 +458,32 @@ public class QualificationController {
 		sequenceService.retirerEchantillon(seq);
 		 
 	}
+	
+	@GetMapping("/private/echantillon/sequence/selection/{qualification}/{sequence}")
+	public List<EchantillonAux> obtenirEchantillonSelectionParSequence(
+			@PathVariable(name = "qualification") Integer num,
+			@PathVariable(name = "sequence") Integer idSequence){
+		
+		List<Echantillon> echsSelection = sequenceService.obtenirSelectionEchantillon(idSequence);
+		List<Echantillon> echsQualification = echantillonService.obtenirEchantillonParQualification(num);
+		
+		List<EchantillonAux> echantillonsAux = new ArrayList<EchantillonAux>();
+		
+		for (Echantillon ech: echsQualification) {  // conversion de tous les échantillons de la sélection
+			
+			EchantillonAux ech1 = new EchantillonAux(ech);
+			echantillonsAux.add(ech1);
+			
+		}
+		
+		for (EchantillonAux ech: echantillonsAux) {
+			
+			ech.setSelection(echsSelection);
+			System.out.println("statut de l'échantillon: " + ech.isSelection() + " - " + ech.getId());
+		}
+		
+		return echantillonsAux;
+	}
+	
 
 }

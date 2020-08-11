@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.michel.lab.model.Echantillon;
 import com.michel.lab.model.Essai;
 import com.michel.lab.model.FormSequence;
 import com.michel.lab.model.Sequence;
@@ -94,6 +95,14 @@ public class SequenceService {
 		
 		sequenceRepo.save(seq);
 		
+	}
+
+	public List<Echantillon> obtenirSelectionEchantillon(Integer idSequence) {
+		
+		Sequence sequence =  sequenceRepo.getOne(idSequence);
+		List<Echantillon> echantillons = sequence.getEchantillons();
+		
+		return echantillons;
 	}
 	
 	

@@ -12,6 +12,7 @@ public class EchantillonAux {
 	private String caracteristique;    // Variantes pouvant distinguer les échantillons
 	private String actif;			   // Lié à statut 
 	private boolean statut;			  // lié à actif
+	private Integer qualification;
 	private boolean selection;         // indicateur de sélection/présence dans la sequence de test
 	
 	public EchantillonAux() {
@@ -129,19 +130,21 @@ public class EchantillonAux {
 		this.selection = selection;
 	}
 
+
+
 	public void setSelection(List<Echantillon> echantillons) {
 		
 		boolean ok = false;
 		boolean estSelectionne = false;
 		int i = 0;
-		while (!ok) {
+		while (!ok && i<echantillons.size()) {
 			
 			Echantillon ech =  echantillons.get(i);
 			Integer idEch = ech.getId();
 			if (this.id == idEch) {
 				
-				ok= true;
-			estSelectionne = true;
+				ok = true;
+				estSelectionne = true;
 				
 			}
 			
@@ -149,6 +152,18 @@ public class EchantillonAux {
 		}
 		
 		this.selection = estSelectionne;
+	}
+
+
+
+	public Integer getQualification() {
+		return qualification;
+	}
+
+
+
+	public void setQualification(Integer qualification) {
+		this.qualification = qualification;
 	}
 
 
