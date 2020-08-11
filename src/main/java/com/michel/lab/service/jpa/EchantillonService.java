@@ -55,6 +55,19 @@ public class EchantillonService implements IEchantillonService{
 		
 	}
 
+	public Echantillon obtenirEchantillonParId(Integer id) {
+		
+		Echantillon echantillon = echantillonRepo.getOne(id);
+		
+		return echantillon;
+	}
+
+	public void modifierEchantillon(Echantillon echantillon) {
+		
+		echantillonRepo.save(echantillon);
+		
+	}
+
 	
 
 }

@@ -485,5 +485,37 @@ public class QualificationController {
 		return echantillonsAux;
 	}
 	
+	
+
+	@GetMapping("/private/echantillon/modifier/{id}")
+	public EchantillonAux obtenirEchantillon(
+			@PathVariable(name = "id") Integer id) {
+		
+		
+		Echantillon ech = echantillonService.obtenirEchantillonParId(id);
+		EchantillonAux echantillon = new EchantillonAux(ech);
+		
+		return echantillon;
+		
+
+	}
+	
+	@PostMapping("/private/echantillon/modifier")
+	public void modifierEchantillon(
+			
+			@RequestBody FormEchantillon formEchantillon) {
+		
+		Integer id = formEchantillon.getId();
+		Echantillon echantillon = echantillonService.obtenirEchantillonParId(id);
+		
+		echantillon.setCaracteristique(formEchantillon.getCaracteristique());
+		echantillon.setNumero(formEchantillon.getNumero());
+		echantillon.setVersion(formEchantillon.getVersion());
+		
+		echantillonService.modifierEchantillon(echantillon);
+		
+		
+	}
+	
 
 }
