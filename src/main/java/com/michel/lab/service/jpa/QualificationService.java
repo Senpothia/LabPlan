@@ -98,6 +98,27 @@ public class QualificationService implements IQualificationService{
 		Qualification qualif = qualificationRepo.findByNumero(qualification);
 		return qualif;
 	}
+
+	public void modifierStatutQualification(Qualification qualification) {
+		
+		boolean statut = qualification.isStatut();
+		qualification.setStatut(!statut);
+		qualificationRepo.save(qualification);
+		
+	}
+
+	public void modifierResultatQualification(Qualification qualification) {
+		
+		boolean resultat = qualification.isResultat();
+		qualification.setResultat(!resultat);
+		
+		if (!resultat) {
+			
+			qualification.setStatut(false);
+		}
+		qualificationRepo.save(qualification);
+		
+	}
 	
 	
 

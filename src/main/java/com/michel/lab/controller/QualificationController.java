@@ -517,5 +517,23 @@ public class QualificationController {
 		
 	}
 	
+	@GetMapping("private/qualification/modifier/statut/{id}")
+	public void modifierStatutQualification(@PathVariable(name = "id") Integer numQualification) {
+		
+		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
+		qualificationService.modifierStatutQualification(qualification);
+		
+	}
+	
+	@GetMapping("private/qualification/modifier/resultat/{id}")
+	public void modifierResultatQualification(@PathVariable(name = "id") Integer numQualification) {
+		
+		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
+		qualificationService.modifierResultatQualification(qualification);
+		
+	}
+
+
+	
 
 }
