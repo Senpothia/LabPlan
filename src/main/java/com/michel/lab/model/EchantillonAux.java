@@ -1,19 +1,23 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class EchantillonAux {
 	
 	private Integer id;
 	private Integer numero;
-	private LocalDateTime date;
+	//private LocalDateTime date;
+	private String date;
+	private String dateText;
 	private Integer version;
 	private String caracteristique;    // Variantes pouvant distinguer les échantillons
 	private String actif;			   // Lié à statut 
 	private boolean statut;			  // lié à actif
 	private Integer qualification;
 	private boolean selection;         // indicateur de sélection/présence dans la sequence de test
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	
 	public EchantillonAux() {
 		super();
@@ -21,26 +25,27 @@ public class EchantillonAux {
 	}
 
 	
-	
-	public EchantillonAux(Integer id, Integer numero, LocalDateTime date, Integer version, String caracteristique,
-			String actif, boolean statut) {
+	public EchantillonAux(Integer id, Integer numero, String date, String dateText, Integer version,
+			String caracteristique, String actif, boolean statut, Integer qualification, boolean selection) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.date = date;
+		this.dateText = dateText;
 		this.version = version;
 		this.caracteristique = caracteristique;
 		this.actif = actif;
 		this.statut = statut;
+		this.qualification = qualification;
+		this.selection = selection;
 	}
-
 
 
 	public EchantillonAux(Echantillon echantillon) {
 		
 		this.id = echantillon.getId();
 		this.numero = echantillon.getNumero();
-		this.date = echantillon.getDate();
+		this.date = echantillon.getDate().format(formatter);
 		this.version = echantillon.getVersion();
 		this.caracteristique = echantillon.getCaracteristique();
 		
@@ -74,11 +79,11 @@ public class EchantillonAux {
 		this.numero = numero;
 	}
 
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -131,7 +136,6 @@ public class EchantillonAux {
 	}
 
 
-
 	public void setSelection(List<Echantillon> echantillons) {
 		
 		boolean ok = false;
@@ -164,6 +168,15 @@ public class EchantillonAux {
 
 	public void setQualification(Integer qualification) {
 		this.qualification = qualification;
+	}
+
+	public String getDateText() {
+		return dateText;
+	}
+
+
+	public void setDateText(String dateText) {
+		this.dateText = dateText;
 	}
 
 

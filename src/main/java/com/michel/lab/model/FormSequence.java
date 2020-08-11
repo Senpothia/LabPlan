@@ -8,6 +8,8 @@ public class FormSequence {
 	private String commentaire;
 	private LocalDateTime debut;
 	private LocalDateTime fin;
+	private String debutText;
+	private String finText;
 	private String niveau;
 	private String nom;
 	private Integer numero;  // numéro de la séquence
@@ -27,14 +29,19 @@ public class FormSequence {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FormSequence(Integer id, String commentaire, LocalDateTime debut, LocalDateTime fin, String niveau,
-			String nom, Integer numero, String profil, Integer essai, String nomEssais, Integer domaine,
-			String nomDomaine, boolean statut, String actif, Integer qualification, boolean resultat, String avis) {
+	
+
+	public FormSequence(Integer id, String commentaire, LocalDateTime debut, LocalDateTime fin, String debutText,
+			String finText, String niveau, String nom, Integer numero, String profil, Integer essai, String nomEssais,
+			Integer domaine, String nomDomaine, boolean statut, String actif, Integer qualification, boolean resultat,
+			String avis) {
 		super();
 		this.id = id;
 		this.commentaire = commentaire;
 		this.debut = debut;
 		this.fin = fin;
+		this.debutText = debutText;
+		this.finText = finText;
 		this.niveau = niveau;
 		this.nom = nom;
 		this.numero = numero;
@@ -49,6 +56,7 @@ public class FormSequence {
 		this.resultat = resultat;
 		this.avis = avis;
 	}
+
 
 	public Integer getId() {
 		return id;
@@ -185,6 +193,32 @@ public class FormSequence {
 	public void setAvis(String avis) {
 		this.avis = avis;
 	}
+	
+	
+
+	public String getDebutText() {
+		return debutText;
+	}
+
+
+
+	public void setDebutText(String debutText) {
+		this.debutText = debutText;
+	}
+
+
+
+	public String getFinText() {
+		return finText;
+	}
+
+
+
+	public void setFinText(String finText) {
+		this.finText = finText;
+	}
+
+
 
 	@Override
 	public String toString() {

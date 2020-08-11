@@ -1,6 +1,7 @@
 package com.michel.lab.service.jpa;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import com.michel.lab.service.IEchantillonService;
 
 @Service
 public class EchantillonService implements IEchantillonService{
+	
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	@Autowired
 	EchantillonRepo echantillonRepo;
