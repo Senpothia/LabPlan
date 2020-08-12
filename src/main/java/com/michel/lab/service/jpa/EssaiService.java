@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.michel.lab.model.Essai;
 import com.michel.lab.model.EssaiAux;
+import com.michel.lab.model.FormEssai;
 import com.michel.lab.model.Qualification;
 import com.michel.lab.repository.EssaiRepo;
 import com.michel.lab.repository.ProcedureRepo;
@@ -73,8 +74,38 @@ public class EssaiService  implements IEssaiService{
 		return essai;
 	}
 
-
-
 	
+
+	public void modifierEssai(FormEssai formEssai) {
+		
+		Integer idEssai = formEssai.getId();
+		Essai essai = essaiRepo.getOne(idEssai);
+		String statut = formEssai.getStatut();
+		String resultat =  formEssai.getResultat();
+		
+		if (resultat.equals("Conforme")) {
+			
+			essai.setResultat(true);
+			
+		} else {
+			
+			essai.setResultat(false);
+			
+		}
+		
+		if (statut.equals("Ouverte")){
+			
+			essai.setStatut(true);
+			
+		}else {
+			
+			essai.setStatut(false);
+			
+		}
+		
+		essaiRepo.save(essai);
+		
+	}
+
 
 }

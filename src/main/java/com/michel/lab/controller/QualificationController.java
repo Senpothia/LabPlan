@@ -21,6 +21,7 @@ import com.michel.lab.model.EchantillonAux;
 import com.michel.lab.model.Essai;
 import com.michel.lab.model.EssaiAux;
 import com.michel.lab.model.FormEchantillon;
+import com.michel.lab.model.FormEssai;
 import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
 import com.michel.lab.model.FormSequence;
@@ -566,6 +567,15 @@ public class QualificationController {
 		
 		Sequence sequence = sequenceService.obtenirSequenceParId(idSequence);
 		sequenceService.supprimerSequence(sequence);
+		
+	}
+	
+	@PostMapping("/private/essai/modifier")
+	public void modifierEssai(@RequestBody FormEssai formEssai) {
+		
+		
+		essaiService.modifierEssai(formEssai);
+		
 		
 	}
 
