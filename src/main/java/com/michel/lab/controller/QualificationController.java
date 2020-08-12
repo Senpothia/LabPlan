@@ -396,8 +396,7 @@ public class QualificationController {
 	}
 
 	@PostMapping("private/echantillon/ajouter/{echantillon}/{qualification}/{sequence}")
-	public void ajouterEchantillon(
-			@PathVariable(name = "echantillon") Integer idEchantillon,
+	public void ajouterEchantillon(@PathVariable(name = "echantillon") Integer idEchantillon,
 			@PathVariable(name = "qualification") Integer numQualification,
 			@PathVariable(name = "sequence") Integer idSequence) {
 
@@ -418,122 +417,148 @@ public class QualificationController {
 	}
 
 	@PostMapping("private/echantillon/retirer/{echantillon}/{qualification}/{sequence}")
-	public void retirerEchantillon(
-			@PathVariable(name = "echantillon") Integer idEchantillon,
+	public void retirerEchantillon(@PathVariable(name = "echantillon") Integer idEchantillon,
 			@PathVariable(name = "qualification") Integer numQualification,
 			@PathVariable(name = "sequence") Integer idSequence) {
 
 		Sequence seq = sequenceService.obtenirSequenceParId(idSequence);
 		List<Echantillon> echantillons = seq.getEchantillons();
-		System.out.println("taille liste echantillons avant:  " +  echantillons.size());
+		System.out.println("taille liste echantillons avant:  " + echantillons.size());
 		System.out.println("id de ech: " + idEchantillon);
-		
-		
+
 		boolean ok = false;
-		
+
 		int i = 0;
-		while (!ok && i<echantillons.size()) {
-			
-			Echantillon ech =  echantillons.get(i);
+		while (!ok && i < echantillons.size()) {
+
+			Echantillon ech = echantillons.get(i);
 			Integer idEch = ech.getId();
 			if (idEchantillon == idEch) {
-				
-			ok= true;
-			
+
+				ok = true;
+
 			}
-			
+
 			System.out.println("indice i avant sortie" + i);
 			i++;
 		}
-		
+
 		System.out.println("indice i après sortie" + i);
-		int j; 
-		Echantillon ech= echantillons.get(j = i<0 ? i-1 : 0);
-		//ech.setId(idEchantillon);
+		int j;
+		Echantillon ech = echantillons.get(j = i < 0 ? i - 1 : 0);
+		// ech.setId(idEchantillon);
 		echantillons.remove(ech);
-		
-		System.out.println("taille liste echantillons après:  " +  echantillons.size());
+
+		System.out.println("taille liste echantillons après:  " + echantillons.size());
 		seq.setEchantillons(echantillons);
-		
+
 		sequenceService.retirerEchantillon(seq);
-		 
+
 	}
-	
+
 	@GetMapping("/private/echantillon/sequence/selection/{qualification}/{sequence}")
 	public List<EchantillonAux> obtenirEchantillonSelectionParSequence(
-			@PathVariable(name = "qualification") Integer num,
-			@PathVariable(name = "sequence") Integer idSequence){
-		
+			@PathVariable(name = "qualification") Integer num, @PathVariable(name = "sequence") Integer idSequence) {
+
 		List<Echantillon> echsSelection = sequenceService.obtenirSelectionEchantillon(idSequence);
 		List<Echantillon> echsQualification = echantillonService.obtenirEchantillonParQualification(num);
-		
+
 		List<EchantillonAux> echantillonsAux = new ArrayList<EchantillonAux>();
-		
-		for (Echantillon ech: echsQualification) {  // conversion de tous les échantillons de la sélection
-			
+
+		for (Echantillon ech : echsQualification) { // conversion de tous les échantillons de la sélection
+
 			EchantillonAux ech1 = new EchantillonAux(ech);
 			echantillonsAux.add(ech1);
-			
+
 		}
-		
-		for (EchantillonAux ech: echantillonsAux) {
-			
+
+		for (EchantillonAux ech : echantillonsAux) {
+
 			ech.setSelection(echsSelection);
 			System.out.println("statut de l'échantillon: " + ech.isSelection() + " - " + ech.getId());
 		}
-		
+
 		return echantillonsAux;
 	}
-	
-	
 
 	@GetMapping("/private/echantillon/modifier/{id}")
-	public EchantillonAux obtenirEchantillon(
-			@PathVariable(name = "id") Integer id) {
-		
-		
+	public EchantillonAux obtenirEchantillon(@PathVariable(name = "id") Integer id) {
+
 		Echantillon ech = echantillonService.obtenirEchantillonParId(id);
 		EchantillonAux echantillon = new EchantillonAux(ech);
-		
+
 		return echantillon;
-		
 
 	}
-	
+
 	@PostMapping("/private/echantillon/modifier")
 	public void modifierEchantillon(
-			
+
 			@RequestBody FormEchantillon formEchantillon) {
-		
+
 		Integer id = formEchantillon.getId();
 		Echantillon echantillon = echantillonService.obtenirEchantillonParId(id);
-		
+
 		echantillon.setCaracteristique(formEchantillon.getCaracteristique());
 		echantillon.setNumero(formEchantillon.getNumero());
 		echantillon.setVersion(formEchantillon.getVersion());
-		
+
 		echantillonService.modifierEchantillon(echantillon);
-		
-		
+
 	}
-	
+
 	@GetMapping("private/qualification/modifier/statut/{id}")
 	public void modifierStatutQualification(@PathVariable(name = "id") Integer numQualification) {
-		
+
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
 		qualificationService.modifierStatutQualification(qualification);
-		
+
 	}
-	
+
 	@GetMapping("private/qualification/modifier/resultat/{id}")
 	public void modifierResultatQualification(@PathVariable(name = "id") Integer numQualification) {
-		
+
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
 		qualificationService.modifierResultatQualification(qualification);
-		
+
 	}
 
+	@PostMapping("/private/qualification/modifier")
+	public void modifierQualification(@RequestBody FormQualif formQualif) {
 
-	
+		Integer numQualification = formQualif.getNumero();
+		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
+		qualification.setNumero(formQualif.getNumero());
+		qualification.setReference(formQualif.getReference());
+		qualification.setProduit(formQualif.getProduit());
+		qualification.setProjet(formQualif.getProjet());
+		qualification.setObjet(formQualif.getObjet());
+		String statut = formQualif.getStatut();
+		String resultat = formQualif.getResultat();
+		System.out.println("statut récupéré formulaire modif qualif: " + statut);
+		System.out.println("resultat récupéré formulaire modif qualif: " + resultat);
+
+		if (statut.equals("Clôturée")) {
+
+			qualification.setStatut(false);
+
+		} else {
+
+			qualification.setStatut(true);
+		}
+
+		if (resultat.equals("Active") || resultat.equals("Non-conforme") ) {
+
+			qualification.setResultat(false); // valeur par défaut tant en attente résultat d'un définitif
+		}
+
+		if (resultat.equals("Conforme")) {
+
+			qualification.setResultat(true); 
+		}
+		
+		qualificationService.ajouterQualification(qualification);
+
+	}
 
 }
