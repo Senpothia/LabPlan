@@ -104,6 +104,12 @@ public class SequenceService {
 		
 		return echantillons;
 	}
+
+
+	public void supprimerSequence(Sequence sequence) {
+		
+		sequenceRepo.delete(sequence);
+	}
 	
 	
 

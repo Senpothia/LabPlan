@@ -560,5 +560,13 @@ public class QualificationController {
 		qualificationService.ajouterQualification(qualification);
 
 	}
+	
+	@PostMapping("/private/sequence/supprimer/{id}")
+	public void supprimerSequence(@PathVariable(name = "id") Integer idSequence) {
+		
+		Sequence sequence = sequenceService.obtenirSequenceParId(idSequence);
+		sequenceService.supprimerSequence(sequence);
+		
+	}
 
 }

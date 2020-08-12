@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.michel.lab.model.Qualification;
 import com.michel.lab.model.QualificationAux;
+import com.michel.lab.model.Sequence;
 import com.michel.lab.model.Utilisateur;
 import com.michel.lab.repository.QualificationRepo;
 import com.michel.lab.service.IQualificationService;
@@ -20,6 +22,9 @@ public class QualificationService implements IQualificationService{
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	SequenceService sequenceService;
 	
 	@Override
 	public void ajouterQualification(Qualification qualification) {
@@ -119,6 +124,8 @@ public class QualificationService implements IQualificationService{
 		qualificationRepo.save(qualification);
 		
 	}
+	
+
 	
 	
 
