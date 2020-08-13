@@ -348,6 +348,7 @@ public class QualificationController {
 		for (Sequence seq : sequences) {
 
 			SequenceAux s = new SequenceAux(seq);
+			
 			String dateDebut =  seq.getDebut().format(formatter);
 			s.setDebutText(dateDebut);
 			
@@ -401,9 +402,13 @@ public class QualificationController {
 		String dateDebut =  sequence.getDebut().format(formatter);
 		sequence.setDebutText(dateDebut);
 		
+		//sequence.setDebutText("20-05-2020 02:05");  // test
+		
 		String dateFin =  sequence.getFin().format(formatter);
 		sequence.setFinText(dateFin);
 		
+		//	sequence.setFinText("20-05-2020 02:05");  // test
+	    
 		Duration duration = Duration.between(sequence.getDebut(), sequence.getFin());
 		System.out.println("durée: "  + duration.toHours() + " hours");
 		long duree = duration.toHours(); 
@@ -603,6 +608,16 @@ public class QualificationController {
 		essaiService.modifierEssai(formEssai);
 		
 		
+	}
+	
+	@GetMapping("/private/sequence/recuperation/{id}")
+	public void recupererSequence(@PathVariable("id") Integer id) {
+		
+		Sequence seq = sequenceService.obtenirSequenceParId(id);
+		seq.setDebut(LocalDateTime.now());
+		seq.setFin(LocalDateTime.now());
+		sequenceService.ajouterSequence(seq);
+		System.out.println("Enregistrement sequence id=" + id);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.michel.lab.service.jpa;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -30,7 +31,9 @@ public class SequenceService {
 	@Autowired
 	SequenceRepo sequenceRepo;
 
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
 	
+	// LocalDateTime.parse(finText, DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a"));
 	public List<Sequence> obtenirSequencesParEssai(Integer num) {
 		
 		Essai essai = essaiService.obtenirEssaiParId(num);
@@ -49,8 +52,12 @@ public class SequenceService {
 		sequence.setNumero(formSequence.getNumero());
 		sequence.setNom(formSequence.getNom());
 		sequence.setNiveau(formSequence.getNiveau());
-		sequence.setDebut(formSequence.getDebut());
-		sequence.setFin(formSequence.getFin());
+		//sequence.setDebut(formSequence.getDebut());     // à modifier
+		//sequence.setFin(formSequence.getFin());	      // à modifier
+		
+		sequence.setDebut(LocalDateTime.parse(formSequence.getDebutText(), formatter));     // ajouter
+		sequence.setFin(LocalDateTime.parse(formSequence.getFinText(), formatter));			// ajouter
+		
 		sequence.setProfil(formSequence.getProfil());
 		sequence.setStatut(true);
 		sequence.setCommentaire(formSequence.getCommentaire());
@@ -77,8 +84,13 @@ public class SequenceService {
 		sequence.setNumero(formSequence.getNumero());
 		sequence.setNom(formSequence.getNom());
 		sequence.setNiveau(formSequence.getNiveau());
-		sequence.setDebut(formSequence.getDebut());
-		sequence.setFin(formSequence.getFin());
+		//sequence.setDebut(formSequence.getDebut());  // à modifier	
+		//sequence.setFin(formSequence.getFin());		 // à modifier
+		
+		sequence.setDebut(LocalDateTime.parse(formSequence.getDebutText(), formatter));     // ajouter
+		sequence.setFin(LocalDateTime.parse(formSequence.getFinText(), formatter));			// ajouter
+		
+		
 		sequence.setProfil(formSequence.getProfil());
 		sequence.setCommentaire(formSequence.getCommentaire());
 	
@@ -110,6 +122,12 @@ public class SequenceService {
 	public void supprimerSequence(Sequence sequence) {
 		
 		sequenceRepo.delete(sequence);
+	}
+
+	public void ajouterSequence(Sequence seq) {
+
+		sequenceRepo.save(seq);
+		
 	}
 	
 	
