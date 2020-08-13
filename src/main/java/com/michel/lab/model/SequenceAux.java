@@ -7,7 +7,10 @@ public class SequenceAux {
 	private Integer id;
 	private String commentaire;
 	private LocalDateTime debut;
+	private String debutText;
 	private LocalDateTime fin;
+	private String finText;
+	private long duree;
 	private String niveau;
 	private String nom;
 	private Integer numero;  		// numéro de la séquence
@@ -27,14 +30,22 @@ public class SequenceAux {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SequenceAux(Integer id, String commentaire, LocalDateTime debut, LocalDateTime fin, String niveau,
-			String nom, Integer numero, String profil, Integer essai, String nomEssais, Integer domaine,
-			String nomDomaine, boolean statut, String actif, Integer qualification, boolean resultat, String avis) {
+	
+	
+
+
+	public SequenceAux(Integer id, String commentaire, LocalDateTime debut, String debutText, LocalDateTime fin,
+			String finText, long duree, String niveau, String nom, Integer numero, String profil, Integer essai,
+			String nomEssais, Integer domaine, String nomDomaine, boolean statut, String actif, Integer qualification,
+			boolean resultat, String avis) {
 		super();
 		this.id = id;
 		this.commentaire = commentaire;
 		this.debut = debut;
+		this.debutText = debutText;
 		this.fin = fin;
+		this.finText = finText;
+		this.duree = duree;
 		this.niveau = niveau;
 		this.nom = nom;
 		this.numero = numero;
@@ -49,7 +60,7 @@ public class SequenceAux {
 		this.resultat = resultat;
 		this.avis = avis;
 	}
-	
+
 	public SequenceAux(Sequence sequence) {
 		
 		this.id = sequence.getId();
@@ -230,5 +241,46 @@ public class SequenceAux {
 		this.avis = avis;
 	}
 
+
+
+	public String getDebutText() {
+		return debutText;
+	}
+
+
+
+	public void setDebutText(String debutText) {
+		this.debutText = debutText;
+	}
+
+
+
+	public String getFinText() {
+		return finText;
+	}
+
+
+
+	public void setFinText(String finText) {
+		this.finText = finText;
+	}
+
+
+
+
+
+	public long getDuree() {
+		return duree;
+	}
+
+
+
+
+
+	public void setDuree(long duree) {
+		this.duree = duree;
+	}
+
+	
 
 }

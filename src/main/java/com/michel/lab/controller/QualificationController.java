@@ -1,7 +1,9 @@
 package com.michel.lab.controller;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +68,8 @@ public class QualificationController {
 
 	@Autowired
 	SequenceService sequenceService;
+	
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:MM");
 
 	@PostMapping("/save/qualification")
 	public void saveQualification(@RequestBody FormQualif formQualif) {
@@ -344,6 +348,17 @@ public class QualificationController {
 		for (Sequence seq : sequences) {
 
 			SequenceAux s = new SequenceAux(seq);
+			String dateDebut =  seq.getDebut().format(formatter);
+			s.setDebutText(dateDebut);
+			
+			String dateFin =  seq.getFin().format(formatter);
+			s.setFinText(dateFin);
+			
+			Duration duration = Duration.between(s.getDebut(), s.getFin());
+			System.out.println("durée: "  + duration.toHours() + " hours");
+			long duree = duration.toHours(); 
+			s.setDuree(duree);
+			
 			listeSequences.add(s);
 
 		}
@@ -382,7 +397,18 @@ public class QualificationController {
 
 		Sequence seq = sequenceService.obtenirSequenceParId(id);
 		SequenceAux sequence = new SequenceAux(seq);
-
+		
+		String dateDebut =  sequence.getDebut().format(formatter);
+		sequence.setDebutText(dateDebut);
+		
+		String dateFin =  sequence.getFin().format(formatter);
+		sequence.setFinText(dateFin);
+		
+		Duration duration = Duration.between(sequence.getDebut(), sequence.getFin());
+		System.out.println("durée: "  + duration.toHours() + " hours");
+		long duree = duration.toHours(); 
+		sequence.setDuree(duree);
+		
 		return sequence;
 
 	}
