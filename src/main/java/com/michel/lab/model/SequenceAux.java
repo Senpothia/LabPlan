@@ -31,9 +31,6 @@ public class SequenceAux {
 	}
 
 	
-	
-
-
 	public SequenceAux(Integer id, String commentaire, LocalDateTime debut, String debutText, LocalDateTime fin,
 			String finText, long duree, String niveau, String nom, Integer numero, String profil, Integer essai,
 			String nomEssais, Integer domaine, String nomDomaine, boolean statut, String actif, Integer qualification,
@@ -254,27 +251,17 @@ public class SequenceAux {
 	}
 
 
-
 	public String getFinText() {
 		return finText;
 	}
-
-
 
 	public void setFinText(String finText) {
 		this.finText = finText;
 	}
 
-
-
-
-
 	public long getDuree() {
 		return duree;
 	}
-
-
-
 
 
 	public void setDuree(long duree) {

@@ -604,13 +604,11 @@ public class QualificationController {
 	@PostMapping("/private/essai/modifier")
 	public void modifierEssai(@RequestBody FormEssai formEssai) {
 		
-		
 		essaiService.modifierEssai(formEssai);
-		
 		
 	}
 	
-	@GetMapping("/private/sequence/recuperation/{id}")
+	@GetMapping("/private/sequence/recuperation/{id}")   // Utiliser pour réparer les enregistrements défectueux de séquences
 	public void recupererSequence(@PathVariable("id") Integer id) {
 		
 		Sequence seq = sequenceService.obtenirSequenceParId(id);
