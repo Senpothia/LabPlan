@@ -1,6 +1,7 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class SequenceAux {
 	
@@ -63,7 +64,9 @@ public class SequenceAux {
 		this.id = sequence.getId();
 		this.commentaire = sequence.getCommentaire();
 		this.debut = sequence.getDebut();
+		this.debutText = sequence.getDebut().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		this.fin = sequence.getFin();
+		this.finText = sequence.getFin().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		this.niveau = sequence.getNiveau();
 		this.nom = sequence.getNom();
 		this.numero = sequence.getNumero();

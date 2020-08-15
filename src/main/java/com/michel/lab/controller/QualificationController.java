@@ -68,7 +68,7 @@ public class QualificationController {
 
 	@Autowired
 	SequenceService sequenceService;
-	
+
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:MM");
 
 	@PostMapping("/save/qualification")
@@ -348,18 +348,42 @@ public class QualificationController {
 		for (Sequence seq : sequences) {
 
 			SequenceAux s = new SequenceAux(seq);
-			
-			String dateDebut =  seq.getDebut().format(formatter);
+			String dateDebut = "";
+			String dateFin = "";
+
+			try {
+
+				dateDebut = seq.getDebut().format(formatter);
+			}
+
+			catch (Exception e) {
+
+				dateDebut = "";
+			}
+
 			s.setDebutText(dateDebut);
-			
-			String dateFin =  seq.getFin().format(formatter);
+
+			try {
+				dateFin = seq.getFin().format(formatter);
+			} catch (Exception e) {
+
+				dateFin = "";
+			}
+
 			s.setFinText(dateFin);
-			
-			Duration duration = Duration.between(s.getDebut(), s.getFin());
-			System.out.println("durée: "  + duration.toHours() + " hours");
-			long duree = duration.toHours(); 
-			s.setDuree(duree);
-			
+
+			try {
+
+				Duration duration = Duration.between(s.getDebut(), s.getFin());
+				System.out.println("durée: " + duration.toHours() + " hours");
+				long duree = duration.toHours();
+				s.setDuree(duree);
+
+			} catch (Exception e) {
+
+				s.setDuree(0);
+			}
+
 			listeSequences.add(s);
 
 		}
@@ -399,21 +423,48 @@ public class QualificationController {
 		Sequence seq = sequenceService.obtenirSequenceParId(id);
 		SequenceAux sequence = new SequenceAux(seq);
 		
-		String dateDebut =  sequence.getDebut().format(formatter);
+		String dateDebut = "";
+		String dateFin = "";
+				
+		try {
+			
+		dateDebut =  sequence.getDebut().format(formatter);
+			}
+		
+		catch (Exception e) {
+
+			dateDebut = "";
+			
+		}
+		
 		sequence.setDebutText(dateDebut);
 		
-		//sequence.setDebutText("20-05-2020 02:05");  // test
+		try {
+			
+		dateFin =  sequence.getFin().format(formatter);
 		
-		String dateFin =  sequence.getFin().format(formatter);
+		}catch (Exception e) {
+			
+			dateFin = "";
+		}
 		sequence.setFinText(dateFin);
 		
-		//	sequence.setFinText("20-05-2020 02:05");  // test
+		long duree =0;
+		
+	    System.out.println("Valeur debut: " + sequence.getDebut());	
+	    System.out.println("Valeur fin: " + sequence.getFin());	
 	    
+	    if (sequence.getDebut() != null && sequence.getFin() != null ) {
 		Duration duration = Duration.between(sequence.getDebut(), sequence.getFin());
 		System.out.println("durée: "  + duration.toHours() + " hours");
-		long duree = duration.toHours(); 
-		sequence.setDuree(duree);
+	
+		duree = duration.toHours(); 
 		
+	    	
+	    } 
+	
+	    sequence.setDuree(duree);
+	   
 		return sequence;
 
 	}
@@ -579,38 +630,39 @@ public class QualificationController {
 			qualification.setStatut(true);
 		}
 
-		if (resultat.equals("Active") || resultat.equals("Non-conforme") ) {
+		if (resultat.equals("Active") || resultat.equals("Non-conforme")) {
 
 			qualification.setResultat(false); // valeur par défaut tant en attente résultat d'un définitif
 		}
 
 		if (resultat.equals("Conforme")) {
 
-			qualification.setResultat(true); 
+			qualification.setResultat(true);
 		}
-		
+
 		qualificationService.ajouterQualification(qualification);
 
 	}
-	
+
 	@PostMapping("/private/sequence/supprimer/{id}")
 	public void supprimerSequence(@PathVariable(name = "id") Integer idSequence) {
-		
+
 		Sequence sequence = sequenceService.obtenirSequenceParId(idSequence);
 		sequenceService.supprimerSequence(sequence);
-		
+
 	}
-	
+
 	@PostMapping("/private/essai/modifier")
 	public void modifierEssai(@RequestBody FormEssai formEssai) {
-		
+
 		essaiService.modifierEssai(formEssai);
-		
+
 	}
-	
-	@GetMapping("/private/sequence/recuperation/{id}")   // Utiliser pour réparer les enregistrements défectueux de séquences
+
+	@GetMapping("/private/sequence/recuperation/{id}") // Utiliser pour réparer les enregistrements défectueux de
+														// séquences
 	public void recupererSequence(@PathVariable("id") Integer id) {
-		
+
 		Sequence seq = sequenceService.obtenirSequenceParId(id);
 		seq.setDebut(LocalDateTime.now());
 		seq.setFin(LocalDateTime.now());
