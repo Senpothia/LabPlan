@@ -33,7 +33,9 @@ public class EchantillonService implements IEchantillonService{
 		Echantillon echantillon = new Echantillon();
 		echantillon.setActif(true);
 		echantillon.setCaracteristique(formEchantillon.getCaracteristique());
-		echantillon.setDate(LocalDateTime.now());
+		String date = formEchantillon.getDate();
+		System.out.println("Date échantillon récupérée: " + date);
+		echantillon.setDate(LocalDateTime.parse(date + " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		echantillon.setNumero(formEchantillon.getNumero());
 		echantillon.setVersion(formEchantillon.getVersion());
 		echantillon.setQualification(qualification);

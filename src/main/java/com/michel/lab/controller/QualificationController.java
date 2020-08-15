@@ -585,6 +585,9 @@ public class QualificationController {
 		echantillon.setCaracteristique(formEchantillon.getCaracteristique());
 		echantillon.setNumero(formEchantillon.getNumero());
 		echantillon.setVersion(formEchantillon.getVersion());
+		String date = formEchantillon.getDate();
+		System.out.println("Date échantillon récupérée: " + date);
+		echantillon.setDate(LocalDateTime.parse(date + " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
 		echantillonService.modifierEchantillon(echantillon);
 

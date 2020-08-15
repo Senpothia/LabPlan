@@ -84,13 +84,9 @@ public class SequenceService {
 		sequence.setNumero(formSequence.getNumero());
 		sequence.setNom(formSequence.getNom());
 		sequence.setNiveau(formSequence.getNiveau());
-		//sequence.setDebut(formSequence.getDebut());  // à modifier	
-		//sequence.setFin(formSequence.getFin());		 // à modifier
-		
-		sequence.setDebut(LocalDateTime.parse(formSequence.getDebutText(), formatter));     // ajouté
-		sequence.setFin(LocalDateTime.parse(formSequence.getFinText(), formatter));			// ajouté
-		
-		
+		sequence.setDebut(formSequence.getDebut());  	
+		sequence.setFin(formSequence.getFin());		
+	
 		sequence.setProfil(formSequence.getProfil());
 		sequence.setCommentaire(formSequence.getCommentaire());
 	
