@@ -22,6 +22,9 @@ public class Rapport {
 	private LocalDateTime date;
 	private String identifiant; // exemple : R10-15
 	private Integer version;
+	
+	@ManyToOne
+	private Qualification qualification;
 
 	
 	public Rapport() {

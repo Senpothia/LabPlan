@@ -75,7 +75,20 @@ public class QualificationController {
 	public void saveQualification(@RequestBody FormQualif formQualif) {
 
 		Qualification qualification = new Qualification();
-		qualification.setNumero(formQualif.getNumero());
+		
+		List<QualificationAux> qualifications = qualificationService.tousLesQualifications();
+		
+		int nombreQualifications = 0;
+		
+		if (qualifications.isEmpty()) {
+			
+			nombreQualifications =0 ;
+		} else {
+			
+			nombreQualifications = qualifications.size();
+		}
+		
+		qualification.setNumero(nombreQualifications + 1);
 		qualification.setReference(formQualif.getReference());
 		qualification.setProjet(formQualif.getProjet());
 		qualification.setProduit(formQualif.getProduit());
@@ -221,7 +234,20 @@ public class QualificationController {
 		Utilisateur technicien = userService.obtenirUser(idUser);
 		Qualification qualif = qualificationService.obtenirQualificationParNumero(qualification);
 		Procedure procedure = procedureService.obtenirProcedure(id);
+		
+		List<Essai> listeEssais = qualif.getEssais();
+		int nombreEssais = 0;
+		if (listeEssais.isEmpty()) {
+			
+			nombreEssais = 0;
+		} else {
+			
+			nombreEssais = listeEssais.size();
+		}
+		
+		
 		Essai essai = new Essai();
+		essai.setNumero(nombreEssais + 1);
 		essai.setQualification(qualif);
 		essai.setTechnicien(technicien);
 		essai.setResultat(false); // En cours ou non conforme

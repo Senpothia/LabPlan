@@ -103,6 +103,8 @@ public class EssaiService  implements IEssaiService{
 			
 		}
 		
+		essai.setNumero(formEssai.getNumero());
+		
 		essaiRepo.save(essai);
 		
 	}

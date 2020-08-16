@@ -25,6 +25,9 @@ public class Qualification {
 	private boolean statut;  // Ouverte, cloturée
 	private boolean resultat;
 	
+	@OneToMany (mappedBy="qualification")
+	private List<Rapport> rapports;
+	
 	@ManyToOne
 	private Utilisateur createur;
 	
