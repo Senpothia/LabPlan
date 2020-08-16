@@ -336,12 +336,11 @@ public class QualificationController {
 
 	}
 
-//	@GetMapping("/private/sequences/voir/{id}/{num}/{domaine}")
+
 	@GetMapping("/private/sequences/voir/{id}/{num}")
 	public List<SequenceAux> obtenirSequencesParEssai(@PathVariable(name = "id") Integer id,
 			@PathVariable(name = "num") Integer num) {
-		// @PathVariable(name="domaine")String domaine){
-
+	
 		List<Sequence> sequences = sequenceService.obtenirSequencesParEssai(num);
 		List<SequenceAux> listeSequences = new ArrayList<SequenceAux>();
 
@@ -664,7 +663,7 @@ public class QualificationController {
 
 	@GetMapping("/private/sequence/recuperation/{id}") // Utiliser pour réparer les enregistrements défectueux de
 														// séquences
-	public void recupererSequence(@PathVariable("id") Integer id) {
+	public void recupererSequence(@PathVariable("id") Integer id) {  // id = id de la séquence déféctueuse
 
 		Sequence seq = sequenceService.obtenirSequenceParId(id);
 		seq.setDebut(LocalDateTime.now());
