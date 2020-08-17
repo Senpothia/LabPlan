@@ -12,14 +12,18 @@ public class RapportAux {
 	private Integer version;
 	private String identifiant;
 	private String demande;
+	private Integer qualification; 
 	
 	public RapportAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
+	
 	public RapportAux(Integer id, String titre, String auteur, String date, Integer version, String identifiant,
-			String demande) {
+			String demande, Integer qualification) {
 		super();
 		this.id = id;
 		this.titre = titre;
@@ -28,9 +32,12 @@ public class RapportAux {
 		this.version = version;
 		this.identifiant = identifiant;
 		this.demande = demande;
+		this.qualification = qualification;  // numéro de qualification
 	}
-	
-	
+
+
+
+
 	public RapportAux(Rapport rapport) {
 		
 		this.id = rapport.getId();
@@ -39,17 +46,16 @@ public class RapportAux {
 		Utilisateur user = rapport.getAuteur();
 	
 		this.auteur = user.getPrenom() + user.getNom();
-		/*
+		
 		LocalDateTime dateAux = rapport.getDate();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
  
 		this.date = dateAux.format(formatter);
 		
-		*/
-		this.date = "fff";
 		this.version = rapport.getVersion();
 		this.identifiant = rapport.getIdentifiant();
 		this.demande = rapport.getDemande();
+		this.qualification = rapport.getQualification().getNumero();
 		
 	}
 
@@ -107,6 +113,20 @@ public class RapportAux {
 
 	public void setDemande(String demande) {
 		this.demande = demande;
+	}
+
+
+
+
+	public Integer getQualification() {
+		return qualification;
+	}
+
+
+
+
+	public void setQualification(Integer qualification) {
+		this.qualification = qualification;
 	}
 	
 
