@@ -24,6 +24,7 @@ import com.michel.lab.model.Essai;
 import com.michel.lab.model.EssaiAux;
 import com.michel.lab.model.FormEchantillon;
 import com.michel.lab.model.FormEssai;
+import com.michel.lab.model.FormInitRapport;
 import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
 import com.michel.lab.model.FormSequence;
@@ -32,6 +33,8 @@ import com.michel.lab.model.Procedure;
 import com.michel.lab.model.ProcedureAux;
 import com.michel.lab.model.Qualification;
 import com.michel.lab.model.QualificationAux;
+import com.michel.lab.model.Rapport;
+import com.michel.lab.model.RapportAux;
 import com.michel.lab.model.Sequence;
 import com.michel.lab.model.SequenceAux;
 import com.michel.lab.model.Utilisateur;
@@ -41,6 +44,7 @@ import com.michel.lab.service.jpa.EchantillonService;
 import com.michel.lab.service.jpa.EssaiService;
 import com.michel.lab.service.jpa.ProcedureService;
 import com.michel.lab.service.jpa.QualificationService;
+import com.michel.lab.service.jpa.RapportService;
 import com.michel.lab.service.jpa.SequenceService;
 import com.michel.lab.service.jpa.UserService;
 
@@ -68,6 +72,9 @@ public class QualificationController {
 
 	@Autowired
 	SequenceService sequenceService;
+	
+	@Autowired
+	RapportService rapportService;
 
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:MM");
 
@@ -696,6 +703,33 @@ public class QualificationController {
 		seq.setFin(LocalDateTime.now());
 		sequenceService.ajouterSequence(seq);
 		System.out.println("Enregistrement sequence id=" + id);
+	}
+	
+	@PostMapping("/private/rapport/enregistrer")
+	public void enregistrerInitRapport(@RequestBody FormInitRapport formInitRapport) {
+		
+		System.out.println("Date du rapport récupérée: " + formInitRapport.getDate());
+		System.out.println("Objet du rapport récupérée: " + formInitRapport.getObjet());
+		
+		rapportService.enregistrerRapport(formInitRapport);
+	}
+	
+	@GetMapping("/private/rapport/liste/{num}")
+	public List<RapportAux> obtenirRapportsParQualification(@PathVariable(name = "num") Integer numQualification){
+		
+		System.out.println("Num qualif récupéré: " + numQualification);
+		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
+		List<Rapport> rapports = qualification.getRapports();
+		List<RapportAux> listeRapports = new ArrayList<RapportAux>();
+		
+		for (Rapport r: rapports) {
+			
+			RapportAux rap = new RapportAux(r);
+			listeRapports.add(rap);
+			
+		}
+	
+		return listeRapports;
 	}
 
 }

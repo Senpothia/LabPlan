@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Rapport {
@@ -22,9 +23,15 @@ public class Rapport {
 	private LocalDateTime date;
 	private String identifiant; // exemple : R10-15
 	private Integer version;
+	private String projet;
+	private String demande;
+	private String objet;
 	
 	@ManyToOne
 	private Qualification qualification;
+	
+	@OneToMany(mappedBy = "rapport")
+	private List<Image> images; 
 
 	
 	public Rapport() {
@@ -34,7 +41,8 @@ public class Rapport {
 
 
 	public Rapport(Integer id, String titre, Utilisateur auteur, LocalDateTime date, String identifiant,
-			Integer version) {
+			Integer version, String projet, String demande, String objet, Qualification qualification,
+			List<Image> images) {
 		super();
 		this.id = id;
 		this.titre = titre;
@@ -42,6 +50,11 @@ public class Rapport {
 		this.date = date;
 		this.identifiant = identifiant;
 		this.version = version;
+		this.projet = projet;
+		this.demande = demande;
+		this.objet = objet;
+		this.qualification = qualification;
+		this.images = images;
 	}
 
 
@@ -105,6 +118,54 @@ public class Rapport {
 	}
 
 
-	
+	public String getProjet() {
+		return projet;
+	}
+
+
+	public void setProjet(String projet) {
+		this.projet = projet;
+	}
+
+
+	public String getDemande() {
+		return demande;
+	}
+
+
+	public void setDemande(String demande) {
+		this.demande = demande;
+	}
+
+
+	public String getObjet() {
+		return objet;
+	}
+
+
+	public void setObjet(String objet) {
+		this.objet = objet;
+	}
+
+
+	public Qualification getQualification() {
+		return qualification;
+	}
+
+
+	public void setQualification(Qualification qualification) {
+		this.qualification = qualification;
+	}
+
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
+
 
 }

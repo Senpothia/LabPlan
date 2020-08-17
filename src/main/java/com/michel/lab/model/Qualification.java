@@ -155,5 +155,13 @@ public class Qualification {
 		this.echantillons = echantillons;
 	}
 
+	public List<Rapport> getRapports() {
+		return rapports;
+	}
+
+	public void setRapports(List<Rapport> rapports) {
+		this.rapports = rapports;
+	}
+
 	
 }
