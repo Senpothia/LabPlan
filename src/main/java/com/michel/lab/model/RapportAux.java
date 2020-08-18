@@ -13,6 +13,8 @@ public class RapportAux {
 	private String identifiant;
 	private String demande;
 	private Integer qualification; 
+	private String objet;
+	private String projet;
 	
 	public RapportAux() {
 		super();
@@ -21,9 +23,10 @@ public class RapportAux {
 
 	
 	
+
 	
 	public RapportAux(Integer id, String titre, String auteur, String date, Integer version, String identifiant,
-			String demande, Integer qualification) {
+			String demande, Integer qualification, String objet, String projet) {
 		super();
 		this.id = id;
 		this.titre = titre;
@@ -32,8 +35,11 @@ public class RapportAux {
 		this.version = version;
 		this.identifiant = identifiant;
 		this.demande = demande;
-		this.qualification = qualification;  // numéro de qualification
+		this.qualification = qualification;
+		this.objet = objet;
+		this.projet = projet;
 	}
+
 
 	public RapportAux(Rapport rapport) {
 		
@@ -45,14 +51,17 @@ public class RapportAux {
 		this.auteur = user.getPrenom()+ " " + user.getNom();
 		
 		LocalDateTime dateAux = rapport.getDate();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
- 
+		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		
 		this.date = dateAux.format(formatter);
 		
 		this.version = rapport.getVersion();
 		this.identifiant = rapport.getIdentifiant();
 		this.demande = rapport.getDemande();
 		this.qualification = rapport.getQualification().getNumero();
+		this.objet = rapport.getObjet();
+		this.projet = rapport.getProjet();
 		
 	}
 
@@ -124,6 +133,29 @@ public class RapportAux {
 
 	public void setQualification(Integer qualification) {
 		this.qualification = qualification;
+	}
+
+
+	public String getObjet() {
+		return objet;
+	}
+
+
+	public void setObjet(String objet) {
+		this.objet = objet;
+	}
+
+
+
+
+
+	public String getProjet() {
+		return projet;
+	}
+
+
+	public void setProjet(String projet) {
+		this.projet = projet;
 	}
 	
 
