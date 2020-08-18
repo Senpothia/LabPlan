@@ -731,5 +731,40 @@ public class QualificationController {
 	
 		return listeRapports;
 	}
+	
+	@GetMapping("/private/rapport/{id}")
+	public RapportAux obtenirRapportsParId(@PathVariable(name = "id") Integer idRapport) {
+		
+		RapportAux rapport = rapportService.obtenirRapportParId(idRapport);
+		
+		return rapport;
+		
+	}
+	
+	@GetMapping("/private/qualification/id/{id}") 
+	public List<EssaiAux> obtenirEssaisParQualificationId(@PathVariable(name = "id") Integer qualification){
+		
+		Qualification qual = qualificationService.obtenirQualificationParIdentifiant(qualification);
+		List<Essai> essais = qual.getEssais();
+		List<EssaiAux> listeEssais = new ArrayList<EssaiAux>();
+		
+		for (Essai es: essais) {
+			
+			EssaiAux essaiAux = new EssaiAux(es);
+			listeEssais.add(essaiAux);
+		}
+		
+		
+		return listeEssais;
+	}
+	
+	@GetMapping("/private/echantillons/qualification/id/{qualification}")
+	public List<EchantillonAux> obtenirEchantillonParIdQualification(@PathVariable(name = "qualification") Integer qualification){
+		
+		List<EchantillonAux> echantillons = echantillonService.obtenirEchantillonParQualificationId(qualification);
+		
+		return echantillons;
+		
+	}
 
 }

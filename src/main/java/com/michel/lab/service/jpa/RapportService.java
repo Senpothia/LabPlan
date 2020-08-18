@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.michel.lab.model.FormInitRapport;
 import com.michel.lab.model.Qualification;
 import com.michel.lab.model.Rapport;
+import com.michel.lab.model.RapportAux;
 import com.michel.lab.model.Utilisateur;
 import com.michel.lab.repository.RapportRepo;
 import com.michel.lab.service.IDomaineService;
@@ -56,6 +57,13 @@ public class RapportService implements IRapportService {
 		
 		rapportRepo.save(rapport);
 		
+	}
+
+	public RapportAux obtenirRapportParId(Integer idRapport) {
+		
+		Rapport rap = rapportRepo.getOne(idRapport);
+		RapportAux rapport = new RapportAux(rap);
+		return rapport;
 	}
 
 }

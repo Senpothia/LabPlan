@@ -124,6 +124,13 @@ public class QualificationService implements IQualificationService{
 		qualificationRepo.save(qualification);
 		
 	}
+
+	public Qualification obtenirQualificationParIdentifiant(Integer qualification) {
+		
+		Qualification qualif = qualificationRepo.getOne(qualification);
+		
+		return qualif;
+	}
 	
 
 	

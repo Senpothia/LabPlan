@@ -1,5 +1,8 @@
 package com.michel.lab.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EssaiAux {
 	
 	private Integer id;
@@ -9,6 +12,7 @@ public class EssaiAux {
 	private String domaine;
 	private String statut;
 	private String resultat;
+	private List<SequenceAux> sequences; 
 	
 	public EssaiAux() {
 		super();
@@ -16,19 +20,18 @@ public class EssaiAux {
 	}
 
 	
-	
-	public EssaiAux(Integer id, Integer numero, String referentiel, String version, String domaine, String statut,
-			String resultat) {
+	public EssaiAux(Integer id, Integer numero, String nom, String version, String domaine, String statut,
+			String resultat, List<SequenceAux> sequences) {
 		super();
 		this.id = id;
 		this.numero = numero;
-		this.nom = referentiel;
+		this.nom = nom;
 		this.version = version;
 		this.domaine = domaine;
 		this.statut = statut;
 		this.resultat = resultat;
+		this.sequences = sequences;
 	}
-
 
 
 	public EssaiAux(Essai essai){
@@ -58,8 +61,20 @@ public class EssaiAux {
 			}
 		}
 		
+		List<Sequence> seqs = essai.getSequences();
+		
+		List<SequenceAux> sequencesAux = new ArrayList<SequenceAux>();
+		
+		for(Sequence s: seqs) {
+			
+			SequenceAux seqAux = new SequenceAux(s);
+			sequencesAux.add(seqAux);
+			
+		}
+		
+		this.sequences = sequencesAux;
+		
 	}
-
 
 
 	public Integer getId() {
@@ -142,6 +157,16 @@ public class EssaiAux {
 
 	public void setResultat(String resultat) {
 		this.resultat = resultat;
+	}
+
+
+	public List<SequenceAux> getSequences() {
+		return sequences;
+	}
+
+
+	public void setSequences(List<SequenceAux> sequences) {
+		this.sequences = sequences;
 	}
 
 

@@ -35,9 +35,6 @@ public class RapportAux {
 		this.qualification = qualification;  // numéro de qualification
 	}
 
-
-
-
 	public RapportAux(Rapport rapport) {
 		
 		this.id = rapport.getId();
@@ -45,7 +42,7 @@ public class RapportAux {
 		
 		Utilisateur user = rapport.getAuteur();
 	
-		this.auteur = user.getPrenom() + user.getNom();
+		this.auteur = user.getPrenom()+ " " + user.getNom();
 		
 		LocalDateTime dateAux = rapport.getDate();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

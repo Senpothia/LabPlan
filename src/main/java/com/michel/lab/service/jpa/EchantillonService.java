@@ -2,12 +2,14 @@ package com.michel.lab.service.jpa;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.michel.lab.model.Echantillon;
+import com.michel.lab.model.EchantillonAux;
 import com.michel.lab.model.FormEchantillon;
 import com.michel.lab.model.Qualification;
 import com.michel.lab.repository.EchantillonRepo;
@@ -44,7 +46,7 @@ public class EchantillonService implements IEchantillonService{
 		
 	}
 
-	public List<Echantillon> obtenirEchantillonParQualification(Integer id) {
+	public List<Echantillon> obtenirEchantillonParQualification(Integer id) {  // id = numero de qualification
 		
 		Qualification qualification = qualificationRepo.findByNumero(id);
 		List<Echantillon> echantillons = qualification.getEchantillons();
@@ -71,6 +73,21 @@ public class EchantillonService implements IEchantillonService{
 		
 		echantillonRepo.save(echantillon);
 		
+	}
+
+	public List<EchantillonAux> obtenirEchantillonParQualificationId(Integer id) {
+		
+		Qualification qualification = qualificationRepo.getOne(id);
+		List<Echantillon> echantillons = qualification.getEchantillons();
+		List<EchantillonAux> listeEchantillons = new ArrayList<EchantillonAux>();
+		
+		for(Echantillon e: echantillons) {
+			
+			EchantillonAux ech = new EchantillonAux(e);
+			listeEchantillons.add(ech);
+			
+		}
+		return listeEchantillons;
 	}
 
 	
