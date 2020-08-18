@@ -26,6 +26,8 @@ public class Rapport {
 	private String projet;
 	private String demande;
 	private String objet;
+	private String avis;
+	
 	
 	@ManyToOne
 	private Qualification qualification;
@@ -41,7 +43,7 @@ public class Rapport {
 
 
 	public Rapport(Integer id, String titre, Utilisateur auteur, LocalDateTime date, String identifiant,
-			Integer version, String projet, String demande, String objet, Qualification qualification,
+			Integer version, String projet, String demande, String objet, String avis, Qualification qualification,
 			List<Image> images) {
 		super();
 		this.id = id;
@@ -53,6 +55,7 @@ public class Rapport {
 		this.projet = projet;
 		this.demande = demande;
 		this.objet = objet;
+		this.avis = avis;
 		this.qualification = qualification;
 		this.images = images;
 	}
@@ -145,6 +148,16 @@ public class Rapport {
 
 	public void setObjet(String objet) {
 		this.objet = objet;
+	}
+
+
+	public String getAvis() {
+		return avis;
+	}
+
+
+	public void setAvis(String avis) {
+		this.avis = avis;
 	}
 
 

@@ -42,6 +42,8 @@ public class RapportService implements IRapportService {
 		rapport.setProjet(formInitRapport.getProjet());
 		rapport.setTitre(formInitRapport.getTitre());
 		rapport.setVersion(formInitRapport.getVersion());
+		rapport.setAvis(formInitRapport.getAvis());
+		
 		
 		Integer numQualification = formInitRapport.getQualification();
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);

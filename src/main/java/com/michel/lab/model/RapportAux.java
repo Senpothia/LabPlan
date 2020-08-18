@@ -15,6 +15,7 @@ public class RapportAux {
 	private Integer qualification; 
 	private String objet;
 	private String projet;
+	private String avis;
 	
 	public RapportAux() {
 		super();
@@ -23,10 +24,8 @@ public class RapportAux {
 
 	
 	
-
-	
 	public RapportAux(Integer id, String titre, String auteur, String date, Integer version, String identifiant,
-			String demande, Integer qualification, String objet, String projet) {
+			String demande, Integer qualification, String objet, String projet, String avis) {
 		super();
 		this.id = id;
 		this.titre = titre;
@@ -38,7 +37,10 @@ public class RapportAux {
 		this.qualification = qualification;
 		this.objet = objet;
 		this.projet = projet;
+		this.avis = avis;
 	}
+
+
 
 
 	public RapportAux(Rapport rapport) {
@@ -62,6 +64,7 @@ public class RapportAux {
 		this.qualification = rapport.getQualification().getNumero();
 		this.objet = rapport.getObjet();
 		this.projet = rapport.getProjet();
+		this.avis = rapport.getAvis();
 		
 	}
 
@@ -157,6 +160,19 @@ public class RapportAux {
 	public void setProjet(String projet) {
 		this.projet = projet;
 	}
+
+
+
+	public String getAvis() {
+		return avis;
+	}
+
+
+
+	public void setAvis(String avis) {
+		this.avis = avis;
+	}
+	
 	
 
 }

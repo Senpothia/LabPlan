@@ -2,6 +2,7 @@ package com.michel.lab.model;
 
 public class Upload {
 	
+	private Integer id;
 	private String image;
 	private String avis;
 
