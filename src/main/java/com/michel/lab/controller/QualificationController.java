@@ -29,6 +29,7 @@ import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
 import com.michel.lab.model.FormSequence;
 import com.michel.lab.model.Groupe;
+import com.michel.lab.model.GroupeRapport;
 import com.michel.lab.model.Procedure;
 import com.michel.lab.model.ProcedureAux;
 import com.michel.lab.model.Qualification;
@@ -765,6 +766,25 @@ public class QualificationController {
 		
 		return echantillons;
 		
+	}
+	
+	@PostMapping("/private/rapport/data/enregistrer")
+	public void enregistrerDataRapport(@RequestBody GroupeRapport groupeRapport) {
+		
+		Integer idRapport = groupeRapport.getIdRapport();
+		System.out.println("Id rapport récupéré: " + idRapport);
+		Rapport rapport = rapportService.rapportParId(idRapport);
+		RapportAux rapportAux = groupeRapport.getRapport();
+		List<EssaiAux> essais  = groupeRapport.getEssais();
+		List<EchantillonAux> echantillons = groupeRapport.getEchantillons();
+		
+		rapport.setRapportAux(rapportAux);
+		rapport.setEchantillonsAux(echantillons);
+		rapport.setEssaiAux(essais);
+		
+		// rapportService.enregistrerDataRapport(rapport);
+		
+	
 	}
 
 }

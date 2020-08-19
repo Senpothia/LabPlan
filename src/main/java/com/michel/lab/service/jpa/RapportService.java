@@ -68,4 +68,16 @@ public class RapportService implements IRapportService {
 		return rapport;
 	}
 
+	public Rapport rapportParId(Integer idRapport) {
+		
+		Rapport rapport = rapportRepo.getOne(idRapport);
+		return rapport;
+	}
+
+	public void enregistrerDataRapport(Rapport rapport) {
+
+		rapportRepo.save(rapport);
+		
+	}
+
 }
