@@ -3,16 +3,31 @@ package com.michel.lab.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
 public class EssaiAux {
 	
+	@Id
+	@GeneratedValue
 	private Integer id;
+	private Integer idEssai;
 	private Integer numero;
 	private String nom;
 	private String version;
 	private String domaine;
 	private String statut;
 	private String resultat;
-	private List<SequenceAux> sequences; 
+	
+	@ManyToOne
+	private RapportAux rapportAux;
+	
+	@OneToMany(mappedBy = "essaiAux")
+	private List<SequenceAux> sequencesAux; 
 	
 	public EssaiAux() {
 		super();
@@ -20,23 +35,28 @@ public class EssaiAux {
 	}
 
 	
-	public EssaiAux(Integer id, Integer numero, String nom, String version, String domaine, String statut,
-			String resultat, List<SequenceAux> sequences) {
+	public EssaiAux(Integer id, Integer idEssai, Integer numero, String nom, String version, String domaine,
+			String statut, String resultat, RapportAux rapportAux, List<SequenceAux> sequencesAux) {
 		super();
 		this.id = id;
+		this.idEssai = idEssai;
 		this.numero = numero;
 		this.nom = nom;
 		this.version = version;
 		this.domaine = domaine;
 		this.statut = statut;
 		this.resultat = resultat;
-		this.sequences = sequences;
+		this.rapportAux = rapportAux;
+		this.sequencesAux = sequencesAux;
 	}
+
+
+
 
 
 	public EssaiAux(Essai essai){
 		
-		this.id = essai.getId();
+		this.idEssai = essai.getId();
 		this.numero = essai.getNumero();
 		this.nom = essai.getProcedure().getNom();
 		this.version = essai.getProcedure().getVersion();
@@ -72,19 +92,19 @@ public class EssaiAux {
 			
 		}
 		
-		this.sequences = sequencesAux;
+		this.sequencesAux = sequencesAux;
 		
 	}
 
 
 	public Integer getId() {
-		return id;
+		return idEssai;
 	}
 
 
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.idEssai = id;
 	}
 
 
@@ -161,12 +181,42 @@ public class EssaiAux {
 
 
 	public List<SequenceAux> getSequences() {
-		return sequences;
+		return sequencesAux;
 	}
 
 
 	public void setSequences(List<SequenceAux> sequences) {
-		this.sequences = sequences;
+		this.sequencesAux = sequences;
+	}
+
+
+	public Integer getIdEssai() {
+		return idEssai;
+	}
+
+
+	public void setIdEssai(Integer idEssai) {
+		this.idEssai = idEssai;
+	}
+
+
+	public RapportAux getRapportAux() {
+		return rapportAux;
+	}
+
+
+	public void setRapportAux(RapportAux rapportAux) {
+		this.rapportAux = rapportAux;
+	}
+
+
+	public List<SequenceAux> getSequencesAux() {
+		return sequencesAux;
+	}
+
+
+	public void setSequencesAux(List<SequenceAux> sequencesAux) {
+		this.sequencesAux = sequencesAux;
 	}
 
 

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Rapport {
@@ -15,6 +16,7 @@ public class Rapport {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
 	private String titre;
 	
 	@ManyToOne
@@ -27,6 +29,15 @@ public class Rapport {
 	private String demande;
 	private String objet;
 	private String avis;
+	
+	@OneToOne
+	private RapportAux rapportAux;
+	
+	@OneToMany(mappedBy = "rapport")
+	private List<EchantillonAux> echantillonsAux;
+	
+	@OneToMany(mappedBy = "rapportAux")
+	private List<EssaiAux> essaiAux;
 	
 	
 	@ManyToOne
@@ -42,8 +53,14 @@ public class Rapport {
 	}
 
 
+
+	
+
+
+
 	public Rapport(Integer id, String titre, Utilisateur auteur, LocalDateTime date, String identifiant,
-			Integer version, String projet, String demande, String objet, String avis, Qualification qualification,
+			Integer version, String projet, String demande, String objet, String avis, RapportAux rapportAux,
+			List<EchantillonAux> echantillonsAux, List<EssaiAux> essaiAux, Qualification qualification,
 			List<Image> images) {
 		super();
 		this.id = id;
@@ -56,9 +73,17 @@ public class Rapport {
 		this.demande = demande;
 		this.objet = objet;
 		this.avis = avis;
+		this.rapportAux = rapportAux;
+		this.echantillonsAux = echantillonsAux;
+		this.essaiAux = essaiAux;
 		this.qualification = qualification;
 		this.images = images;
 	}
+
+
+
+
+
 
 
 	public Integer getId() {
@@ -178,6 +203,42 @@ public class Rapport {
 
 	public void setImages(List<Image> images) {
 		this.images = images;
+	}
+
+
+
+	public RapportAux getRapportAux() {
+		return rapportAux;
+	}
+
+
+
+	public void setRapportAux(RapportAux rapportAux) {
+		this.rapportAux = rapportAux;
+	}
+
+
+
+	public List<EchantillonAux> getEchantillonsAux() {
+		return echantillonsAux;
+	}
+
+
+
+	public void setEchantillonsAux(List<EchantillonAux> echantillonsAux) {
+		this.echantillonsAux = echantillonsAux;
+	}
+
+
+
+	public List<EssaiAux> getEssaiAux() {
+		return essaiAux;
+	}
+
+
+
+	public void setEssaiAux(List<EssaiAux> essaiAux) {
+		this.essaiAux = essaiAux;
 	}
 
 

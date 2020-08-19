@@ -3,9 +3,19 @@ package com.michel.lab.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class RapportAux {
 	
+	@Id
+	@GeneratedValue
 	private Integer id;
+	private Integer idEssai;
 	private String titre;
 	private String auteur;
 	private String date;
@@ -17,6 +27,8 @@ public class RapportAux {
 	private String projet;
 	private String avis;
 	
+	
+	
 	public RapportAux() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -27,7 +39,7 @@ public class RapportAux {
 	public RapportAux(Integer id, String titre, String auteur, String date, Integer version, String identifiant,
 			String demande, Integer qualification, String objet, String projet, String avis) {
 		super();
-		this.id = id;
+		this.idEssai = id;
 		this.titre = titre;
 		this.auteur = auteur;
 		this.date = date;
@@ -45,7 +57,7 @@ public class RapportAux {
 
 	public RapportAux(Rapport rapport) {
 		
-		this.id = rapport.getId();
+		this.idEssai = rapport.getId();
 		this.titre = rapport.getTitre();
 		
 		Utilisateur user = rapport.getAuteur();
@@ -69,11 +81,11 @@ public class RapportAux {
 	}
 
 	public Integer getId() {
-		return id;
+		return idEssai;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.idEssai = id;
 	}
 
 	public String getTitre() {

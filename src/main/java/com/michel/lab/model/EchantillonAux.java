@@ -4,9 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class EchantillonAux {
 	
+	@Id
+	@GeneratedValue
 	private Integer id;
+	private Integer idEchantillon;
 	private Integer numero;
 	//private LocalDateTime date;
 	private String date;
@@ -17,7 +26,10 @@ public class EchantillonAux {
 	private boolean statut;			  // lié à actif
 	private Integer qualification;
 	private boolean selection;         // indicateur de sélection/présence dans la sequence de test
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	//private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	
+	@ManyToOne
+	private Rapport rapport;
 	
 	public EchantillonAux() {
 		super();
@@ -25,10 +37,14 @@ public class EchantillonAux {
 	}
 
 	
-	public EchantillonAux(Integer id, Integer numero, String date, String dateText, Integer version,
-			String caracteristique, String actif, boolean statut, Integer qualification, boolean selection) {
+
+
+	public EchantillonAux(Integer id, Integer idEchantillon, Integer numero, String date, String dateText,
+			Integer version, String caracteristique, String actif, boolean statut, Integer qualification,
+			boolean selection, Rapport rapport) {
 		super();
 		this.id = id;
+		this.idEchantillon = idEchantillon;
 		this.numero = numero;
 		this.date = date;
 		this.dateText = dateText;
@@ -38,14 +54,17 @@ public class EchantillonAux {
 		this.statut = statut;
 		this.qualification = qualification;
 		this.selection = selection;
+		this.rapport = rapport;
 	}
+
+
 
 
 	public EchantillonAux(Echantillon echantillon) {
 		
-		this.id = echantillon.getId();
+		this.idEchantillon = echantillon.getId();
 		this.numero = echantillon.getNumero();
-		this.date = echantillon.getDate().format(formatter);
+		this.date = echantillon.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		this.version = echantillon.getVersion();
 		this.caracteristique = echantillon.getCaracteristique();
 		
@@ -60,15 +79,14 @@ public class EchantillonAux {
 			this.statut = false;
 		}
 		
-		
 	}
 
 	public Integer getId() {
-		return id;
+		return idEchantillon;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.idEchantillon = id;
 	}
 
 	public Integer getNumero() {
@@ -145,7 +163,7 @@ public class EchantillonAux {
 			
 			Echantillon ech =  echantillons.get(i);
 			Integer idEch = ech.getId();
-			if (this.id == idEch) {
+			if (this.idEchantillon == idEch) {
 				
 				ok = true;
 				estSelectionne = true;
@@ -179,5 +197,42 @@ public class EchantillonAux {
 		this.dateText = dateText;
 	}
 
+
+	public Integer getIdEchantillon() {
+		return idEchantillon;
+	}
+
+
+	public void setIdEchantillon(Integer idEchantillon) {
+		this.idEchantillon = idEchantillon;
+	}
+
+
+
+
+	public Rapport getRapport() {
+		return rapport;
+	}
+
+
+
+
+	public void setRapport(Rapport rapport) {
+		this.rapport = rapport;
+	}
+
+/*
+	public DateTimeFormatter getFormatter() {
+		return formatter;
+	}
+
+
+
+	public void setFormatter(DateTimeFormatter formatter) {
+		this.formatter = formatter;
+	}
+
+*/
+	
 
 }

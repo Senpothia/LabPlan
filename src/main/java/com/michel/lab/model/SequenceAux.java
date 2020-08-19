@@ -3,9 +3,20 @@ package com.michel.lab.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.ManyToAny;
+
+@Entity
 public class SequenceAux {
 	
+	@Id
+	@GeneratedValue
 	private Integer id;
+	private Integer idSequence;
 	private String commentaire;
 	private LocalDateTime debut;
 	private String debutText;
@@ -26,18 +37,23 @@ public class SequenceAux {
 	private boolean resultat;
 	private String avis;            // ex: conforme, non conforme
 	
+	@ManyToOne
+	private EssaiAux essaiAux;
+	
 	public SequenceAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	
-	public SequenceAux(Integer id, String commentaire, LocalDateTime debut, String debutText, LocalDateTime fin,
-			String finText, long duree, String niveau, String nom, Integer numero, String profil, Integer essai,
-			String nomEssais, Integer domaine, String nomDomaine, boolean statut, String actif, Integer qualification,
-			boolean resultat, String avis) {
+	
+	public SequenceAux(Integer id, Integer idSequence, String commentaire, LocalDateTime debut, String debutText,
+			LocalDateTime fin, String finText, long duree, String niveau, String nom, Integer numero, String profil,
+			Integer essai, String nomEssais, Integer domaine, String nomDomaine, boolean statut, String actif,
+			Integer qualification, boolean resultat, String avis, EssaiAux essaiAux) {
 		super();
 		this.id = id;
+		this.idSequence = idSequence;
 		this.commentaire = commentaire;
 		this.debut = debut;
 		this.debutText = debutText;
@@ -57,11 +73,14 @@ public class SequenceAux {
 		this.qualification = qualification;
 		this.resultat = resultat;
 		this.avis = avis;
+		this.essaiAux = essaiAux;
 	}
+
+
 
 	public SequenceAux(Sequence sequence) {
 		
-		this.id = sequence.getId();
+		this.idSequence = sequence.getId();
 		this.commentaire = sequence.getCommentaire();
 		this.debut = sequence.getDebut();
 		this.debutText = sequence.getDebut().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -106,11 +125,11 @@ public class SequenceAux {
 	}
 
 	public Integer getId() {
-		return id;
+		return idSequence;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.idSequence = id;
 	}
 
 	public String getCommentaire() {
@@ -269,6 +288,30 @@ public class SequenceAux {
 
 	public void setDuree(long duree) {
 		this.duree = duree;
+	}
+
+
+
+	public Integer getIdSequence() {
+		return idSequence;
+	}
+
+
+
+	public void setIdSequence(Integer idSequence) {
+		this.idSequence = idSequence;
+	}
+
+
+
+	public EssaiAux getEssaiAux() {
+		return essaiAux;
+	}
+
+
+
+	public void setEssaiAux(EssaiAux essaiAux) {
+		this.essaiAux = essaiAux;
 	}
 
 	
