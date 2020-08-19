@@ -18,7 +18,7 @@ import com.michel.lab.security.JWTGenerator;
 import com.michel.lab.service.jpa.UserService;
 
 @RestController
-@RequestMapping("/lab-service/")
+//@RequestMapping("/lab-service/")
 public class TokenController {
 	
 	@Autowired
