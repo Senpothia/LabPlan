@@ -2,6 +2,7 @@ package com.michel.lab.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,8 @@ public class RapportAux {
 	private String projet;
 	private String avis;
 	
-	
+	@OneToMany(mappedBy = "rapportAux")
+	private List<EssaiAux> essaisAux;
 	
 	public RapportAux() {
 		super();
@@ -35,11 +37,12 @@ public class RapportAux {
 	}
 
 	
-	
-	public RapportAux(Integer id, String titre, String auteur, String date, Integer version, String identifiant,
-			String demande, Integer qualification, String objet, String projet, String avis) {
+	public RapportAux(Integer id, Integer idEssai, String titre, String auteur, String date, Integer version,
+			String identifiant, String demande, Integer qualification, String objet, String projet, String avis,
+			List<EssaiAux> essaisAux) {
 		super();
-		this.idEssai = id;
+		this.id = id;
+		this.idEssai = idEssai;
 		this.titre = titre;
 		this.auteur = auteur;
 		this.date = date;
@@ -50,9 +53,8 @@ public class RapportAux {
 		this.objet = objet;
 		this.projet = projet;
 		this.avis = avis;
+		this.essaisAux = essaisAux;
 	}
-
-
 
 
 	public RapportAux(Rapport rapport) {
@@ -137,14 +139,9 @@ public class RapportAux {
 	}
 
 
-
-
 	public Integer getQualification() {
 		return qualification;
 	}
-
-
-
 
 	public void setQualification(Integer qualification) {
 		this.qualification = qualification;
@@ -160,10 +157,6 @@ public class RapportAux {
 		this.objet = objet;
 	}
 
-
-
-
-
 	public String getProjet() {
 		return projet;
 	}
@@ -173,16 +166,30 @@ public class RapportAux {
 		this.projet = projet;
 	}
 
-
-
 	public String getAvis() {
 		return avis;
 	}
 
-
-
 	public void setAvis(String avis) {
 		this.avis = avis;
+	}
+
+	public Integer getIdEssai() {
+		return idEssai;
+	}
+
+
+	public void setIdEssai(Integer idEssai) {
+		this.idEssai = idEssai;
+	}
+
+	public List<EssaiAux> getEssaisAux() {
+		return essaisAux;
+	}
+
+
+	public void setEssaisAux(List<EssaiAux> essaisAux) {
+		this.essaisAux = essaisAux;
 	}
 	
 	

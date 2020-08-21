@@ -41,11 +41,14 @@ import com.michel.lab.model.SequenceAux;
 import com.michel.lab.model.Utilisateur;
 import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.service.jpa.DomaineService;
+import com.michel.lab.service.jpa.EchantillonAuxService;
 import com.michel.lab.service.jpa.EchantillonService;
 import com.michel.lab.service.jpa.EssaiService;
 import com.michel.lab.service.jpa.ProcedureService;
 import com.michel.lab.service.jpa.QualificationService;
+import com.michel.lab.service.jpa.RapportAuxService;
 import com.michel.lab.service.jpa.RapportService;
+import com.michel.lab.service.jpa.SequenceAuxService;
 import com.michel.lab.service.jpa.SequenceService;
 import com.michel.lab.service.jpa.UserService;
 
@@ -76,6 +79,16 @@ public class QualificationController {
 	
 	@Autowired
 	RapportService rapportService;
+	
+	@Autowired
+	RapportAuxService rapportAuxService;
+	
+	@Autowired
+	EchantillonAuxService echantillonAuxService;
+	
+	@Autowired
+	SequenceAuxService sequenceAuxService;
+
 
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:MM");
 
@@ -774,15 +787,38 @@ public class QualificationController {
 		Integer idRapport = groupeRapport.getIdRapport();
 		System.out.println("Id rapport récupéré: " + idRapport);
 		Rapport rapport = rapportService.rapportParId(idRapport);
+		System.out.println("Titre du rapport: " + rapport.getTitre());
 		RapportAux rapportAux = groupeRapport.getRapport();
 		List<EssaiAux> essais  = groupeRapport.getEssais();
 		List<EchantillonAux> echantillons = groupeRapport.getEchantillons();
 		
 		rapport.setRapportAux(rapportAux);
-		rapport.setEchantillonsAux(echantillons);
-		rapport.setEssaiAux(essais);
 		
-		// rapportService.enregistrerDataRapport(rapport);
+	//	rapport.setEchantillonsAux(echantillons);
+	//	rapport.setEssaiAux(essais);
+		
+		for(EchantillonAux e: echantillons) {
+			
+			e.setRapport(rapport);
+			echantillons.add(e);
+		}
+		
+		for (EssaiAux es: essais) {
+			
+			List<SequenceAux> seqs = es.getSequences();
+			
+			for (SequenceAux s: seqs) {
+				
+				s.setEssaiAux(es);
+				sequenceAuxService.enregistrerSequenceAux(s);
+				
+			}
+			
+			
+		}
+		rapportAuxService.enregistrerRapportAux(rapportAux);
+		echantillonAuxService.enregistrerListeEchantillonAux(echantillons);
+		rapportService.enregistrerDataRapport(rapport);
 		
 	
 	}

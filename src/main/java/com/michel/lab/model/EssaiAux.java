@@ -51,9 +51,6 @@ public class EssaiAux {
 	}
 
 
-
-
-
 	public EssaiAux(Essai essai){
 		
 		this.idEssai = essai.getId();

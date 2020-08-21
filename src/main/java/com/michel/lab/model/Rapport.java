@@ -37,7 +37,7 @@ public class Rapport {
 	private List<EchantillonAux> echantillonsAux;
 	
 	@OneToMany(mappedBy = "rapportAux")
-	private List<EssaiAux> essaiAux;
+	private List<EssaiAux> essaisAux;
 	
 	
 	@ManyToOne
@@ -51,11 +51,6 @@ public class Rapport {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
-
-	
-
 
 
 	public Rapport(Integer id, String titre, Utilisateur auteur, LocalDateTime date, String identifiant,
@@ -75,7 +70,7 @@ public class Rapport {
 		this.avis = avis;
 		this.rapportAux = rapportAux;
 		this.echantillonsAux = echantillonsAux;
-		this.essaiAux = essaiAux;
+		this.essaisAux = essaiAux;
 		this.qualification = qualification;
 		this.images = images;
 	}
@@ -231,14 +226,14 @@ public class Rapport {
 
 
 
-	public List<EssaiAux> getEssaiAux() {
-		return essaiAux;
+	public List<EssaiAux> getEssaisAux() {
+		return essaisAux;
 	}
 
 
 
-	public void setEssaiAux(List<EssaiAux> essaiAux) {
-		this.essaiAux = essaiAux;
+	public void setEssaisAux(List<EssaiAux> essaiAux) {
+		this.essaisAux = essaiAux;
 	}
 
 
