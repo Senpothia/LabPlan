@@ -353,7 +353,7 @@ public class QualificationController {
 		return echantillonsAux;
 	}
 
-	@GetMapping("/private/echantillon/voir")
+	@GetMapping("/private/echantillon/voir")  // modifier vers 2 pour test! 
 	public List<EchantillonAux> obtenirEchantillonsParQualification2(@RequestParam(name = "id") Integer id) {
 
 		List<Echantillon> echantillons = echantillonService.obtenirEchantillonParQualification(id);
@@ -364,6 +364,7 @@ public class QualificationController {
 			EchantillonAux echantillonAux = new EchantillonAux(ech);
 			echantillonsAux.add(echantillonAux);
 		}
+		
 		return echantillonsAux;
 
 	}
@@ -725,7 +726,7 @@ public class QualificationController {
 		System.out.println("Date du rapport récupérée: " + formInitRapport.getDate());
 		System.out.println("Objet du rapport récupérée: " + formInitRapport.getObjet());
 		
-		rapportService.enregistrerRapport(formInitRapport);
+		rapportService.enregistrerRapport2(formInitRapport);
 	}
 	
 	@GetMapping("/private/rapport/liste/{num}")

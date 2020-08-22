@@ -83,11 +83,11 @@ public class RapportAux {
 	}
 
 	public Integer getId() {
-		return idEssai;
+		return id;
 	}
 
 	public void setId(Integer id) {
-		this.idEssai = id;
+		this.id = id;
 	}
 
 	public String getTitre() {

@@ -38,6 +38,9 @@ public class RapportService implements IRapportService {
 
 	@Autowired
 	RapportAuxService rapportAuxService;
+	
+	@Autowired
+	RapportService rapportService;
 
 	@Autowired
 	EchantillonService echantillonService;
@@ -71,6 +74,8 @@ public class RapportService implements IRapportService {
 		rapport.setObjet(formInitRapport.getObjet());
 		rapport.setProjet(formInitRapport.getProjet());
 		rapport.setTitre(formInitRapport.getTitre());
+		
+		System.out.println("Version dans formulaire: "+ formInitRapport.getVersion());
 		rapport.setVersion(formInitRapport.getVersion());
 		rapport.setAvis(formInitRapport.getAvis());
 
@@ -90,7 +95,9 @@ public class RapportService implements IRapportService {
 		
 		rapportRepo.save(rapport);
 		rapportAuxService.enregistrerRapportAux(rapportAux);
-
+		
+		System.out.println("Version du rapportAux: " + rapportAux.getVersion());
+		
 		rapport.setRapportAux(rapportAux);
 		rapportRepo.save(rapport);
 
@@ -108,12 +115,21 @@ public class RapportService implements IRapportService {
 		// rapport.setEchantillonsAux(listeEchantillonsAux);
 
 		List<EssaiAux> essaisAux = essaiService.obtenirEssaisParQualification(numQualification);
-
+		
+		System.out.println("Taille liste d'essais récupérée en base: " + essaisAux.size());
+		
 		for (EssaiAux e : essaisAux) {
+			
+			EssaiAux essaiAuxRapport = e;  // copie de l'essai de qualif
+			RapportAux esRapportAux = rapportAux;  
+			essaiAuxRapport.setRapportAux(esRapportAux);
 
-			e.setRapportAux(rapportAux);
-
-			essaiAuxService.enregistrerEssaiAux(e);
+			essaiAuxService.enregistrerEssaiAux(essaiAuxRapport);
+			
+			List<SequenceAux> seqs =  e.getSequencesAux();
+			
+			System.out.println("Taille liste sequencesAux: " + seqs.size());
+			
 			/*
 			 * 
 			 * Integer id = e.getId(); Essai essai = essaiService.obtenirEssaiParId(id);
@@ -131,9 +147,16 @@ public class RapportService implements IRapportService {
 			 */
 		}
 		
-		System.out.println("id rapportAux: " + rapportAux.getId());
-		List<EssaiAux> listeEssaisAux = rapportAux.getEssaisAux();
+		System.out.println("Version rapport avant recherche en base: " + rapport.getVersion());
+		RapportAux rapAux = rapportAuxService.obtenirRapportParVersion(rapport.getVersion());
+		
+		
+		System.out.println("id rapportAux: " + rapAux.getId());
+		
+		
+		List<EssaiAux> listeEssaisAux = rapAux.getEssaisAux();
 		System.out.println("taille liste d'essai dans rapport: " + listeEssaisAux.size());
+		
 		/*
 		int i = 0;
 		for (EssaiAux es : essaisAux) {
@@ -161,6 +184,108 @@ public class RapportService implements IRapportService {
 	////////////////////////////////////////////////////////////
 	
 	
+	@Override
+	public void enregistrerRapport2(FormInitRapport formInitRapport) {
+
+		Rapport rapport = new Rapport();
+		Integer idAuteur = formInitRapport.getAuteur();
+
+		Utilisateur auteur = userService.obtenirUser(idAuteur);
+
+		rapport.setAuteur(auteur);
+		rapport.setDemande(formInitRapport.getDemande());
+		rapport.setIdentifiant(formInitRapport.getIdentifiant());
+		rapport.setObjet(formInitRapport.getObjet());
+		rapport.setProjet(formInitRapport.getProjet());
+		rapport.setTitre(formInitRapport.getTitre());
+		
+		System.out.println("Version dans formulaire: "+ formInitRapport.getVersion());
+		rapport.setVersion(formInitRapport.getVersion());
+		rapport.setAvis(formInitRapport.getAvis());
+
+		Integer numQualification = formInitRapport.getQualification();
+		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
+
+		rapport.setQualification(qualification);
+		String date = formInitRapport.getDate() + " " + "00:00 AM";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+
+		LocalDateTime dateConvertie = LocalDateTime.parse(date, formatter);
+
+		System.out.println("date convertie: " + dateConvertie);
+		rapport.setDate(dateConvertie);
+
+		RapportAux rapportAux = new RapportAux(rapport);
+		
+		rapportRepo.save(rapport);
+		
+		
+		//rapport.setDate(dateConvertie);
+
+		//RapportAux rapportAux = new RapportAux(rapport);
+		
+		//rapportRepo.save(rapport);
+		rapportAuxService.enregistrerRapportAux(rapportAux);
+		
+		System.out.println("Version du rapportAux: " + rapportAux.getVersion());
+		
+		rapport.setRapportAux(rapportAux);
+		rapportRepo.save(rapport);
+		
+		List<EchantillonAux> echantillons = echantillonService.obtenirEchantillonParQualificationEnAux(numQualification);
+		
+		
+		for (EchantillonAux e: echantillons) {
+			
+			EchantillonAux echCopie = e;
+			echCopie.setRapport(rapport);
+			echantillonAuxService.enregistrerEchantillonAux(echCopie);
+		}
+		
+		
+		List<EssaiAux> essais = essaiService.obtenirEssaisParQualification(numQualification);
+		System.out.println("taille liste essai originel: " + essais.size());
+		List<EssaiAux> listeEssaiCopie = new ArrayList<EssaiAux>();
+		
+		for (EssaiAux es: essais) {
+			
+			EssaiAux esCopie = new EssaiAux();
+			esCopie = es;
+			esCopie.setRapportAux(rapportAux);
+			essaiAuxService.enregistrerEssaiAux(esCopie);
+			listeEssaiCopie.add(esCopie);
+		}
+		
+		System.out.println("taille de la liste copie essais: " + listeEssaiCopie.size());
+		
+		
+		for (EssaiAux es: listeEssaiCopie) {
+			
+			
+			Integer idEssai = es.getIdEssai();
+			Essai essai = essaiService.obtenirEssaiParId(idEssai);
+			System.out.println("id essai originel: " + essai.getId());
+			List<Sequence> seqs = essai.getSequences();
+			System.out.println("taille de la liste de sequence: " + seqs.size());
+			
+			
+			for (Sequence s: seqs) {
+				
+				SequenceAux seqAux = new SequenceAux(s);
+				//seqAux.setEssaiAux(es);
+				System.out.println(seqAux.toString());
+				sequenceAuxService.enregistrerSequenceAux(seqAux);
+				
+			}
+			
+		}
+		
+		
+	}
+
+	
+	////////////////////////////////////////////////////////////
+	
 	public RapportAux obtenirRapportParId(Integer idRapport) {
 
 		Rapport rap = rapportRepo.getOne(idRapport);
@@ -179,5 +304,7 @@ public class RapportService implements IRapportService {
 		rapportRepo.save(rapport);
 
 	}
+	
+
 
 }

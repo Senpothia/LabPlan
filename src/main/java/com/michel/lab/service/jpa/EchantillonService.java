@@ -90,6 +90,22 @@ public class EchantillonService implements IEchantillonService{
 		return listeEchantillons;
 	}
 
+	public List<EchantillonAux> obtenirEchantillonParQualificationEnAux(Integer numQualification) {
+		
+		Qualification qualification = qualificationRepo.findByNumero(numQualification);
+		List<Echantillon> echantillons = qualification.getEchantillons();
+		List<EchantillonAux> listeEchantillonsAux = new ArrayList<EchantillonAux>();
+		
+		for (Echantillon e: echantillons) {
+			
+			EchantillonAux echAux = new EchantillonAux(e);
+			listeEchantillonsAux.add(echAux);
+			
+		}
+		return listeEchantillonsAux;
+		
+	}
+
 	
 
 }

@@ -29,6 +29,7 @@ public class EssaiAux {
 	@OneToMany(mappedBy = "essaiAux")
 	private List<SequenceAux> sequencesAux; 
 	
+	
 	public EssaiAux() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -3,6 +3,7 @@ package com.michel.lab.service.jpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.michel.lab.model.Rapport;
 import com.michel.lab.model.RapportAux;
 import com.michel.lab.repository.RapportAuxRepo;
 import com.michel.lab.service.IRapportAuxService;
@@ -20,5 +21,16 @@ public class RapportAuxService implements IRapportAuxService{
 		
 		
 	}
+
+
+	public RapportAux obtenirRapportParVersion(Integer version) {
+
+		RapportAux rapportAux = rapportAuxRepo.findByVersion(version);
+		
+		return rapportAux;
+	}
+
+
+	
 
 }
