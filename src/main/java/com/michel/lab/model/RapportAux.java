@@ -59,7 +59,7 @@ public class RapportAux {
 
 	public RapportAux(Rapport rapport) {
 		
-		this.idEssai = rapport.getId();
+		this.id= rapport.getId();
 		this.titre = rapport.getTitre();
 		
 		Utilisateur user = rapport.getAuteur();
