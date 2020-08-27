@@ -13,38 +13,64 @@ import com.michel.lab.service.IDomaineService;
 import com.michel.lab.service.IQualificationService;
 
 @Service
-public class DomaineService implements IDomaineService{
+public class DomaineService implements IDomaineService {
 
 	@Autowired
 	DomaineRepo domaineRepo;
-	
+
 	@Override
 	public void ajouterDomaine(Domaine domaine) {
-		
+
+		System.out.println("Méthode ajouterDomaine");
+
 		List<Domaine> domaines = domaineRepo.findAll();
-		for (Domaine dom : domaines) {
-			
-			if (dom.getNom().equals(domaine.getNom())) {
-				
-				System.out.println("Le domaine existe déjà");
-				
-			} else {
-				
-				domaineRepo.save(domaine);
-			}
-		}
+
+		System.out.println("nom domaine récupéré:" + domaine.getNom());
+		System.out.println("Taille liste des domaines récupérée: " + domaines.size());
 		
+		if (domaines.size() != 0) {
+
+			for (Domaine dom : domaines) {
+
+				System.out.println("nom domaine dom:" + dom.getNom());
+
+				if (domaines.size() != 0) {
+
+					if (dom.getNom().equals(domaine.getNom())) {
+
+						System.out.println("Le domaine existe déjà");
+
+					} else {
+
+						System.out.println("Enregistrement du domaine");
+						domaineRepo.save(domaine);
+					}
+
+				} else {
+
+					System.out.println("Enregistrement du domaine");
+					domaineRepo.save(domaine);
+				}
+
+			}
+
+		} else {
+			
+			System.out.println("Enregistrement du domaine quand taille liste domaine = 0");
+			domaineRepo.save(domaine);
+		}
+
 	}
 
 	@Override
 	public void modifierDomaine(Domaine domaine) {
-		
+
 		domaineRepo.save(domaine);
-		
+
 	}
 
 	public List<Domaine> obtenirDomaine(String nomDomaine) {
-		
+
 		List<Domaine> domaines = domaineRepo.findByNom(nomDomaine);
 		return domaines;
 	}
@@ -52,7 +78,7 @@ public class DomaineService implements IDomaineService{
 	@Override
 	public List<Domaine> TousLesDomaines() {
 		List<Domaine> domaines = domaineRepo.findAll();
-		
+
 		return domaines;
 	}
 
@@ -60,16 +86,14 @@ public class DomaineService implements IDomaineService{
 	public List<String> tousLesNomsDomaines() {
 		List<Domaine> domaines = domaineRepo.findAll();
 		List<String> nomsDomaines = new ArrayList<String>();
-		
-		for (Domaine dom: domaines) {
-			
+
+		for (Domaine dom : domaines) {
+
 			nomsDomaines.add(dom.getNom());
-			
+
 		}
-		
+
 		return nomsDomaines;
 	}
-	
-	
 
 }

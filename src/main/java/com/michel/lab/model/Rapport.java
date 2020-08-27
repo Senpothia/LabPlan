@@ -12,16 +12,16 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Rapport {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
-	
+
 	private String titre;
-	
+
 	@ManyToOne
 	private Utilisateur auteur;
-	
+
 	private LocalDateTime date;
 	private String identifiant; // exemple : R10-15
 	private Integer version;
@@ -29,34 +29,27 @@ public class Rapport {
 	private String demande;
 	private String objet;
 	private String avis;
-	
-	@OneToOne
+
+	@OneToOne 
 	private RapportAux rapportAux;
-	
+
 	@OneToMany(mappedBy = "rapport")
 	private List<EchantillonAux> echantillonsAux;
-	
-	@OneToMany(mappedBy = "rapportAux")
-	private List<EssaiAux> essaisAux;
-	
-	
+
 	@ManyToOne
 	private Qualification qualification;
-	
-	@OneToMany(mappedBy = "rapport")
-	private List<Image> images; 
 
-	
+	@OneToMany(mappedBy = "rapport")
+	private List<Image> images;
+
 	public Rapport() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
 	public Rapport(Integer id, String titre, Utilisateur auteur, LocalDateTime date, String identifiant,
 			Integer version, String projet, String demande, String objet, String avis, RapportAux rapportAux,
-			List<EchantillonAux> echantillonsAux, List<EssaiAux> essaiAux, Qualification qualification,
-			List<Image> images) {
+			List<EchantillonAux> echantillonsAux, Qualification qualification, List<Image> images) {
 		super();
 		this.id = id;
 		this.titre = titre;
@@ -70,171 +63,120 @@ public class Rapport {
 		this.avis = avis;
 		this.rapportAux = rapportAux;
 		this.echantillonsAux = echantillonsAux;
-		this.essaisAux = essaiAux;
 		this.qualification = qualification;
 		this.images = images;
 	}
-
-
-
-
-
-
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public String getTitre() {
 		return titre;
 	}
 
-
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
-
 
 	public Utilisateur getAuteur() {
 		return auteur;
 	}
 
-
 	public void setAuteur(Utilisateur auteur) {
 		this.auteur = auteur;
 	}
-
 
 	public LocalDateTime getDate() {
 		return date;
 	}
 
-
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-
 
 	public String getIdentifiant() {
 		return identifiant;
 	}
 
-
 	public void setIdentifiant(String identifiant) {
 		this.identifiant = identifiant;
 	}
-
 
 	public Integer getVersion() {
 		return version;
 	}
 
-
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-
 
 	public String getProjet() {
 		return projet;
 	}
 
-
 	public void setProjet(String projet) {
 		this.projet = projet;
 	}
-
 
 	public String getDemande() {
 		return demande;
 	}
 
-
 	public void setDemande(String demande) {
 		this.demande = demande;
 	}
-
 
 	public String getObjet() {
 		return objet;
 	}
 
-
 	public void setObjet(String objet) {
 		this.objet = objet;
 	}
-
 
 	public String getAvis() {
 		return avis;
 	}
 
-
 	public void setAvis(String avis) {
 		this.avis = avis;
 	}
-
 
 	public Qualification getQualification() {
 		return qualification;
 	}
 
-
 	public void setQualification(Qualification qualification) {
 		this.qualification = qualification;
 	}
-
 
 	public List<Image> getImages() {
 		return images;
 	}
 
-
 	public void setImages(List<Image> images) {
 		this.images = images;
 	}
-
-
 
 	public RapportAux getRapportAux() {
 		return rapportAux;
 	}
 
-
-
 	public void setRapportAux(RapportAux rapportAux) {
 		this.rapportAux = rapportAux;
 	}
-
-
 
 	public List<EchantillonAux> getEchantillonsAux() {
 		return echantillonsAux;
 	}
 
-
-
 	public void setEchantillonsAux(List<EchantillonAux> echantillonsAux) {
 		this.echantillonsAux = echantillonsAux;
 	}
-
-
-
-	public List<EssaiAux> getEssaisAux() {
-		return essaisAux;
-	}
-
-
-
-	public void setEssaisAux(List<EssaiAux> essaiAux) {
-		this.essaisAux = essaiAux;
-	}
-
 
 }

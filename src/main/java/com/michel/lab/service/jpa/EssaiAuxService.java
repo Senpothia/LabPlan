@@ -25,6 +25,18 @@ public class EssaiAuxService implements IEssaiAuxService{
 		
 	}
 
+	public void supprimerEssaiAux(EssaiAux e) {
+
+		essaiAuxRepo.delete(e);
+		
+	}
+
+	public List<EssaiAux> obtenirEssaisParIndex(Integer index) {
+		 List<EssaiAux> essais = essaiAuxRepo.findByIndex(index);
+		
+		return essais;
+	}
+
 	
 
 }

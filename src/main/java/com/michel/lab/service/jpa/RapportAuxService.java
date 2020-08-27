@@ -31,6 +31,17 @@ public class RapportAuxService implements IRapportAuxService{
 	}
 
 
+	public RapportAux obtenirRapportParId(Integer idRapport) {
+
+		RapportAux rapportAux = rapportAuxRepo.getOne(idRapport);
+		
+		return rapportAux;
+	}
+
+
+	
+
+
 	
 
 }

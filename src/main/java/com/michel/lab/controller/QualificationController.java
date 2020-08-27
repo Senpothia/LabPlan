@@ -43,6 +43,7 @@ import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.service.jpa.DomaineService;
 import com.michel.lab.service.jpa.EchantillonAuxService;
 import com.michel.lab.service.jpa.EchantillonService;
+import com.michel.lab.service.jpa.EssaiAuxService;
 import com.michel.lab.service.jpa.EssaiService;
 import com.michel.lab.service.jpa.ProcedureService;
 import com.michel.lab.service.jpa.QualificationService;
@@ -88,6 +89,9 @@ public class QualificationController {
 	
 	@Autowired
 	SequenceAuxService sequenceAuxService;
+	
+	@Autowired
+	EssaiAuxService essaiAuxService;
 
 
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:MM");
@@ -135,15 +139,20 @@ public class QualificationController {
 		System.out.println("nom du domaine récupéré: " + nomDomaine);
 
 		List<Domaine> domaines = domaineService.obtenirDomaine(nomDomaine);
-		if (domaines.isEmpty()) {
+		
+		System.out.println("Taille liste des domaines: " + domaines.size());
+		
+		
+		if (domaines.isEmpty() || domaines == null) {
 
 			System.out.println("Liste domaines vides");
 			Domaine domaine = new Domaine();
 			domaine.setNom(formProcedure.getDomaine());
+			domaineService.ajouterDomaine(domaine);
 			procedure.setDomaine(domaine);
 			domaineService.ajouterDomaine(domaine);
 			procedureService.ajouterProcedure(procedure);
-
+	
 		} else {
 
 			System.out.println("taille domaines: " + domaines.size());
@@ -155,7 +164,7 @@ public class QualificationController {
 			procedureService.ajouterProcedure(procedure);
 
 		}
-
+	
 	}
 
 	@GetMapping("/private/domaines") // récupération de la liste des domaines
@@ -823,5 +832,37 @@ public class QualificationController {
 		
 	
 	}
-
+	
+	@GetMapping("/private/rapport/supprimer/{id}")
+	public void supprimerRapportsParId(@PathVariable ("id") Integer idRapport) {
+		
+	
+		Rapport rapport = rapportService.rapportParId(idRapport);
+		System.out.println("id du rapport:" + rapport.getId());
+		RapportAux rapportAux = rapport.getRapportAux();
+		System.out.println("id du rapportAux:" + rapportAux.getId());
+		
+		List<EssaiAux> essaisAux = rapportAux.getEssaisAux();
+		System.out.println("taille liste essaiAux: " + essaisAux.size());
+		
+		for (EssaiAux e: essaisAux) {
+			
+			System.out.println("id essai en cours: " + e.getId());
+			List<SequenceAux> sequencesAux = e.getSequences();
+			System.out.println("Taille originelle liste seq:" + sequencesAux.size());
+			
+			for (SequenceAux s: sequencesAux) {
+				
+				sequenceAuxService.supprimerSequenceAux(s);
+				
+			}
+			
+			System.out.println("Taille finale liste seq:" + sequencesAux.size());
+			
+			essaiAuxService.supprimerEssaiAux(e);
+		}
+		
+		
+		
+	}
 }

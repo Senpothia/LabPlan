@@ -15,7 +15,7 @@ public class EssaiAux {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	private Integer idEssai;
+	private Integer idEssai;  // identifiant de l'entité Essai originelle
 	private Integer numero;
 	private String nom;
 	private String version;
@@ -26,15 +26,18 @@ public class EssaiAux {
 	@ManyToOne
 	private RapportAux rapportAux;
 	
+	
 	@OneToMany(mappedBy = "essaiAux")
 	private List<SequenceAux> sequencesAux; 
 	
 	
+
 	public EssaiAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	
 	public EssaiAux(Integer id, Integer idEssai, Integer numero, String nom, String version, String domaine,
 			String statut, String resultat, RapportAux rapportAux, List<SequenceAux> sequencesAux) {
@@ -50,6 +53,7 @@ public class EssaiAux {
 		this.rapportAux = rapportAux;
 		this.sequencesAux = sequencesAux;
 	}
+
 
 
 	public EssaiAux(Essai essai){
@@ -98,12 +102,14 @@ public class EssaiAux {
 	public Integer getId() {
 		return idEssai;
 	}
-
-
-
+	
 	public void setId(Integer id) {
 		this.idEssai = id;
 	}
+
+
+
+	
 
 
 
@@ -198,14 +204,39 @@ public class EssaiAux {
 	}
 
 
+	
+
+
+
+
+
+
 	public RapportAux getRapportAux() {
 		return rapportAux;
 	}
 
 
+
+
+
+
+
+
+
+
+
 	public void setRapportAux(RapportAux rapportAux) {
 		this.rapportAux = rapportAux;
 	}
+
+
+
+
+
+
+
+
+
 
 
 	public List<SequenceAux> getSequencesAux() {
@@ -217,5 +248,14 @@ public class EssaiAux {
 		this.sequencesAux = sequencesAux;
 	}
 
+	public void setIndex(Integer id) {
+		this.id = id;
+	}
 
+	public Integer getIndex() {
+		return id;
+	}
+	
+
+	
 }

@@ -4,14 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-@Entity
-public class RapportAux {
+public class RapportEnr {
 	
 	@Id
 	@GeneratedValue
@@ -35,7 +33,7 @@ public class RapportAux {
 	@OneToMany(mappedBy = "rapportAux")
 	private List<EssaiAux> essaisAux;
 	
-	public RapportAux() {
+	public RapportEnr() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -44,7 +42,7 @@ public class RapportAux {
 	
 
 
-	public RapportAux(Integer index, Integer id, Integer idEssai, String titre, String auteur, String date,
+	public RapportEnr(Integer index, Integer id, Integer idEssai, String titre, String auteur, String date,
 			Integer version, String identifiant, String demande, Integer qualification, String objet, String projet,
 			String avis, Rapport rapport, List<EssaiAux> essaisAux) {
 		super();
@@ -69,7 +67,7 @@ public class RapportAux {
 
 
 
-	public RapportAux(Rapport rapport) {
+	public RapportEnr(Rapport rapport) {
 		
 		this.id= rapport.getId();
 		this.titre = rapport.getTitre();

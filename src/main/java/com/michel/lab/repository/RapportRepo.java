@@ -6,4 +6,6 @@ import com.michel.lab.model.Rapport;
 
 public interface RapportRepo extends JpaRepository<Rapport, Integer> {
 
+	Rapport findByVersion(Integer version);
+
 }

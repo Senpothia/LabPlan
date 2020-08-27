@@ -19,4 +19,10 @@ public class SequenceAuxService implements ISequenceAuxService{
 		
 	}
 
+	public void supprimerSequenceAux(SequenceAux s) {
+
+		sequenceAuxRepo.delete(s);
+		
+	}
+
 }

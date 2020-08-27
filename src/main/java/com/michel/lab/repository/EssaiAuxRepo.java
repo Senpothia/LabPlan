@@ -11,7 +11,7 @@ import com.michel.lab.model.RapportAux;
 
 public interface EssaiAuxRepo extends JpaRepository<EssaiAux, Integer>{
 
+	List<EssaiAux> findByIndex(Integer index);
 
-	
 
 }

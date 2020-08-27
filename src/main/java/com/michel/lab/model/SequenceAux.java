@@ -40,6 +40,7 @@ public class SequenceAux {
 	@ManyToOne
 	private EssaiAux essaiAux;
 	
+	
 	public SequenceAux() {
 		super();
 		// TODO Auto-generated constructor stub
