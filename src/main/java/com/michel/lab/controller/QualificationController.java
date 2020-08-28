@@ -121,15 +121,20 @@ public class QualificationController {
 		System.out.println("nom du domaine récupéré: " + nomDomaine);
 
 		List<Domaine> domaines = domaineService.obtenirDomaine(nomDomaine);
-		if (domaines.isEmpty()) {
+		
+		System.out.println("Taille liste des domaines: " + domaines.size());
+		
+		
+		if (domaines.isEmpty() || domaines == null) {
 
 			System.out.println("Liste domaines vides");
 			Domaine domaine = new Domaine();
 			domaine.setNom(formProcedure.getDomaine());
+			domaineService.ajouterDomaine(domaine);
 			procedure.setDomaine(domaine);
 			domaineService.ajouterDomaine(domaine);
 			procedureService.ajouterProcedure(procedure);
-
+	
 		} else {
 
 			System.out.println("taille domaines: " + domaines.size());
@@ -764,6 +769,27 @@ public class QualificationController {
 		List<EchantillonAux> echantillons = echantillonService.obtenirEchantillonParQualificationId(qualification);
 		
 		return echantillons;
+		
+	}
+	
+	@PostMapping("/private/rapport/version/enregistrer")
+	public void enregistrerVersionRapport(@RequestBody RapportAux rapport) {
+		
+		System.out.println("Titre rapport: " + rapport.getTitre());
+		
+	}
+	
+	@PostMapping("/private/echantillons/version/enregistrer")
+	public void enregistrerVersionEchantillons(@RequestBody List<EchantillonAux> echantillons){
+		
+		System.out.println("Taille liste d'echantillons: " + echantillons.size());
+		
+	}
+	
+	@PostMapping("/private/essais/version/enregistrer")
+	public void enregistrerVersionEssais(@RequestBody List<EssaiAux> essais){
+		
+		System.out.println("Taille liste des essais: " + essais.size());
 		
 	}
 
