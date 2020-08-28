@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class RapportAux {
 	
-	private Integer id;
+	private Integer id;  // identifiant du Rapport associé à ce RapportAux
 	private String titre;
 	private String auteur;
 	private String date;

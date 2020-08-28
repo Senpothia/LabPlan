@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class SequenceAux {
 	
-	private Integer id;
+	private Integer id;    // identifiant de la Sequence associée à cette SequenceAux
 	private String commentaire;
 	private LocalDateTime debut;
 	private String debutText;

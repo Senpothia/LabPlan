@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EssaiAux {
 	
-	private Integer id;
+	private Integer id;  // identifiant de l'Essai associé à cette EssaiAux
 	private Integer numero;
 	private String nom;
 	private String version;
