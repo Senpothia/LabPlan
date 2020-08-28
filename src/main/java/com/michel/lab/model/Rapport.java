@@ -30,8 +30,8 @@ public class Rapport {
 	private String objet;
 	private String avis;
 
-	@OneToOne 
-	private RapportAux rapportAux;
+	@OneToOne
+	private RapportEnr rapportEng;
 
 	@OneToMany(mappedBy = "rapport")
 	private List<EchantillonAux> echantillonsAux;
@@ -48,7 +48,7 @@ public class Rapport {
 	}
 
 	public Rapport(Integer id, String titre, Utilisateur auteur, LocalDateTime date, String identifiant,
-			Integer version, String projet, String demande, String objet, String avis, RapportAux rapportAux,
+			Integer version, String projet, String demande, String objet, String avis, RapportEnr rapportEng,
 			List<EchantillonAux> echantillonsAux, Qualification qualification, List<Image> images) {
 		super();
 		this.id = id;
@@ -61,7 +61,7 @@ public class Rapport {
 		this.demande = demande;
 		this.objet = objet;
 		this.avis = avis;
-		this.rapportAux = rapportAux;
+		this.rapportEng = rapportEng;
 		this.echantillonsAux = echantillonsAux;
 		this.qualification = qualification;
 		this.images = images;
@@ -147,6 +147,22 @@ public class Rapport {
 		this.avis = avis;
 	}
 
+	public RapportEnr getRapportEng() {
+		return rapportEng;
+	}
+
+	public void setRapportEng(RapportEnr rapportEng) {
+		this.rapportEng = rapportEng;
+	}
+
+	public List<EchantillonAux> getEchantillonsAux() {
+		return echantillonsAux;
+	}
+
+	public void setEchantillonsAux(List<EchantillonAux> echantillonsAux) {
+		this.echantillonsAux = echantillonsAux;
+	}
+
 	public Qualification getQualification() {
 		return qualification;
 	}
@@ -161,22 +177,6 @@ public class Rapport {
 
 	public void setImages(List<Image> images) {
 		this.images = images;
-	}
-
-	public RapportAux getRapportAux() {
-		return rapportAux;
-	}
-
-	public void setRapportAux(RapportAux rapportAux) {
-		this.rapportAux = rapportAux;
-	}
-
-	public List<EchantillonAux> getEchantillonsAux() {
-		return echantillonsAux;
-	}
-
-	public void setEchantillonsAux(List<EchantillonAux> echantillonsAux) {
-		this.echantillonsAux = echantillonsAux;
 	}
 
 }

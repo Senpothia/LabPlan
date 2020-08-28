@@ -793,7 +793,7 @@ public class QualificationController {
 	
 	@PostMapping("/private/rapport/data/enregistrer")
 	public void enregistrerDataRapport(@RequestBody GroupeRapport groupeRapport) {
-		
+	/*	
 		Integer idRapport = groupeRapport.getIdRapport();
 		System.out.println("Id rapport récupéré: " + idRapport);
 		Rapport rapport = rapportService.rapportParId(idRapport);
@@ -830,13 +830,13 @@ public class QualificationController {
 		echantillonAuxService.enregistrerListeEchantillonAux(echantillons);
 		rapportService.enregistrerDataRapport(rapport);
 		
-	
+	*/
 	}
 	
 	@GetMapping("/private/rapport/supprimer/{id}")
 	public void supprimerRapportsParId(@PathVariable ("id") Integer idRapport) {
 		
-	
+	/*
 		Rapport rapport = rapportService.rapportParId(idRapport);
 		System.out.println("id du rapport:" + rapport.getId());
 		RapportAux rapportAux = rapport.getRapportAux();
@@ -863,6 +863,6 @@ public class QualificationController {
 		}
 		
 		
-		
+		*/
 	}
 }

@@ -10,12 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-@Entity
+
 public class RapportAux {
 	
-	@Id
-	@GeneratedValue
-	private Integer index;   // identifiant en base
+	
 	private Integer id;		// identifiant rapport associé
 	private Integer idEssai;
 	private String titre;
@@ -29,11 +27,7 @@ public class RapportAux {
 	private String projet;
 	private String avis;
 	
-	@OneToOne(mappedBy = "rapportAux")
-	private Rapport rapport;
 	
-	@OneToMany(mappedBy = "rapportAux")
-	private List<EssaiAux> essaisAux;
 	
 	public RapportAux() {
 		super();
@@ -48,7 +42,7 @@ public class RapportAux {
 			Integer version, String identifiant, String demande, Integer qualification, String objet, String projet,
 			String avis, Rapport rapport, List<EssaiAux> essaisAux) {
 		super();
-		this.index = index;
+		
 		this.id = id;
 		this.idEssai = idEssai;
 		this.titre = titre;
@@ -61,8 +55,7 @@ public class RapportAux {
 		this.objet = objet;
 		this.projet = projet;
 		this.avis = avis;
-		this.rapport = rapport;
-		this.essaisAux = essaisAux;
+		
 	}
 
 
@@ -95,16 +88,7 @@ public class RapportAux {
 	}
 
 	
-	public Integer getIndex() {
-		return index;
-	}
-
-
-
-	public void setIndex(Integer index) {
-		this.index = index;
-	}
-
+	
 
 
 
@@ -210,24 +194,7 @@ public class RapportAux {
 		this.idEssai = idEssai;
 	}
 
-	public List<EssaiAux> getEssaisAux() {
-		return essaisAux;
-	}
 
-
-	public void setEssaisAux(List<EssaiAux> essaisAux) {
-		this.essaisAux = essaisAux;
-	}
-
-
-	public Rapport getRapport() {
-		return rapport;
-	}
-
-
-	public void setRapport(Rapport rapport) {
-		this.rapport = rapport;
-	}
 	
 	
 

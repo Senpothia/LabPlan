@@ -4,51 +4,46 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+@Entity
 public class RapportEnr {
-	
+
 	@Id
 	@GeneratedValue
-	private Integer index;   // identifiant en base
-	private Integer id;		// identifiant rapport associé
-	private Integer idEssai;
+	private Integer id;
 	private String titre;
 	private String auteur;
 	private String date;
 	private Integer version;
 	private String identifiant;
 	private String demande;
-	private Integer qualification; 
+	private Integer qualification;
 	private String objet;
 	private String projet;
 	private String avis;
-	
-	@OneToOne(mappedBy = "rapportAux")
+
+	@OneToOne(mappedBy = "rapportEnr")
 	private Rapport rapport;
-	
-	@OneToMany(mappedBy = "rapportAux")
+
+	@OneToMany(mappedBy = "rapportEnr")
 	private List<EssaiAux> essaisAux;
-	
+
 	public RapportEnr() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
+	public RapportEnr(Integer id, String titre, String auteur, String date, Integer version, String identifiant,
+			String demande, Integer qualification, String objet, String projet, String avis, Rapport rapport,
+			List<EssaiAux> essaisAux) {
 
-
-	public RapportEnr(Integer index, Integer id, Integer idEssai, String titre, String auteur, String date,
-			Integer version, String identifiant, String demande, Integer qualification, String objet, String projet,
-			String avis, Rapport rapport, List<EssaiAux> essaisAux) {
 		super();
-		this.index = index;
 		this.id = id;
-		this.idEssai = idEssai;
 		this.titre = titre;
 		this.auteur = auteur;
 		this.date = date;
@@ -63,25 +58,20 @@ public class RapportEnr {
 		this.essaisAux = essaisAux;
 	}
 
-
-
-
-
 	public RapportEnr(Rapport rapport) {
-		
-		this.id= rapport.getId();
+
 		this.titre = rapport.getTitre();
-		
+
 		Utilisateur user = rapport.getAuteur();
-	
-		this.auteur = user.getPrenom()+ " " + user.getNom();
-		
+
+		this.auteur = user.getPrenom() + " " + user.getNom();
+
 		LocalDateTime dateAux = rapport.getDate();
-		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		
+
 		this.date = dateAux.format(formatter);
-		
+
 		this.version = rapport.getVersion();
 		this.identifiant = rapport.getIdentifiant();
 		this.demande = rapport.getDemande();
@@ -89,23 +79,8 @@ public class RapportEnr {
 		this.objet = rapport.getObjet();
 		this.projet = rapport.getProjet();
 		this.avis = rapport.getAvis();
-		
+
 	}
-
-	
-	public Integer getIndex() {
-		return index;
-	}
-
-
-
-	public void setIndex(Integer index) {
-		this.index = index;
-	}
-
-
-
-
 
 	public Integer getId() {
 		return id;
@@ -163,7 +138,6 @@ public class RapportEnr {
 		this.demande = demande;
 	}
 
-
 	public Integer getQualification() {
 		return qualification;
 	}
@@ -172,11 +146,9 @@ public class RapportEnr {
 		this.qualification = qualification;
 	}
 
-
 	public String getObjet() {
 		return objet;
 	}
-
 
 	public void setObjet(String objet) {
 		this.objet = objet;
@@ -185,7 +157,6 @@ public class RapportEnr {
 	public String getProjet() {
 		return projet;
 	}
-
 
 	public void setProjet(String projet) {
 		this.projet = projet;
@@ -199,34 +170,20 @@ public class RapportEnr {
 		this.avis = avis;
 	}
 
-	public Integer getIdEssai() {
-		return idEssai;
+	public Rapport getRapport() {
+		return rapport;
 	}
 
-
-	public void setIdEssai(Integer idEssai) {
-		this.idEssai = idEssai;
+	public void setRapport(Rapport rapport) {
+		this.rapport = rapport;
 	}
 
 	public List<EssaiAux> getEssaisAux() {
 		return essaisAux;
 	}
 
-
 	public void setEssaisAux(List<EssaiAux> essaisAux) {
 		this.essaisAux = essaisAux;
 	}
-
-
-	public Rapport getRapport() {
-		return rapport;
-	}
-
-
-	public void setRapport(Rapport rapport) {
-		this.rapport = rapport;
-	}
-	
-	
 
 }

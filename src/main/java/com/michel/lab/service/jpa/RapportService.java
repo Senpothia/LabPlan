@@ -61,7 +61,10 @@ public class RapportService implements IRapportService {
 
 	@Override
 	public void enregistrerRapport(FormInitRapport formInitRapport) {
-
+		
+		/*
+		 
+		 
 		Rapport rapport = new Rapport();
 		Integer idAuteur = formInitRapport.getAuteur();
 
@@ -144,6 +147,7 @@ public class RapportService implements IRapportService {
 			 * }
 			 * 
 			 */
+		/*
 		}
 
 		System.out.println("Version rapport avant recherche en base: " + rapport.getVersion());
@@ -173,7 +177,9 @@ public class RapportService implements IRapportService {
 	}
 
 	////////////////////////////////////////////////////////////
-
+	/*
+	  
+	 
 	@Override
 	public void enregistrerRapport2(FormInitRapport formInitRapport) {
 
@@ -220,7 +226,7 @@ public class RapportService implements IRapportService {
 		
 		System.out.println("Version du rapportAux: " + rapportAux.getVersion());
 		
-		rapport.setRapportAux(rapportAux);
+		//rapport.setRapportAux(rapportAux);  // a revoir!!!!
 		rapportRepo.save(rapport);
 		
 		List<EchantillonAux> echantillons = echantillonService
@@ -286,12 +292,12 @@ public class RapportService implements IRapportService {
 			 	
 		}
 		
-		*/
+		
 		
 		//List<EssaiAux> listeEnregistreeEssaisAux = rapport.getEssaisAux();
 		//System.out.println("taille liste des essais enregistrée: " + listeEnregistreeEssaiAux.size() );
 	}
-
+*/
 	////////////////////////////////////////////////////////////
 
 	public RapportAux obtenirRapportParId(Integer idRapport) {
@@ -330,6 +336,12 @@ public class RapportService implements IRapportService {
 
 		rapportRepo.delete(rapport);
 
+	}
+
+	@Override
+	public void enregistrerRapport2(FormInitRapport formInitRapport) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
