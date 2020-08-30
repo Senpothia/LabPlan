@@ -6,7 +6,7 @@ import java.util.List;
 
 public class EchantillonAux {
 	
-	private Integer id;
+	private Integer id;   // identifiant de l'Echantillon associé
 	private Integer numero;
 	//private LocalDateTime date;
 	private String date;
@@ -60,8 +60,24 @@ public class EchantillonAux {
 			this.statut = false;
 		}
 		
+		this.qualification = echantillon.getQualification().getId();
+	}
+
+	public EchantillonAux(EchantillonData e) {
+		
+		this.id = e.getEchantillon();
+		this.numero = e.getNumero();
+		this.date = e.getDate();
+		this.dateText = e.getDateText();
+		this.version = e.getVersion();
+		this.caracteristique = e.getCaracteristique();
+		this.actif = e.getActif();
+		this.statut = e.isStatut();
+		this.qualification = e.getQualification();
+		this.selection = e.isSelection();
 		
 	}
+
 
 	public Integer getId() {
 		return id;

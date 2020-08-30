@@ -11,9 +11,11 @@ import com.michel.lab.model.Echantillon;
 import com.michel.lab.model.Essai;
 import com.michel.lab.model.FormSequence;
 import com.michel.lab.model.Sequence;
+import com.michel.lab.model.SequenceData;
 import com.michel.lab.repository.EchantillonRepo;
 import com.michel.lab.repository.EssaiRepo;
 import com.michel.lab.repository.QualificationRepo;
+import com.michel.lab.repository.SequenceDataRepo;
 import com.michel.lab.repository.SequenceRepo;
 
 @Service
@@ -30,6 +32,9 @@ public class SequenceService {
 
 	@Autowired
 	SequenceRepo sequenceRepo;
+	
+	@Autowired
+	SequenceDataRepo sequenceDataRepo;
 
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
 	
@@ -123,6 +128,18 @@ public class SequenceService {
 	public void ajouterSequence(Sequence seq) {
 
 		sequenceRepo.save(seq);
+		
+	}
+
+	public void ajouterSequenceData(SequenceData seqData) {
+
+		sequenceDataRepo.save(seqData);
+		
+	}
+
+	public void supprimerSequenceData(SequenceData s) {
+		
+		sequenceDataRepo.delete(s);
 		
 	}
 	

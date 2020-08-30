@@ -15,6 +15,7 @@ public class Rapport {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
 	private String titre;
 	
 	@ManyToOne
@@ -34,6 +35,13 @@ public class Rapport {
 	
 	@OneToMany(mappedBy = "rapport")
 	private List<Image> images; 
+	
+	@OneToMany(mappedBy = "rapport")
+	private List<EchantillonData> echantillons; 
+	
+	@OneToMany(mappedBy = "rapport")
+	private List<EssaiData> essais; 
+
 
 	
 	public Rapport() {
@@ -178,6 +186,26 @@ public class Rapport {
 
 	public void setImages(List<Image> images) {
 		this.images = images;
+	}
+
+
+	public List<EchantillonData> getEchantillons() {
+		return echantillons;
+	}
+
+
+	public void setEchantillons(List<EchantillonData> echantillons) {
+		this.echantillons = echantillons;
+	}
+
+
+	public List<EssaiData> getEssais() {
+		return essais;
+	}
+
+
+	public void setEssais(List<EssaiData> essais) {
+		this.essais = essais;
 	}
 
 

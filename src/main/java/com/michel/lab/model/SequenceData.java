@@ -1,11 +1,20 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-public class SequenceAux {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class SequenceData {
 	
-	private Integer id;    // identifiant de la Sequence associée à cette SequenceAux
+	@Id
+	@GeneratedValue
+	private Integer id;
+	
+	private Integer sequence;    // identifiant de la Sequence associée à cette SequenceAux
 	private String commentaire;
 	private LocalDateTime debut;
 	private String debutText;
@@ -24,20 +33,22 @@ public class SequenceAux {
 	private String actif;
 	private Integer qualification;  // numéro de la qualification
 	private boolean resultat;
-	private String avis;            // ex: conforme, non conforme
+	private String avis;
 	
-	public SequenceAux() {
+	@ManyToOne
+	private EssaiData essaiData;
+	
+	public SequenceData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	public SequenceAux(Integer id, String commentaire, LocalDateTime debut, String debutText, LocalDateTime fin,
+	public SequenceData(Integer sequence, String commentaire, LocalDateTime debut, String debutText, LocalDateTime fin,
 			String finText, long duree, String niveau, String nom, Integer numero, String profil, Integer essai,
 			String nomEssais, Integer domaine, String nomDomaine, boolean statut, String actif, Integer qualification,
 			boolean resultat, String avis) {
 		super();
-		this.id = id;
+		this.sequence = sequence;
 		this.commentaire = commentaire;
 		this.debut = debut;
 		this.debutText = debutText;
@@ -57,85 +68,39 @@ public class SequenceAux {
 		this.qualification = qualification;
 		this.resultat = resultat;
 		this.avis = avis;
-	}
-
-	public SequenceAux(Sequence sequence) {
-		
-		this.id = sequence.getId();
-		this.commentaire = sequence.getCommentaire();
-		this.debut = sequence.getDebut();
-		this.debutText = sequence.getDebut().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		this.fin = sequence.getFin();
-		this.finText = sequence.getFin().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		this.niveau = sequence.getNiveau();
-		this.nom = sequence.getNom();
-		this.numero = sequence.getNumero();
-		this.profil = sequence.getProfil();
-		this.essai = sequence.getEssai().getId();
-		this.nomEssais = sequence.getEssai().getProcedure().getNom();
-		this.domaine = sequence.getEssai().getProcedure().getDomaine().getId();
-		this.nomDomaine = sequence.getEssai().getProcedure().getDomaine().getNom();
-		this.statut = sequence.isStatut();
-		
-		if (sequence.isStatut()) {
-			
-			this.actif = "En cours";
-			this.avis = "En cours";
-			
-		}else {
-			
-			this.actif = "Terminée";
-		}
-		
-		this.qualification = sequence.getEssai().getQualification().getId();
-		
-		this.resultat = sequence.isResultat();
-		
-		if (this.resultat && !sequence.isStatut()) {
-			
-			this.avis = "Conforme";
-			
-		}
-		
-		if (!this.resultat && !sequence.isStatut()){
-			
-			this.avis = "Non conforme";
-		}
-		
-		
-	}
+	} 
 	
-	public SequenceAux(SequenceData s) {
+	public SequenceData(SequenceAux sequenceAux) {
+		super();
 		
-		this.id = s.getSequence();
-		this.commentaire = s.getCommentaire();
-		this.debut = s.getDebut();
-		this.debutText = s.getDebutText();
-		this.fin = s.getFin();
-		this.finText = s.getFinText();
-		this.duree = s.getDuree();
-		this.niveau = s.getNiveau();
-		this.nom = s.getNom();
-		this.numero = s.getNumero();
-		this.profil = s.getProfil();
-		this.essai = s.getEssai();
-		this.nomEssais = s.getNomEssais();
-		this.domaine = s.getDomaine();
-		this.nomDomaine = s.getNomDomaine();
-		this.statut = s.isStatut();
-		this.actif = s.getActif();
-		this.qualification = s.getQualification();
-		this.resultat = s.isResultat();
-		this.avis = s.getAvis();
-		
+		this.sequence = sequenceAux.getId();
+		this.commentaire = sequenceAux.getCommentaire();
+		this.debut = sequenceAux.getDebut();
+		this.debutText = sequenceAux.getDebutText();
+		this.fin = sequenceAux.getFin();
+		this.finText = sequenceAux.getFinText();
+		this.duree = sequenceAux.getDuree();
+		this.niveau = sequenceAux.getNiveau();
+		this.nom = sequenceAux.getNom();
+		this.numero = sequenceAux.getNumero();
+		this.profil = sequenceAux.getProfil();
+		this.essai = sequenceAux.getEssai();
+		this.nomEssais = sequenceAux.getNomEssais();
+		this.domaine = sequenceAux.getDomaine();
+		this.nomDomaine = sequenceAux.getNomDomaine();
+		this.statut = sequenceAux.isStatut();
+		this.actif = sequenceAux.getActif();
+		this.qualification = sequenceAux.getQualification();
+		this.resultat = sequenceAux.isResultat();
+		this.avis = sequenceAux.getAvis();
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getSequence() {
+		return sequence;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setSequence(Integer sequence) {
+		this.sequence = sequence;
 	}
 
 	public String getCommentaire() {
@@ -154,12 +119,36 @@ public class SequenceAux {
 		this.debut = debut;
 	}
 
+	public String getDebutText() {
+		return debutText;
+	}
+
+	public void setDebutText(String debutText) {
+		this.debutText = debutText;
+	}
+
 	public LocalDateTime getFin() {
 		return fin;
 	}
 
 	public void setFin(LocalDateTime fin) {
 		this.fin = fin;
+	}
+
+	public String getFinText() {
+		return finText;
+	}
+
+	public void setFinText(String finText) {
+		this.finText = finText;
+	}
+
+	public long getDuree() {
+		return duree;
+	}
+
+	public void setDuree(long duree) {
+		this.duree = duree;
 	}
 
 	public String getNiveau() {
@@ -266,36 +255,22 @@ public class SequenceAux {
 		this.avis = avis;
 	}
 
-
-
-	public String getDebutText() {
-		return debutText;
+	public Integer getId() {
+		return id;
 	}
 
-
-
-	public void setDebutText(String debutText) {
-		this.debutText = debutText;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-
-	public String getFinText() {
-		return finText;
+	public EssaiData getEssaiData() {
+		return essaiData;
 	}
 
-	public void setFinText(String finText) {
-		this.finText = finText;
-	}
-
-	public long getDuree() {
-		return duree;
-	}
-
-
-	public void setDuree(long duree) {
-		this.duree = duree;
-	}
-
+	public void setEssaiData(EssaiData essaiData) {
+		this.essaiData = essaiData;
+	} 
 	
+
 
 }

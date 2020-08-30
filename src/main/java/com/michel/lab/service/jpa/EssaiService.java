@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.michel.lab.model.Essai;
 import com.michel.lab.model.EssaiAux;
+import com.michel.lab.model.EssaiData;
 import com.michel.lab.model.FormEssai;
 import com.michel.lab.model.Qualification;
+import com.michel.lab.repository.EssaiDataRepo;
 import com.michel.lab.repository.EssaiRepo;
 import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.repository.QualificationRepo;
@@ -21,6 +23,9 @@ public class EssaiService  implements IEssaiService{
 	
 	@Autowired
 	EssaiRepo essaiRepo;
+	
+	@Autowired
+	EssaiDataRepo essaiDataRepo;
 	
 	@Autowired
 	ProcedureRepo userRepo;
@@ -106,6 +111,19 @@ public class EssaiService  implements IEssaiService{
 		essai.setNumero(formEssai.getNumero());
 		
 		essaiRepo.save(essai);
+		
+	}
+
+	public void ajouterEssaiData(EssaiData esData) {
+
+		essaiDataRepo.save(esData);
+		
+		
+	}
+
+	public void supprimerEssaisData(EssaiData es) {
+		
+		essaiDataRepo.delete(es);
 		
 	}
 

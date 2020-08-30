@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.michel.lab.model.Echantillon;
 import com.michel.lab.model.EchantillonAux;
+import com.michel.lab.model.EchantillonData;
 import com.michel.lab.model.FormEchantillon;
 import com.michel.lab.model.Qualification;
+import com.michel.lab.repository.EchantillonDataRepo;
 import com.michel.lab.repository.EchantillonRepo;
 import com.michel.lab.repository.QualificationRepo;
 import com.michel.lab.service.IEchantillonService;
@@ -23,6 +25,9 @@ public class EchantillonService implements IEchantillonService{
 	
 	@Autowired
 	EchantillonRepo echantillonRepo;
+	
+	@Autowired
+	EchantillonDataRepo echantillonDataRepo;
 	
 	@Autowired
 	QualificationRepo qualificationRepo;
@@ -89,6 +94,20 @@ public class EchantillonService implements IEchantillonService{
 		}
 		return listeEchantillons;
 	}
+
+	public void enregistrerEchData(EchantillonData echData) {
+
+		echantillonDataRepo.save(echData);
+		
+	}
+
+	public void supprimerEchantillonData(EchantillonData ech) {
+		
+		echantillonDataRepo.delete(ech);
+		
+	}
+	
+	
 
 	
 

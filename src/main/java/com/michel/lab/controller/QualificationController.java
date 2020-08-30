@@ -20,8 +20,10 @@ import com.michel.lab.model.Domaine;
 import com.michel.lab.model.DomaineAux;
 import com.michel.lab.model.Echantillon;
 import com.michel.lab.model.EchantillonAux;
+import com.michel.lab.model.EchantillonData;
 import com.michel.lab.model.Essai;
 import com.michel.lab.model.EssaiAux;
+import com.michel.lab.model.EssaiData;
 import com.michel.lab.model.FormEchantillon;
 import com.michel.lab.model.FormEssai;
 import com.michel.lab.model.FormInitRapport;
@@ -710,14 +712,7 @@ public class QualificationController {
 		System.out.println("Enregistrement sequence id=" + id);
 	}
 	
-	@PostMapping("/private/rapport/enregistrer")
-	public void enregistrerInitRapport(@RequestBody FormInitRapport formInitRapport) {
-		
-		System.out.println("Date du rapport récupérée: " + formInitRapport.getDate());
-		System.out.println("Objet du rapport récupérée: " + formInitRapport.getObjet());
-		
-		rapportService.enregistrerRapport(formInitRapport);
-	}
+	
 	
 	@GetMapping("/private/rapport/liste/{num}")
 	public List<RapportAux> obtenirRapportsParQualification(@PathVariable(name = "num") Integer numQualification){
@@ -772,24 +767,56 @@ public class QualificationController {
 		
 	}
 	
-	@PostMapping("/private/rapport/version/enregistrer")
-	public void enregistrerVersionRapport(@RequestBody RapportAux rapport) {
+	
+	@PostMapping("/private/rapport/enregistrer")   // ajout en version pour test!
+	public Integer enregistrerInitRapport2(@RequestBody FormInitRapport formInitRapport) {
 		
-		System.out.println("Titre rapport: " + rapport.getTitre());
+		
+		System.out.println("***  Enregistrer init rapport 2  ***");
+		Integer idRapport = rapportService.enregistrerRapport(formInitRapport);
+		return idRapport;
+	}
+	
+	@GetMapping("/private/rapport/echantillons/{id}")
+	public List<EchantillonAux> obtenirEchantillonsParRapportId(@PathVariable(name = "id")Integer idRapport){
+		
+		Rapport rapport = rapportService.obtenirRapport(idRapport);
+		List<EchantillonData> echantillons = rapport.getEchantillons();
+		List<EchantillonAux> listeEchantillons = new ArrayList<EchantillonAux>();
+		
+		for(EchantillonData e: echantillons) {
+			
+			EchantillonAux echAux = new EchantillonAux(e);
+			listeEchantillons.add(echAux);
+		}
+		
+		return listeEchantillons;
+	
+	}
+	
+	@GetMapping("/private/rapport/essais/{id}")
+	public List<EssaiAux> obtenirEssaisParRapportId(@PathVariable(name = "id")Integer idRapport){
+		
+		Rapport rapport = rapportService.obtenirRapport(idRapport);
+		List<EssaiData> essais = rapport.getEssais();
+		
+		List<EssaiAux> listeEssais = new ArrayList<EssaiAux>();
+		
+		for(EssaiData es: essais) {
+			
+			EssaiAux esAux = new EssaiAux(es);
+			listeEssais.add(esAux);
+			
+		}
+		
+		return listeEssais;
 		
 	}
 	
-	@PostMapping("/private/echantillons/version/enregistrer")
-	public void enregistrerVersionEchantillons(@RequestBody List<EchantillonAux> echantillons){
+	@GetMapping("/private/rapport/supprimer/{id}")
+	public void supprimerRapportsParId(@PathVariable("id") Integer idRapport) {
 		
-		System.out.println("Taille liste d'echantillons: " + echantillons.size());
-		
-	}
-	
-	@PostMapping("/private/essais/version/enregistrer")
-	public void enregistrerVersionEssais(@RequestBody List<EssaiAux> essais){
-		
-		System.out.println("Taille liste des essais: " + essais.size());
+		rapportService.supprimerRapport(idRapport);
 		
 	}
 
