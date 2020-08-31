@@ -33,6 +33,7 @@ import com.michel.lab.model.FormQualif;
 import com.michel.lab.model.FormSequence;
 import com.michel.lab.model.Groupe;
 import com.michel.lab.model.Note;
+import com.michel.lab.model.NoteAux;
 import com.michel.lab.model.Procedure;
 import com.michel.lab.model.ProcedureAux;
 import com.michel.lab.model.Qualification;
@@ -827,18 +828,45 @@ public class QualificationController {
 	}
 	
 	@GetMapping("/private/note/liste/{id}")
-	public List<Note> obtenirListeNotesParQualification(@PathVariable(name = "id") Integer numQualification){
+	public List<NoteAux> obtenirListeNotesParQualification(@PathVariable(name = "id") Integer numQualification){
 		
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
 		List<Note> notes = qualification.getNotes();
+		List<NoteAux> listeNotes = new ArrayList<NoteAux>();
 		
-		return notes;
+		for(Note n: notes) {
+			
+			NoteAux noteAux = new NoteAux(n);
+			listeNotes.add(noteAux);
+			
+		}
+		
+		return listeNotes;
 	}
 	
 	@PostMapping("/private/note/enregistrer")
-	public void ajouterNote(@RequestBody FormNote formNote, 
-			@PathVariable(name="id") Integer numQualification) {
+	public void ajouterNote(@RequestBody FormNote formNote) {
 		 
+	System.out.println("Méthode ajouterNote");
+	
+	Note note = new Note();
+	note.setActive(true);
+	Utilisateur auteur = userService.obtenirUser(formNote.getAuteur());
+	note.setAuteur(auteur);
+	
+	Qualification qualification = qualificationService.obtenirQualification(formNote.getQualification());
+	note.setQualification(qualification);
+	
+	int nbreDeNotes = qualification.getNotes().size();
+	note.setNumero(nbreDeNotes++);
+	
+	note.setTexte(formNote.getTexte());
+	
+	String date = formNote.getDate();
+	System.out.println("Date note récupérée: " + date);
+	note.setDate(LocalDateTime.parse(date + " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+	
+	noteService.ajouterNote(note);
 	
 	}
 

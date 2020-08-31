@@ -1,5 +1,8 @@
 package com.michel.lab.service.jpa;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,7 @@ public class NoteService implements INoteService{
 	
 	@Override
 	public void ajouterNote(Note note) {
+		
 		
 		noteRepo.save(note);
 	}
