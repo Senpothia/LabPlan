@@ -858,7 +858,15 @@ public class QualificationController {
 	note.setQualification(qualification);
 	
 	int nbreDeNotes = qualification.getNotes().size();
-	note.setNumero(nbreDeNotes++);
+	
+	System.out.println("liste notes vide? " + qualification.getNotes().isEmpty());
+	if (qualification.getNotes().isEmpty()) {
+		
+		nbreDeNotes = 0;
+	}
+	
+	nbreDeNotes++;
+	note.setNumero(nbreDeNotes);
 	
 	note.setTexte(formNote.getTexte());
 	
@@ -868,6 +876,14 @@ public class QualificationController {
 	
 	noteService.ajouterNote(note);
 	
+	}
+	
+	@GetMapping("/private/note/voir/{id}")
+	public NoteAux obtenirNote(@PathVariable(name = "id") Integer idNote) {
+		
+		NoteAux note = noteService.obtenirNoteParId(idNote);
+		
+		return note;
 	}
 
 }

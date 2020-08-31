@@ -33,8 +33,7 @@ public class NoteAux {
 	public NoteAux(Note note) {
 		super();
 		this.id = note.getId();
-		this.numero = note.getNumero();
-		//this.date = "20/08/2020";
+		this.numero = note.getNumero();	
 		this.date = note.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		this.texte = note.getTexte();
 		this.auteur = note.getAuteur().getPrenom() + " " + note.getAuteur().getNom();

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.michel.lab.model.Note;
+import com.michel.lab.model.NoteAux;
 import com.michel.lab.repository.DomaineRepo;
 import com.michel.lab.repository.NoteRepo;
 import com.michel.lab.service.IDomaineService;
@@ -24,6 +25,14 @@ public class NoteService implements INoteService{
 		
 		
 		noteRepo.save(note);
+	}
+
+	public NoteAux obtenirNoteParId(Integer idNote) {
+
+		Note note = noteRepo.getOne(idNote);
+		NoteAux noteAux = new NoteAux(note);
+		
+		return noteAux;
 	}
 
 }
