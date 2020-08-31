@@ -26,14 +26,21 @@ public class Utilisateur {
 	@OneToMany(mappedBy="createur")
 	private List<Qualification> qualifications;
 	
+	@OneToMany(mappedBy="auteur")
+	private List<Note> notes;
+	
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
+	
+
+
+
 	public Utilisateur(Integer id, String nom, String prenom, String role, String email, String password,
-			boolean enabled, List<Rapport> rapports, List<Qualification> qualifications) {
+			boolean enabled, List<Rapport> rapports, List<Qualification> qualifications, List<Note> notes) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -44,7 +51,11 @@ public class Utilisateur {
 		this.enabled = enabled;
 		this.rapports = rapports;
 		this.qualifications = qualifications;
+		this.notes = notes;
 	}
+
+
+
 
 
 
@@ -127,6 +138,16 @@ public class Utilisateur {
 
 	public void setQualifications(List<Qualification> qualifications) {
 		this.qualifications = qualifications;
+	}
+
+
+	public List<Note> getNotes() {
+		return notes;
+	}
+
+
+	public void setNotes(List<Note> notes) {
+		this.notes = notes;
 	}
 
 	

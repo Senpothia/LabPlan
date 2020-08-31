@@ -27,10 +27,12 @@ import com.michel.lab.model.EssaiData;
 import com.michel.lab.model.FormEchantillon;
 import com.michel.lab.model.FormEssai;
 import com.michel.lab.model.FormInitRapport;
+import com.michel.lab.model.FormNote;
 import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.FormQualif;
 import com.michel.lab.model.FormSequence;
 import com.michel.lab.model.Groupe;
+import com.michel.lab.model.Note;
 import com.michel.lab.model.Procedure;
 import com.michel.lab.model.ProcedureAux;
 import com.michel.lab.model.Qualification;
@@ -44,6 +46,7 @@ import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.service.jpa.DomaineService;
 import com.michel.lab.service.jpa.EchantillonService;
 import com.michel.lab.service.jpa.EssaiService;
+import com.michel.lab.service.jpa.NoteService;
 import com.michel.lab.service.jpa.ProcedureService;
 import com.michel.lab.service.jpa.QualificationService;
 import com.michel.lab.service.jpa.RapportService;
@@ -77,6 +80,9 @@ public class QualificationController {
 	
 	@Autowired
 	RapportService rapportService;
+	
+	@Autowired
+	NoteService noteService;
 
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:MM");
 
@@ -818,6 +824,22 @@ public class QualificationController {
 		
 		rapportService.supprimerRapport(idRapport);
 		
+	}
+	
+	@GetMapping("/private/note/liste/{id}")
+	public List<Note> obtenirListeNotesParQualification(@PathVariable(name = "id") Integer numQualification){
+		
+		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
+		List<Note> notes = qualification.getNotes();
+		
+		return notes;
+	}
+	
+	@PostMapping("/private/note/enregistrer")
+	public void ajouterNote(@RequestBody FormNote formNote, 
+			@PathVariable(name="id") Integer numQualification) {
+		 
+	
 	}
 
 }

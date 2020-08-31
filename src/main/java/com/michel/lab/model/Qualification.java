@@ -28,6 +28,9 @@ public class Qualification {
 	@OneToMany (mappedBy="qualification")
 	private List<Rapport> rapports;
 	
+	@OneToMany (mappedBy="qualification")
+	private List<Note> notes;
+	
 	@ManyToOne
 	private Utilisateur createur;
 	
@@ -42,9 +45,11 @@ public class Qualification {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public Qualification(Integer id, Integer numero, String reference, String produit, String projet,
-			LocalDateTime date, String objet, boolean statut, boolean resultat, Utilisateur createur,
-			List<Essai> essais) {
+			LocalDateTime date, String objet, boolean statut, boolean resultat, List<Rapport> rapports,
+			List<Note> notes, Utilisateur createur, List<Essai> essais, List<Echantillon> echantillons) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -55,9 +60,14 @@ public class Qualification {
 		this.objet = objet;
 		this.statut = statut;
 		this.resultat = resultat;
+		this.rapports = rapports;
+		this.notes = notes;
 		this.createur = createur;
 		this.essais = essais;
+		this.echantillons = echantillons;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -161,6 +171,14 @@ public class Qualification {
 
 	public void setRapports(List<Rapport> rapports) {
 		this.rapports = rapports;
+	}
+
+	public List<Note> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(List<Note> notes) {
+		this.notes = notes;
 	}
 
 	
