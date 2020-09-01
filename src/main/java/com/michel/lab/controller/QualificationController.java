@@ -885,5 +885,23 @@ public class QualificationController {
 		
 		return note;
 	}
+	
+	
+	@GetMapping("/private/note/supprimer/{id}")
+	public void supprimerNote(@PathVariable(name = "id") Integer idNote) {
+		
+		noteService.supprimerNote(idNote);
+		
+	}
+	
+	@PostMapping("/private/note/modifier")
+	public void modifierNote(@RequestBody FormNote formNote) {
+		
+		Integer idNote = formNote.getId();
+		Note note = noteService.obtenirNoteReelleParId(idNote);
+		//note.setDate(formNote.getDate());
+		note.setTexte(formNote.getTexte());
+		noteService.ajouterNote(note);
+	}
 
 }

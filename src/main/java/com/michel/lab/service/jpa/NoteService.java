@@ -35,4 +35,16 @@ public class NoteService implements INoteService{
 		return noteAux;
 	}
 
+	public void supprimerNote(Integer idNote) {
+		
+		Note note = noteRepo.getOne(idNote);
+		noteRepo.delete(note);
+	}
+
+	public Note obtenirNoteReelleParId(Integer idNote) {
+		
+		Note note = noteRepo.getOne(idNote);
+		return note;
+	}
+
 }

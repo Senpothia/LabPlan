@@ -11,7 +11,7 @@ public class NoteAux {
 	private String texte;
 
 	private String auteur;
-
+	private Integer qualification;
 	private boolean active;
 
 	public NoteAux() {
@@ -19,16 +19,23 @@ public class NoteAux {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NoteAux(Integer id, Integer numero, String date, String texte, String auteur, boolean active) {
+	
+	
+
+	public NoteAux(Integer id, Integer numero, String date, String texte, String auteur, Integer qualification,
+			boolean active) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.date = date;
 		this.texte = texte;
 		this.auteur = auteur;
+		this.qualification = qualification;
 		this.active = active;
 	}
-	
+
+
+
 
 	public NoteAux(Note note) {
 		super();
@@ -38,6 +45,7 @@ public class NoteAux {
 		this.texte = note.getTexte();
 		this.auteur = note.getAuteur().getPrenom() + " " + note.getAuteur().getNom();
 		this.active = note.isActive();
+		this.qualification = note.getQualification().getNumero();
 	}
 
 	public Integer getId() {
@@ -87,5 +95,21 @@ public class NoteAux {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+
+
+
+	public Integer getQualification() {
+		return qualification;
+	}
+
+
+
+
+	public void setQualification(Integer qualification) {
+		this.qualification = qualification;
+	}
+	
+	
 
 }
