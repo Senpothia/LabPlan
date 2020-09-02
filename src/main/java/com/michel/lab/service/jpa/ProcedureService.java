@@ -1,12 +1,15 @@
 package com.michel.lab.service.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.michel.lab.model.Domaine;
 import com.michel.lab.model.Procedure;
 import com.michel.lab.model.ProcedureAux;
+import com.michel.lab.repository.DomaineRepo;
 import com.michel.lab.repository.ProcedureRepo;
 import com.michel.lab.repository.QualificationRepo;
 import com.michel.lab.service.IProcedureService;
@@ -16,6 +19,9 @@ public class ProcedureService implements IProcedureService{
 
 	@Autowired
 	ProcedureRepo procedureRepo;
+	
+	@Autowired
+	DomaineService domaineService;
 	
 	@Override
 	public void ajouterProcedure(Procedure procedure) {
@@ -52,6 +58,20 @@ public class ProcedureService implements IProcedureService{
 		
 		
 		return null;
+	}
+
+	public List<ProcedureAux> obtenirProceduresParDomaine(String domaine) {
+		
+		Domaine domaineReel = domaineService.obtenirDomaineParNom(domaine);
+		List<Procedure> procedures = domaineReel.getProcedures();
+		List<ProcedureAux> listeProcedures = new ArrayList<ProcedureAux>();
+		for(Procedure p: procedures) {
+			
+			ProcedureAux proAux = new ProcedureAux(p);
+			listeProcedures.add(proAux);
+			
+		}
+		return listeProcedures;
 	}
 
 }

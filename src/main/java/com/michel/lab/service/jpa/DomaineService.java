@@ -95,6 +95,14 @@ public class DomaineService implements IDomaineService{
 		
 		return nomsDomaines;
 	}
+
+	public Domaine obtenirDomaineParNom(String domaine) {
+		
+		List<Domaine> domaines = domaineRepo.findByNom(domaine);
+		Domaine dom = domaines.get(0);
+		return dom;
+	}
+
 	
 	
 

@@ -903,5 +903,13 @@ public class QualificationController {
 		note.setTexte(formNote.getTexte());
 		noteService.ajouterNote(note);
 	}
+	
+	
+	@GetMapping("/private/procedure/liste/domaine/{domaine}")
+	public List<ProcedureAux> obtenirProceduresParDomaine(@PathVariable(name = "domaine") String domaine){
+		
+		List<ProcedureAux> procedures = procedureService.obtenirProceduresParDomaine(domaine);
+		return procedures;
+	}
 
 }
