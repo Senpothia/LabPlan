@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.michel.lab.model.Domaine;
+import com.michel.lab.model.FormProcedure;
 import com.michel.lab.model.Procedure;
 import com.michel.lab.model.ProcedureAux;
 import com.michel.lab.repository.DomaineRepo;
@@ -72,6 +73,16 @@ public class ProcedureService implements IProcedureService{
 			
 		}
 		return listeProcedures;
+	}
+
+	public void modifierProcedure(FormProcedure formProcedure) {
+		
+		Procedure procedure = procedureRepo.getOne(formProcedure.getId());
+		procedure.setNom(formProcedure.getNom());
+		procedure.setReferentiel(formProcedure.getReferentiel());
+		procedure.setVersion(formProcedure.getVersion());
+		procedureRepo.save(procedure);
+		
 	}
 
 }

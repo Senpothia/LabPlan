@@ -911,5 +911,23 @@ public class QualificationController {
 		List<ProcedureAux> procedures = procedureService.obtenirProceduresParDomaine(domaine);
 		return procedures;
 	}
+	
+	@GetMapping("/private/procedure/obtenir/{id}")
+	public ProcedureAux obtenirUneProcedure(@PathVariable(name = "id") Integer id) {
+		
+		Procedure procedure = procedureService.obtenirProcedure(id);
+		ProcedureAux proAux = new ProcedureAux(procedure);
+		
+		return proAux;
+	}
+	
+	@PostMapping("/private/procedure/modifier")
+	public void modifierProcedure(@RequestBody FormProcedure formProcedure) {
+		
+		
+		
+		procedureService.modifierProcedure(formProcedure);
+		
+	}
 
 }
