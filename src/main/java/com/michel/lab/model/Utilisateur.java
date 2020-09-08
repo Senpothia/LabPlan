@@ -9,38 +9,42 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Utilisateur {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 	private String nom;
 	private String prenom;
 	private String role;
-	private String email; 
+	private String email;
 	private String password;
 	private boolean enabled;
-	
-	@OneToMany(mappedBy="auteur")
+
+	@OneToMany(mappedBy = "auteur")
 	private List<Rapport> rapports;
-	
-	@OneToMany(mappedBy="createur")
+
+	@OneToMany(mappedBy = "createur")
 	private List<Qualification> qualifications;
-	
-	@OneToMany(mappedBy="auteur")
+
+	@OneToMany(mappedBy = "auteur")
 	private List<Note> notes;
+
+	@OneToMany(mappedBy = "auteur")
+	private List<Fiche> fiches;
 	
+	@OneToMany(mappedBy = "demandeur")
+	private List<Demande> demandes;
+
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
 	
 
-
-
 	public Utilisateur(Integer id, String nom, String prenom, String role, String email, String password,
-			boolean enabled, List<Rapport> rapports, List<Qualification> qualifications, List<Note> notes) {
+			boolean enabled, List<Rapport> rapports, List<Qualification> qualifications, List<Note> notes,
+			List<Fiche> fiches, List<Demande> demandes) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -52,10 +56,9 @@ public class Utilisateur {
 		this.rapports = rapports;
 		this.qualifications = qualifications;
 		this.notes = notes;
+		this.fiches = fiches;
+		this.demandes = demandes;
 	}
-
-
-
 
 
 
@@ -119,7 +122,6 @@ public class Utilisateur {
 		return email;
 	}
 
-
 	public void setUsername(String email) {
 		this.email = email;
 	}
@@ -140,16 +142,34 @@ public class Utilisateur {
 		this.qualifications = qualifications;
 	}
 
-
 	public List<Note> getNotes() {
 		return notes;
 	}
-
 
 	public void setNotes(List<Note> notes) {
 		this.notes = notes;
 	}
 
+	public List<Fiche> getFiches() {
+		return fiches;
+	}
+
+	public void setFiches(List<Fiche> fiches) {
+		this.fiches = fiches;
+	}
+
+
+
+	public List<Demande> getDemandes() {
+		return demandes;
+	}
+
+
+
+	public void setDemandes(List<Demande> demandes) {
+		this.demandes = demandes;
+	}
+	
 	
 
 }

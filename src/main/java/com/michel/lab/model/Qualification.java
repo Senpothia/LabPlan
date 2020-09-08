@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Qualification {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -22,34 +22,36 @@ public class Qualification {
 	private String projet;
 	private LocalDateTime date;
 	private String objet;
-	private boolean statut;  // Ouverte, cloturée
+	private boolean statut; // Ouverte, cloturée
 	private boolean resultat;
-	
-	@OneToMany (mappedBy="qualification")
+
+	@OneToMany(mappedBy = "qualification")
 	private List<Rapport> rapports;
-	
-	@OneToMany (mappedBy="qualification")
+
+	@OneToMany(mappedBy = "qualification")
 	private List<Note> notes;
-	
+
 	@ManyToOne
 	private Utilisateur createur;
-	
-	@OneToMany(mappedBy="qualification")
+
+	@OneToMany(mappedBy = "qualification")
 	private List<Essai> essais = new ArrayList<Essai>();
-	
-	@OneToMany(mappedBy="qualification")
-	private List<Echantillon> echantillons; 
+
+	@OneToMany(mappedBy = "qualification")
+	private List<Echantillon> echantillons;
+
+	@OneToMany(mappedBy = "qualification")
+	private List<Fiche> fiches;
 	
 	public Qualification() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public Qualification(Integer id, Integer numero, String reference, String produit, String projet,
 			LocalDateTime date, String objet, boolean statut, boolean resultat, List<Rapport> rapports,
-			List<Note> notes, Utilisateur createur, List<Essai> essais, List<Echantillon> echantillons) {
+			List<Note> notes, Utilisateur createur, List<Essai> essais, List<Echantillon> echantillons,
+			List<Fiche> fiches) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -65,9 +67,8 @@ public class Qualification {
 		this.createur = createur;
 		this.essais = essais;
 		this.echantillons = echantillons;
+		this.fiches = fiches;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -181,5 +182,12 @@ public class Qualification {
 		this.notes = notes;
 	}
 
-	
+	public List<Fiche> getFiches() {
+		return fiches;
+	}
+
+	public void setFiches(List<Fiche> fiches) {
+		this.fiches = fiches;
+	}
+
 }
