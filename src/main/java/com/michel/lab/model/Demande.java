@@ -11,10 +11,12 @@ import javax.persistence.OneToOne;
 @Entity
 public class Demande {
 
+	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
-	private Integer numero;
+	private String numero;
 	private LocalDateTime date;
 	private boolean statut; // Close, ouverte
 	private String produit;
@@ -35,8 +37,8 @@ public class Demande {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public Demande(Integer id, Integer numero, LocalDateTime date, boolean statut, String produit, String echantillon,
+	
+	public Demande(Integer id, String numero, LocalDateTime date, boolean statut, String produit, String echantillon,
 			String origine, String essai, String objectif, String resultat, String avis, Qualification qualification,
 			Utilisateur demandeur) {
 		super();
@@ -63,11 +65,11 @@ public class Demande {
 		this.id = id;
 	}
 
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -158,5 +160,7 @@ public class Demande {
 	public void setDemandeur(Utilisateur demandeur) {
 		this.demandeur = demandeur;
 	}
+
+	
 
 }
