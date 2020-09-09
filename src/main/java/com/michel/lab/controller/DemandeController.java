@@ -1,12 +1,18 @@
 package com.michel.lab.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.michel.lab.model.Demande;
+import com.michel.lab.model.DemandeAux;
 import com.michel.lab.model.FormDemande;
 import com.michel.lab.model.Utilisateur;
 import com.michel.lab.service.jpa.DemandeService;
@@ -35,13 +41,41 @@ public class DemandeController {
 		demande.setProduit(formDemande.getProduit());
 		
 		Integer demandeur = formDemande.getDemandeur();
-		System.out.println("id demandeur: " + demandeur);
+		
 		Utilisateur utilisateur = userService.obtenirUser(demandeur);
 		demande.setDemandeur(utilisateur);
 		
 		demandeService.enregistrerDemande(demande);
 		
+	}
+	
+	@GetMapping("/liste")
+	public List<DemandeAux> listeDemandes(){
 		
+		List<Demande> demandes = demandeService.obtenirListeDemandes();
+		List<DemandeAux> demandesAux = new ArrayList<DemandeAux>();
+		for(Demande d: demandes) {
+			
+			DemandeAux demAux = new DemandeAux(d);
+			demandesAux.add(demAux);
+		}
+		return demandesAux;
+	}
+	
+	@GetMapping("/voir/{id}")
+	public DemandeAux voirDemande(@PathVariable(name = "id") Integer id) {
+		
+		Demande demande = demandeService.obtenirDemandeParId(id);
+		DemandeAux demAux = new DemandeAux(demande);
+		
+		return demAux;
+	
+	}
+	
+	@GetMapping("/supprimer/{id}")
+	public void supprimerDemande(@PathVariable(name = "id") Integer id) {
+		
+		demandeService.supprimerDemande(id);
 	}
 
 }

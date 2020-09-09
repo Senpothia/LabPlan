@@ -19,6 +19,7 @@ public class Demande {
 	private String numero;
 	private LocalDateTime date;
 	private boolean statut; // Close, ouverte
+	private boolean attente;
 	private String produit;
 	private String echantillon; // Description de l'échantillon
 	private String origine; // Motivation de l'essai demandé
@@ -37,15 +38,16 @@ public class Demande {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Demande(Integer id, String numero, LocalDateTime date, boolean statut, String produit, String echantillon,
-			String origine, String essai, String objectif, String resultat, String avis, Qualification qualification,
-			Utilisateur demandeur) {
+
+	public Demande(Integer id, String numero, LocalDateTime date, boolean statut, boolean attente, String produit,
+			String echantillon, String origine, String essai, String objectif, String resultat, String avis,
+			Qualification qualification, Utilisateur demandeur) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.date = date;
 		this.statut = statut;
+		this.attente = attente;
 		this.produit = produit;
 		this.echantillon = echantillon;
 		this.origine = origine;
@@ -87,6 +89,14 @@ public class Demande {
 
 	public void setStatut(boolean statut) {
 		this.statut = statut;
+	}
+
+	public boolean isAttente() {
+		return attente;
+	}
+
+	public void setAttente(boolean attente) {
+		this.attente = attente;
 	}
 
 	public String getProduit() {
@@ -160,7 +170,7 @@ public class Demande {
 	public void setDemandeur(Utilisateur demandeur) {
 		this.demandeur = demandeur;
 	}
-
+	
 	
 
 }
