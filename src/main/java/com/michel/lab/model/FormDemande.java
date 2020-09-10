@@ -20,6 +20,7 @@ public class FormDemande {
 	private String avis;
 	private Integer qualification;
 	private Integer demandeur;
+	private String reponse;
 	
 	public FormDemande() {
 		super();
@@ -28,7 +29,7 @@ public class FormDemande {
 
 	public FormDemande(Integer id, String numero, LocalDateTime date, boolean statut, String produit,
 			String echantillon, String origine, String essai, String objectif, String resultat, String avis,
-			Integer qualification, Integer demandeur) {
+			Integer qualification, Integer demandeur, String reponse) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -43,6 +44,7 @@ public class FormDemande {
 		this.avis = avis;
 		this.qualification = qualification;
 		this.demandeur = demandeur;
+		this.reponse = reponse;
 	}
 
 	public Integer getId() {
@@ -147,6 +149,14 @@ public class FormDemande {
 
 	public void setDemandeur(Integer demandeur) {
 		this.demandeur = demandeur;
+	}
+
+	public String getReponse() {
+		return reponse;
+	}
+
+	public void setReponse(String reponse) {
+		this.reponse = reponse;
 	}
 
 	

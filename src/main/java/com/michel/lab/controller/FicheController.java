@@ -1,0 +1,64 @@
+package com.michel.lab.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.michel.lab.model.Fiche;
+import com.michel.lab.model.FormFiche;
+import com.michel.lab.model.Qualification;
+import com.michel.lab.model.Utilisateur;
+import com.michel.lab.service.jpa.DemandeService;
+import com.michel.lab.service.jpa.FicheService;
+import com.michel.lab.service.jpa.QualificationService;
+import com.michel.lab.service.jpa.UserService;
+
+@RestController
+@RequestMapping("/lab-service/private/fiche")
+public class FicheController {
+	
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	FicheService ficheService;
+	
+	@Autowired
+	QualificationService qualificationService;
+	
+	@PostMapping("/enregistrer")
+	public void enregistrerFiche(@RequestBody FormFiche formFiche) {
+		
+		Fiche fiche = new Fiche();
+		Utilisateur auteur = userService.obtenirUser(formFiche.getAuteur());
+		fiche.setAuteur(auteur);
+		fiche.setCirconstance(formFiche.getCirconstance());
+		fiche.setCode(formFiche.getCode());
+		fiche.setDomaine(formFiche.getDomaine());
+		fiche.setIncidence(formFiche.getIncidence());
+		fiche.setNiveau(formFiche.getNiveau());
+		fiche.setNumero(formFiche.getNumero());
+		fiche.setObjet(formFiche.getObjet());
+		fiche.setObservation(formFiche.getObservation());
+		fiche.setProjet(formFiche.getProjet());
+		fiche.setSolution(formFiche.getSolution());
+		fiche.setReponse(formFiche.getReponse());
+		fiche.setStatut(true);  // à implémenter
+		
+		Integer idQualification = formFiche.getQualification();
+		if(idQualification != null) {
+			
+			Qualification qualification = qualificationService.obtenirQualificationParIdentifiant(idQualification);
+			fiche.setQualification(qualification);
+		}
+		
+		
+		ficheService.enregistrerFiche(fiche);
+		
+		
+	}
+
+}

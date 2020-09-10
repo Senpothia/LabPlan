@@ -18,34 +18,49 @@ public class Fiche {
 	private LocalDateTime date;
 	private boolean statut;			// Close, ouverte
 	private Integer niveau;			// gravité
+	private String projet;
+	private String code;
+	private String produit;
 	private String circonstance;
 	private String observation;		// description du symptome, phénomène observé
 	private String incidence;		// conséquences
 	private String solution; 		// proposition
 	private String domaine;			// électronique, mécanique
 	private String objet;  			// n° de carte, pièce mécanique
+	private String reponse;
 	
 	@ManyToOne
 	private Qualification qualification;
 	
 	@ManyToOne
 	private Utilisateur auteur;
+	
+	
 
-	public Fiche(Integer id, Integer numero, LocalDateTime date, boolean statut, Integer niveau, String circonstance,
-			String observation, String incidence, String solution, String domaine, String objet,
-			Qualification qualification, Utilisateur auteur) {
+	public Fiche() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Fiche(Integer id, Integer numero, LocalDateTime date, boolean statut, Integer niveau, String projet,
+			String code, String produit, String circonstance, String observation, String incidence, String solution,
+			String domaine, String objet, String reponse, Qualification qualification, Utilisateur auteur) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.date = date;
 		this.statut = statut;
 		this.niveau = niveau;
+		this.projet = projet;
+		this.code = code;
+		this.produit = produit;
 		this.circonstance = circonstance;
 		this.observation = observation;
 		this.incidence = incidence;
 		this.solution = solution;
 		this.domaine = domaine;
 		this.objet = objet;
+		this.reponse = reponse;
 		this.qualification = qualification;
 		this.auteur = auteur;
 	}
@@ -88,6 +103,30 @@ public class Fiche {
 
 	public void setNiveau(Integer niveau) {
 		this.niveau = niveau;
+	}
+
+	public String getProjet() {
+		return projet;
+	}
+
+	public void setProjet(String projet) {
+		this.projet = projet;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getProduit() {
+		return produit;
+	}
+
+	public void setProduit(String produit) {
+		this.produit = produit;
 	}
 
 	public String getCirconstance() {
@@ -138,6 +177,14 @@ public class Fiche {
 		this.objet = objet;
 	}
 
+	public String getReponse() {
+		return reponse;
+	}
+
+	public void setReponse(String reponse) {
+		this.reponse = reponse;
+	}
+
 	public Qualification getQualification() {
 		return qualification;
 	}
@@ -153,6 +200,6 @@ public class Fiche {
 	public void setAuteur(Utilisateur auteur) {
 		this.auteur = auteur;
 	}
-	
+
 	
 }
