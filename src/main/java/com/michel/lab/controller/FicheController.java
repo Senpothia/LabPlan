@@ -1,13 +1,17 @@
 package com.michel.lab.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.michel.lab.model.Fiche;
+import com.michel.lab.model.FicheAux;
 import com.michel.lab.model.FormFiche;
 import com.michel.lab.model.Qualification;
 import com.michel.lab.model.Utilisateur;
@@ -46,19 +50,24 @@ public class FicheController {
 		fiche.setProjet(formFiche.getProjet());
 		fiche.setSolution(formFiche.getSolution());
 		fiche.setReponse(formFiche.getReponse());
-		fiche.setStatut(true);  // à implémenter
-		
+		fiche.setStatut(true); 
 		Integer idQualification = formFiche.getQualification();
 		if(idQualification != null) {
 			
 			Qualification qualification = qualificationService.obtenirQualificationParIdentifiant(idQualification);
 			fiche.setQualification(qualification);
 		}
-		
-		
+			
 		ficheService.enregistrerFiche(fiche);
+	
+	}
+	
+	@GetMapping("/voir")
+	public List<FicheAux> voirLesFiches(){
+		System.out.println("recherche fiches");
+		List<FicheAux> fiches = ficheService.voirLesFiches();
 		
-		
+		return fiches;
 	}
 
 }

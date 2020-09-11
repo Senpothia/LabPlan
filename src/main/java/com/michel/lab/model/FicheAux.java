@@ -2,14 +2,14 @@ package com.michel.lab.model;
 
 import java.time.LocalDateTime;
 
-public class FormFiche {
+public class FicheAux {
 
+	private Integer id;
 	private Integer numero;
 	private LocalDateTime date;
 	private boolean statut; // Close, ouverte
 	private String etat;
 	private Integer niveau; // gravité
-	private String degre;
 	private String projet;
 	private String produit;
 	private String code;
@@ -23,23 +23,21 @@ public class FormFiche {
 	private Integer auteur;
 	private String reponse;
 
-	public FormFiche() {
+	public FicheAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-	public FormFiche(Integer numero, LocalDateTime date, boolean statut, String etat, Integer niveau, String degre,
+	public FicheAux(Integer id, Integer numero, LocalDateTime date, boolean statut, String etat, Integer niveau,
 			String projet, String produit, String code, String circonstance, String observation, String incidence,
 			String solution, String domaine, String objet, Integer qualification, Integer auteur, String reponse) {
 		super();
+		this.id = id;
 		this.numero = numero;
 		this.date = date;
 		this.statut = statut;
 		this.etat = etat;
 		this.niveau = niveau;
-		this.degre = degre;
 		this.projet = projet;
 		this.produit = produit;
 		this.code = code;
@@ -54,15 +52,14 @@ public class FormFiche {
 		this.reponse = reponse;
 	}
 
+	public FicheAux(Fiche fiche) {
 
-
-	public FormFiche(Fiche fiche) {
 		super();
-		this.numero = fiche.getId();
+		this.id = fiche.getId();
+		this.numero = fiche.getNumero();
 		this.date = fiche.getDate();
 		this.statut = fiche.isStatut();
 		this.niveau = fiche.getNiveau();
-		this.degre = fiche.getDegre();
 		this.projet = fiche.getProjet();
 		this.code = fiche.getCode();
 		this.circonstance = fiche.getCirconstance();
@@ -71,17 +68,22 @@ public class FormFiche {
 		this.solution = fiche.getSolution();
 		this.domaine = fiche.getDomaine();
 		this.objet = fiche.getObjet();
-		this.qualification = fiche.getQualification().getId();
+		Qualification qualification = fiche.getQualification();
+		if (qualification != null) {
+
+			this.qualification = fiche.getQualification().getId();
+
+		}
+
 		this.auteur = fiche.getAuteur().getId();
 		this.reponse = fiche.getReponse();
 		this.produit = fiche.getProduit();
-		
-		if(fiche.isStatut()) {
-			
+		if (fiche.isStatut()) {
+
 			this.etat = "Active";
-			
-		}else {
-			
+
+		} else {
+
 			this.etat = "Fermée";
 		}
 	}
@@ -102,12 +104,52 @@ public class FormFiche {
 		this.date = date;
 	}
 
+	public boolean isStatut() {
+		return statut;
+	}
+
+	public void setStatut(boolean statut) {
+		this.statut = statut;
+	}
+
+	public String getEtat() {
+		return etat;
+	}
+
+	public void setEtat(String etat) {
+		this.etat = etat;
+	}
+
 	public Integer getNiveau() {
 		return niveau;
 	}
 
 	public void setNiveau(Integer niveau) {
 		this.niveau = niveau;
+	}
+
+	public String getProjet() {
+		return projet;
+	}
+
+	public void setProjet(String projet) {
+		this.projet = projet;
+	}
+
+	public String getProduit() {
+		return produit;
+	}
+
+	public void setProduit(String produit) {
+		this.produit = produit;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getCirconstance() {
@@ -174,34 +216,6 @@ public class FormFiche {
 		this.auteur = auteur;
 	}
 
-	public String getProjet() {
-		return projet;
-	}
-
-	public void setProjet(String projet) {
-		this.projet = projet;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getEtat() {
-		return etat;
-	}
-
-	public void setEtat(String etat) {
-		this.etat = etat;
-	}
-
-	public void setStatut(boolean statut) {
-		this.statut = statut;
-	}
-
 	public String getReponse() {
 		return reponse;
 	}
@@ -210,31 +224,12 @@ public class FormFiche {
 		this.reponse = reponse;
 	}
 
-	public boolean isStatut() {
-		return statut;
+	public Integer getId() {
+		return id;
 	}
 
-	public String getProduit() {
-		return produit;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-
-	public void setProduit(String produit) {
-		this.produit = produit;
-	}
-
-
-
-	public String getDegre() {
-		return degre;
-	}
-
-
-
-	public void setDegre(String degre) {
-		this.degre = degre;
-	}
-	
-	
-	
 
 }

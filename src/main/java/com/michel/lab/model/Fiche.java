@@ -18,6 +18,7 @@ public class Fiche {
 	private LocalDateTime date;
 	private boolean statut;			// Close, ouverte
 	private Integer niveau;			// gravité
+	private String degre;
 	private String projet;
 	private String code;
 	private String produit;
@@ -42,15 +43,19 @@ public class Fiche {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Fiche(Integer id, Integer numero, LocalDateTime date, boolean statut, Integer niveau, String projet,
-			String code, String produit, String circonstance, String observation, String incidence, String solution,
-			String domaine, String objet, String reponse, Qualification qualification, Utilisateur auteur) {
+	
+
+	public Fiche(Integer id, Integer numero, LocalDateTime date, boolean statut, Integer niveau, String degre,
+			String projet, String code, String produit, String circonstance, String observation, String incidence,
+			String solution, String domaine, String objet, String reponse, Qualification qualification,
+			Utilisateur auteur) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.date = date;
 		this.statut = statut;
 		this.niveau = niveau;
+		this.degre = degre;
 		this.projet = projet;
 		this.code = code;
 		this.produit = produit;
@@ -64,6 +69,8 @@ public class Fiche {
 		this.qualification = qualification;
 		this.auteur = auteur;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -199,6 +206,14 @@ public class Fiche {
 
 	public void setAuteur(Utilisateur auteur) {
 		this.auteur = auteur;
+	}
+
+	public String getDegre() {
+		return degre;
+	}
+
+	public void setDegre(String degre) {
+		this.degre = degre;
 	}
 
 	
