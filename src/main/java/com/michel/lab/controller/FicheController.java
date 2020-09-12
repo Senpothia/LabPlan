@@ -132,10 +132,36 @@ public class FicheController {
 		
 	}
 	
-	@GetMapping("/modifier/{id}")
-	public void modifierLaFiche(@PathVariable(name = "id") Integer id) {
+	@PostMapping("/modifier")
+	public void modifierLaFiche(@RequestBody FormFiche formFiche) {
 		
-		// a compléter
+		Integer id = formFiche.getId();
+		System.out.println("Valeur id fiche: " + id);
+		Fiche fiche = ficheService.obtenirFicheParId(id);
+		
+		Utilisateur auteur = userService.obtenirUser(formFiche.getAuteur());
+		fiche.setAuteur(auteur);
+		fiche.setCirconstance(formFiche.getCirconstance());
+		fiche.setCode(formFiche.getCode());
+		fiche.setDomaine(formFiche.getDomaine());
+		fiche.setIncidence(formFiche.getIncidence());
+		fiche.setNiveau(formFiche.getNiveau());
+		fiche.setNumero(formFiche.getNumero());
+		fiche.setObjet(formFiche.getObjet());
+		fiche.setObservation(formFiche.getObservation());
+		fiche.setProjet(formFiche.getProjet());
+		fiche.setSolution(formFiche.getSolution());
+		fiche.setReponse(formFiche.getReponse());
+		fiche.setStatut(true); 
+		Integer numQualification = formFiche.getQualification();
+		if(numQualification != null) {
+			
+			Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
+			fiche.setQualification(qualification);
+		}
+			
+		ficheService.enregistrerFiche(fiche);
+
 		
 	}
 
