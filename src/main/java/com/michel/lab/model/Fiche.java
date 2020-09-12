@@ -7,8 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.michel.lab.service.jpa.QualificationService;
+
 @Entity
 public class Fiche {
+	
 	
 	@Id
 	@GeneratedValue
@@ -69,6 +74,8 @@ public class Fiche {
 		this.qualification = qualification;
 		this.auteur = auteur;
 	}
+	
+	
 
 
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.michel.lab.model.Fiche;
 import com.michel.lab.model.FicheAux;
+import com.michel.lab.model.Qualification;
 import com.michel.lab.repository.FicheRepo;
 import com.michel.lab.service.IFicheService;
 
@@ -18,6 +19,9 @@ public class FicheService implements IFicheService {
 
 	@Autowired
 	FicheRepo ficheRepo;
+	
+	@Autowired
+	QualificationService qualificationService;
 
 	public void enregistrerFiche(Fiche fiche) {
 
@@ -40,6 +44,13 @@ public class FicheService implements IFicheService {
 		}
 		
 		return fichesAux;
+	}
+
+	public List<Fiche> obtenirFicheParQualification(Integer numQualification) {
+		
+		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
+		List<Fiche> fiches = qualification.getFiches();
+		return fiches;
 	}
 
 }

@@ -1,10 +1,12 @@
 package com.michel.lab.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,6 +70,50 @@ public class FicheController {
 		List<FicheAux> fiches = ficheService.voirLesFiches();
 		
 		return fiches;
+	}
+	
+	@GetMapping("/qualification/{id}")
+	public List<FicheAux> voirLesFichesParQualification(
+			@PathVariable(name = "id") Integer numQualification){
+		
+		List<Fiche> fiches = ficheService.obtenirFicheParQualification(numQualification);
+		List<FicheAux> listeFiches = new ArrayList<FicheAux>();
+		for(Fiche f: fiches) {
+			
+			FicheAux fAux = new FicheAux(f);
+			listeFiches.add(fAux);
+		}
+		return listeFiches;
+	}
+	
+	@PostMapping("/qualification/ajouter")
+	public void ajouterFiche(@RequestBody FormFiche formFiche) {
+		
+		Fiche fiche = new Fiche();
+		Utilisateur auteur = userService.obtenirUser(formFiche.getAuteur());
+		fiche.setAuteur(auteur);
+		fiche.setCirconstance(formFiche.getCirconstance());
+		fiche.setCode(formFiche.getCode());
+		fiche.setDomaine(formFiche.getDomaine());
+		fiche.setIncidence(formFiche.getIncidence());
+		fiche.setNiveau(formFiche.getNiveau());
+		fiche.setNumero(formFiche.getNumero());
+		fiche.setObjet(formFiche.getObjet());
+		fiche.setObservation(formFiche.getObservation());
+		fiche.setProjet(formFiche.getProjet());
+		fiche.setSolution(formFiche.getSolution());
+		fiche.setReponse(formFiche.getReponse());
+		fiche.setStatut(true); 
+		Integer numQualification = formFiche.getQualification();
+		if(numQualification != null) {
+			
+			Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
+			fiche.setQualification(qualification);
+		}
+			
+		ficheService.enregistrerFiche(fiche);
+		
+	
 	}
 
 }
