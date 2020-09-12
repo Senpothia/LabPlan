@@ -112,8 +112,25 @@ public class FicheController {
 		}
 			
 		ficheService.enregistrerFiche(fiche);
-		
+
+	}
 	
+	@GetMapping("/voir/{id}")
+	public FicheAux voirLaFiches(@PathVariable(name = "id") Integer id) {
+		
+		Fiche fiche = ficheService.obtenirFicheParId(id);
+		FicheAux ficheAux = new FicheAux(fiche);
+		
+		return ficheAux;
+		
+	}
+	
+	@GetMapping("/supprimer/{id}")
+	public void supprimerLaFiches(@PathVariable(name = "id") Integer id) {
+		
+		ficheService.supprimerFiche(id);
+		
+		
 	}
 
 }

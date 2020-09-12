@@ -70,4 +70,13 @@ public class UtilisateurController {
 		
 	}
 	
+	@GetMapping("/private/utilisateur/{id}")
+	public Utilisateur obtenirUtilisateurParId(@PathVariable(name = "id") Integer id) {
+		
+		Utilisateur utilisateur = userService.obtenirUser(id);
+		
+		return utilisateur;
+	}
+	
+	
 }

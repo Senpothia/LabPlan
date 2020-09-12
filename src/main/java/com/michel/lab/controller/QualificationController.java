@@ -199,6 +199,16 @@ public class QualificationController {
 
 		return qualifAux;
 	}
+	
+	@GetMapping("/private/qualification/identifiant/{id}") 
+	public QualificationAux obtenirQualificationParId(Integer idQualification) {
+		
+		Qualification qualification = qualificationService.obtenirQualificationParIdentifiant(idQualification);
+		QualificationAux qualifAux = new QualificationAux(qualification);
+
+		return qualifAux;
+		
+	}
 
 	@GetMapping("/private/procedures")
 	public List<ProcedureAux> obtenirProcedures() {

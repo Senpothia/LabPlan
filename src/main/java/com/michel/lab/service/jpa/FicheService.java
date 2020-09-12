@@ -53,4 +53,18 @@ public class FicheService implements IFicheService {
 		return fiches;
 	}
 
+	public Fiche obtenirFicheParId(Integer id) {
+		
+		Fiche fiche = ficheRepo.getOne(id);
+		
+		return fiche;
+	}
+
+	public void supprimerFiche(Integer id) {
+		
+		Fiche fiche = ficheRepo.getOne(id);
+		ficheRepo.delete(fiche);
+		
+	}
+
 }
