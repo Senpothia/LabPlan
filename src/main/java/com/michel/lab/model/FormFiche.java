@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class FormFiche {
 
+	private Integer id;
 	private Integer numero;
 	private LocalDateTime date;
 	private boolean statut; // Close, ouverte
@@ -28,12 +29,12 @@ public class FormFiche {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-	public FormFiche(Integer numero, LocalDateTime date, boolean statut, String etat, Integer niveau, String degre,
-			String projet, String produit, String code, String circonstance, String observation, String incidence,
-			String solution, String domaine, String objet, Integer qualification, Integer auteur, String reponse) {
+	public FormFiche(Integer id, Integer numero, LocalDateTime date, boolean statut, String etat, Integer niveau,
+			String degre, String projet, String produit, String code, String circonstance, String observation,
+			String incidence, String solution, String domaine, String objet, Integer qualification, Integer auteur,
+			String reponse) {
 		super();
+		this.id = id;
 		this.numero = numero;
 		this.date = date;
 		this.statut = statut;
@@ -54,10 +55,9 @@ public class FormFiche {
 		this.reponse = reponse;
 	}
 
-
-
 	public FormFiche(Fiche fiche) {
 		super();
+		this.id = fiche.getId();
 		this.numero = fiche.getId();
 		this.date = fiche.getDate();
 		this.statut = fiche.isStatut();
@@ -75,13 +75,13 @@ public class FormFiche {
 		this.auteur = fiche.getAuteur().getId();
 		this.reponse = fiche.getReponse();
 		this.produit = fiche.getProduit();
-		
-		if(fiche.isStatut()) {
-			
+
+		if (fiche.isStatut()) {
+
 			this.etat = "Active";
-			
-		}else {
-			
+
+		} else {
+
 			this.etat = "Fermée";
 		}
 	}
@@ -222,19 +222,20 @@ public class FormFiche {
 		this.produit = produit;
 	}
 
-
-
 	public String getDegre() {
 		return degre;
 	}
 
-
-
 	public void setDegre(String degre) {
 		this.degre = degre;
 	}
-	
-	
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 }

@@ -130,6 +130,12 @@ public class FicheController {
 		
 		ficheService.supprimerFiche(id);
 		
+	}
+	
+	@GetMapping("/modifier/{id}")
+	public void modifierLaFiche(@PathVariable(name = "id") Integer id) {
+		
+		// a compléter
 		
 	}
 
