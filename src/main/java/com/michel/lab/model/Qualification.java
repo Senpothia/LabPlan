@@ -17,7 +17,7 @@ public class Qualification {
 	@GeneratedValue
 	private Integer id;
 	private Integer numero;
-	private String reference;
+	private String reference;  // Ex: CEM 12-20, R02-20, T12-20
 	private String produit;
 	private String projet;
 	private LocalDateTime date;
