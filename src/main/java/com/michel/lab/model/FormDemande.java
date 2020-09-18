@@ -22,14 +22,24 @@ public class FormDemande {
 	private Integer demandeur;
 	private String reponse;
 	
+	private String rapport;
+	private String auxiliaire;
+	private String dateReponse;
+	private String urgence;
+	private String code;
+	private String observation;
+	
 	public FormDemande() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public FormDemande(Integer id, String numero, LocalDateTime date, boolean statut, String produit,
 			String echantillon, String origine, String essai, String objectif, String resultat, String avis,
-			Integer qualification, Integer demandeur, String reponse) {
+			Integer qualification, Integer demandeur, String reponse, String rapport, String auxiliaire,
+			String dateReponse, String urgence, String code, String observation) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -45,7 +55,15 @@ public class FormDemande {
 		this.qualification = qualification;
 		this.demandeur = demandeur;
 		this.reponse = reponse;
+		this.rapport = rapport;
+		this.auxiliaire = auxiliaire;
+		this.dateReponse = dateReponse;
+		this.urgence = urgence;
+		this.code = code;
+		this.observation = observation;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -157,6 +175,78 @@ public class FormDemande {
 
 	public void setReponse(String reponse) {
 		this.reponse = reponse;
+	}
+
+
+
+	public String getRapport() {
+		return rapport;
+	}
+
+
+
+	public void setRapport(String rapport) {
+		this.rapport = rapport;
+	}
+
+
+
+	public String getAuxiliaire() {
+		return auxiliaire;
+	}
+
+
+
+	public void setAuxiliaire(String auxiliaire) {
+		this.auxiliaire = auxiliaire;
+	}
+
+
+
+	public String getDateReponse() {
+		return dateReponse;
+	}
+
+
+
+	public void setDateReponse(String dateReponse) {
+		this.dateReponse = dateReponse;
+	}
+
+
+
+	public String getUrgence() {
+		return urgence;
+	}
+
+
+
+	public void setUrgence(String urgence) {
+		this.urgence = urgence;
+	}
+
+
+
+	public String getCode() {
+		return code;
+	}
+
+
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+
+
+	public String getObservation() {
+		return observation;
+	}
+
+
+
+	public void setObservation(String observation) {
+		this.observation = observation;
 	}
 
 	

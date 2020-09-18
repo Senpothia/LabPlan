@@ -1,6 +1,7 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DemandeAux {
 
@@ -22,16 +23,26 @@ public class DemandeAux {
 	private String refQualification;
 	private Integer idDemandeur;
 	private String demandeur;
+	private String technicien;
+	private String rapport;
+	private String auxiliaire;
+	private String dateReponse;
+	private String urgence;
+	private String code;
+	private String observation;
 
 	public DemandeAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public DemandeAux(Integer id, String numero, LocalDateTime date, boolean statut, String etat, boolean attente,
 			String encours, String produit, String echantillon, String origine, String essai, String objectif,
 			String resultat, String avis, Integer idQualification, String refQualification, Integer idDemandeur,
-			String demandeur) {
+			String demandeur, String technicien, String rapport, String auxiliaire, String dateReponse, String urgence,
+			String code, String observation) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -51,7 +62,16 @@ public class DemandeAux {
 		this.refQualification = refQualification;
 		this.idDemandeur = idDemandeur;
 		this.demandeur = demandeur;
+		this.technicien = technicien;
+		this.rapport = rapport;
+		this.auxiliaire = auxiliaire;
+		this.dateReponse = dateReponse;
+		this.urgence = urgence;
+		this.code = code;
+		this.observation = observation;
 	}
+
+
 
 	public DemandeAux(Demande demande) {
 		super();
@@ -99,6 +119,28 @@ public class DemandeAux {
 			
 			this.encours = "En attente";
 		}
+		if(demande.getTechnicien() != null) {
+			
+			this.technicien = demande.getTechnicien().getPrenom() + " " + demande.getTechnicien().getNom();
+			
+		}else {
+			
+			this.technicien = "";
+		}
+		
+		
+		this.rapport = rapport;
+		this.auxiliaire = demande.getAuxiliaire();
+		
+		if (demande.getReponse() != null) {
+			
+			this.dateReponse = demande.getReponse().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		}
+		
+		this.urgence = demande.getUrgence();
+		this.code = demande.getCode();
+		this.observation = demande.getObservation();
+		
 	}
 
 	public Integer getId() {
@@ -243,6 +285,90 @@ public class DemandeAux {
 
 	public void setEncours(String encours) {
 		this.encours = encours;
+	}
+
+
+
+	public String getTechnicien() {
+		return technicien;
+	}
+
+
+
+	public void setTechnicien(String technicien) {
+		this.technicien = technicien;
+	}
+
+
+
+	public String getRapport() {
+		return rapport;
+	}
+
+
+
+	public void setRapport(String rapport) {
+		this.rapport = rapport;
+	}
+
+
+
+	public String getAuxiliaire() {
+		return auxiliaire;
+	}
+
+
+
+	public void setAuxiliaire(String auxiliaire) {
+		this.auxiliaire = auxiliaire;
+	}
+
+
+
+	public String getDateReponse() {
+		return dateReponse;
+	}
+
+
+
+	public void setDateReponse(String dateReponse) {
+		this.dateReponse = dateReponse;
+	}
+
+
+
+	public String getUrgence() {
+		return urgence;
+	}
+
+
+
+	public void setUrgence(String urgence) {
+		this.urgence = urgence;
+	}
+
+
+
+	public String getCode() {
+		return code;
+	}
+
+
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+
+
+	public String getObservation() {
+		return observation;
+	}
+
+
+
+	public void setObservation(String observation) {
+		this.observation = observation;
 	}
 	
 	

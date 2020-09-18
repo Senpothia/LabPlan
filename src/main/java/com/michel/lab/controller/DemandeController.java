@@ -39,6 +39,9 @@ public class DemandeController {
 		demande.setObjectif(formDemande.getObjectif());
 		demande.setOrigine(formDemande.getOrigine());
 		demande.setProduit(formDemande.getProduit());
+		demande.setUrgence(formDemande.getUrgence());
+		demande.setCode(formDemande.getCode());
+		demande.setAuxiliaire(formDemande.getAuxiliaire());
 
 		Integer demandeur = formDemande.getDemandeur();
 
@@ -67,7 +70,7 @@ public class DemandeController {
 
 		Demande demande = demandeService.obtenirDemandeParId(id);
 		DemandeAux demAux = new DemandeAux(demande);
-
+		
 		return demAux;
 
 	}
@@ -93,6 +96,9 @@ public class DemandeController {
 		demande.setObjectif(formDemande.getObjectif());
 		demande.setOrigine(formDemande.getOrigine());
 		demande.setProduit(formDemande.getProduit());
+		demande.setCode(formDemande.getCode());
+		demande.setAuxiliaire(formDemande.getAuxiliaire());
+		demande.setUrgence(formDemande.getUrgence());
 
 		Integer demandeur = formDemande.getDemandeur();
 

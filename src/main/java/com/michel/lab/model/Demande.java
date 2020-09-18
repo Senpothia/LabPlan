@@ -18,46 +18,73 @@ public class Demande {
 	private Integer id;
 	private String numero;
 	private LocalDateTime date;
+	private String code;
+	private String auxiliaire;
 	private boolean statut; // Close, ouverte
 	private boolean attente;
+	private String urgence;
 	private String produit;
 	private String echantillon; // Description de l'échantillon
 	private String origine; // Motivation de l'essai demandé
 	private String essai; // travail attendu
 	private String objectif;
 	private String resultat;
+	private String observation;
 	private String avis;
+	private LocalDateTime reponse;
 
 	@OneToOne
 	private Qualification qualification;
 
 	@ManyToOne
 	private Utilisateur demandeur;
+	
+	@ManyToOne
+	private Utilisateur technicien;
+
 
 	public Demande() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Demande(Integer id, String numero, LocalDateTime date, boolean statut, boolean attente, String produit,
-			String echantillon, String origine, String essai, String objectif, String resultat, String avis,
-			Qualification qualification, Utilisateur demandeur) {
+	
+
+	
+
+
+
+	public Demande(Integer id, String numero, LocalDateTime date, String code, String auxiliaire, boolean statut,
+			boolean attente, String urgence, String produit, String echantillon, String origine, String essai,
+			String objectif, String resultat, String observation, String avis, Qualification qualification,
+			Utilisateur demandeur, Utilisateur technicien) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.date = date;
+		this.code = code;
+		this.auxiliaire = auxiliaire;
 		this.statut = statut;
 		this.attente = attente;
+		this.urgence = urgence;
 		this.produit = produit;
 		this.echantillon = echantillon;
 		this.origine = origine;
 		this.essai = essai;
 		this.objectif = objectif;
 		this.resultat = resultat;
+		this.observation = observation;
 		this.avis = avis;
 		this.qualification = qualification;
 		this.demandeur = demandeur;
+		this.technicien = technicien;
 	}
+
+
+
+
+
+
 
 	public Integer getId() {
 		return id;
@@ -169,6 +196,97 @@ public class Demande {
 
 	public void setDemandeur(Utilisateur demandeur) {
 		this.demandeur = demandeur;
+	}
+
+
+
+	public String getCode() {
+		return code;
+	}
+
+
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+
+
+	
+
+
+	public String getAuxiliaire() {
+		return auxiliaire;
+	}
+
+
+
+
+
+
+
+	public void setAuxiliaire(String auxiliaire) {
+		this.auxiliaire = auxiliaire;
+	}
+
+
+
+
+
+
+
+	public String getUrgence() {
+		return urgence;
+	}
+
+
+
+	public void setUrgence(String urgence) {
+		this.urgence = urgence;
+	}
+
+
+
+	public String getObservation() {
+		return observation;
+	}
+
+
+
+	public void setObservation(String observation) {
+		this.observation = observation;
+	}
+
+
+
+	public Utilisateur getTechnicien() {
+		return technicien;
+	}
+
+
+
+	public void setTechnicien(Utilisateur technicien) {
+		this.technicien = technicien;
+	}
+
+
+
+
+
+
+
+	public LocalDateTime getReponse() {
+		return reponse;
+	}
+
+
+
+
+
+
+
+	public void setReponse(LocalDateTime reponse) {
+		this.reponse = reponse;
 	}
 	
 	
