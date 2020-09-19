@@ -11,8 +11,6 @@ import javax.persistence.OneToOne;
 @Entity
 public class Demande {
 
-	
-
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -32,16 +30,16 @@ public class Demande {
 	private String observation;
 	private String avis;
 	private LocalDateTime reponse;
+	private String rapport;
 
 	@OneToOne
 	private Qualification qualification;
 
 	@ManyToOne
 	private Utilisateur demandeur;
-	
+
 	@ManyToOne
 	private Utilisateur technicien;
-
 
 	public Demande() {
 		super();
@@ -49,15 +47,10 @@ public class Demande {
 	}
 
 	
-
-	
-
-
-
 	public Demande(Integer id, String numero, LocalDateTime date, String code, String auxiliaire, boolean statut,
 			boolean attente, String urgence, String produit, String echantillon, String origine, String essai,
-			String objectif, String resultat, String observation, String avis, Qualification qualification,
-			Utilisateur demandeur, Utilisateur technicien) {
+			String objectif, String resultat, String observation, String avis, LocalDateTime reponse, String rapport,
+			Qualification qualification, Utilisateur demandeur, Utilisateur technicien) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -75,15 +68,12 @@ public class Demande {
 		this.resultat = resultat;
 		this.observation = observation;
 		this.avis = avis;
+		this.reponse = reponse;
+		this.rapport = rapport;
 		this.qualification = qualification;
 		this.demandeur = demandeur;
 		this.technicien = technicien;
 	}
-
-
-
-
-
 
 
 	public Integer getId() {
@@ -198,95 +188,62 @@ public class Demande {
 		this.demandeur = demandeur;
 	}
 
-
-
 	public String getCode() {
 		return code;
 	}
-
-
 
 	public void setCode(String code) {
 		this.code = code;
 	}
 
-
-
-	
-
-
 	public String getAuxiliaire() {
 		return auxiliaire;
 	}
-
-
-
-
-
-
 
 	public void setAuxiliaire(String auxiliaire) {
 		this.auxiliaire = auxiliaire;
 	}
 
-
-
-
-
-
-
 	public String getUrgence() {
 		return urgence;
 	}
-
-
 
 	public void setUrgence(String urgence) {
 		this.urgence = urgence;
 	}
 
-
-
 	public String getObservation() {
 		return observation;
 	}
-
-
 
 	public void setObservation(String observation) {
 		this.observation = observation;
 	}
 
-
-
 	public Utilisateur getTechnicien() {
 		return technicien;
 	}
-
-
 
 	public void setTechnicien(Utilisateur technicien) {
 		this.technicien = technicien;
 	}
 
-
-
-
-
-
-
 	public LocalDateTime getReponse() {
 		return reponse;
 	}
 
-
-
-
-
-
-
 	public void setReponse(LocalDateTime reponse) {
 		this.reponse = reponse;
+	}
+
+
+	public String getRapport() {
+		return rapport;
+	}
+
+
+	public void setRapport(String rapport) {
+		this.rapport = rapport;
 	}
 	
 	

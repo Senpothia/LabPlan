@@ -7,7 +7,7 @@ public class DemandeAux {
 
 	private Integer id;
 	private String numero;
-	private LocalDateTime date;
+	private String date;
 	private boolean statut; // Close, ouverte
 	private String etat;
 	private boolean attente;
@@ -36,9 +36,7 @@ public class DemandeAux {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-	public DemandeAux(Integer id, String numero, LocalDateTime date, boolean statut, String etat, boolean attente,
+	public DemandeAux(Integer id, String numero, String date, boolean statut, String etat, boolean attente,
 			String encours, String produit, String echantillon, String origine, String essai, String objectif,
 			String resultat, String avis, Integer idQualification, String refQualification, Integer idDemandeur,
 			String demandeur, String technicien, String rapport, String auxiliaire, String dateReponse, String urgence,
@@ -71,14 +69,15 @@ public class DemandeAux {
 		this.observation = observation;
 	}
 
-
-
 	public DemandeAux(Demande demande) {
 		super();
 		this.id = demande.getId();
 		this.numero = demande.getNumero();
-		this.date = demande.getDate();
+		if (demande.getDate() != null) {
+			this.date = demande.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		}
 		this.statut = demande.isStatut();
+		this.attente = demande.isAttente();
 		this.produit = demande.getProduit();
 		this.echantillon = demande.getEchantillon();
 		this.origine = demande.getOrigine();
@@ -100,47 +99,49 @@ public class DemandeAux {
 			this.idQualification = null;
 			this.refQualification = null;
 		}
-		
-		if(!demande.isStatut()) {
+
+		if (demande.isAttente()) {
 			
-			this.etat = "Ouverte";
-			
-		}else {
-			
-			this.etat = "Fermée";
-		}
-		
-		if(demande.isAttente()) {
-			
-			this.encours = "En cours";
-			
-		}else {
-			
-			
+			this.statut = false;
 			this.encours = "En attente";
+			this.etat = "Ouverte";
+
+		} 
+		
+		if (!demande.isAttente() && !demande.isStatut()){
+
+			this.encours = "En cours";
+			this.etat = "Ouverte";
 		}
-		if(demande.getTechnicien() != null) {
-			
+
+		if (demande.isStatut() && !demande.isAttente()) {
+
+			this.etat = "Fermée";
+			this.encours = "Terminée";
+
+		} 
+
+		if (demande.getTechnicien() != null) {
+
 			this.technicien = demande.getTechnicien().getPrenom() + " " + demande.getTechnicien().getNom();
-			
-		}else {
-			
+
+		} else {
+
 			this.technicien = "";
 		}
-		
-		
-		this.rapport = rapport;
+
+		this.rapport = demande.getRapport();
 		this.auxiliaire = demande.getAuxiliaire();
-		
+
 		if (demande.getReponse() != null) {
-			
+
 			this.dateReponse = demande.getReponse().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		}
-		
+
 		this.urgence = demande.getUrgence();
 		this.code = demande.getCode();
 		this.observation = demande.getObservation();
-		
+
 	}
 
 	public Integer getId() {
@@ -159,11 +160,11 @@ public class DemandeAux {
 		this.numero = numero;
 	}
 
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -287,90 +288,60 @@ public class DemandeAux {
 		this.encours = encours;
 	}
 
-
-
 	public String getTechnicien() {
 		return technicien;
 	}
-
-
 
 	public void setTechnicien(String technicien) {
 		this.technicien = technicien;
 	}
 
-
-
 	public String getRapport() {
 		return rapport;
 	}
-
-
 
 	public void setRapport(String rapport) {
 		this.rapport = rapport;
 	}
 
-
-
 	public String getAuxiliaire() {
 		return auxiliaire;
 	}
-
-
 
 	public void setAuxiliaire(String auxiliaire) {
 		this.auxiliaire = auxiliaire;
 	}
 
-
-
 	public String getDateReponse() {
 		return dateReponse;
 	}
-
-
 
 	public void setDateReponse(String dateReponse) {
 		this.dateReponse = dateReponse;
 	}
 
-
-
 	public String getUrgence() {
 		return urgence;
 	}
-
-
 
 	public void setUrgence(String urgence) {
 		this.urgence = urgence;
 	}
 
-
-
 	public String getCode() {
 		return code;
 	}
-
-
 
 	public void setCode(String code) {
 		this.code = code;
 	}
 
-
-
 	public String getObservation() {
 		return observation;
 	}
 
-
-
 	public void setObservation(String observation) {
 		this.observation = observation;
 	}
-	
-	
 
 }

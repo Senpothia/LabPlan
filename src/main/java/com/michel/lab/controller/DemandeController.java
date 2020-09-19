@@ -1,5 +1,7 @@
 package com.michel.lab.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import com.michel.lab.model.FormDemande;
 import com.michel.lab.model.Utilisateur;
 import com.michel.lab.service.jpa.DemandeService;
 import com.michel.lab.service.jpa.UserService;
+import com.zaxxer.hikari.metrics.micrometer.MicrometerMetricsTracker;
 
 @RestController
 @RequestMapping("/lab-service/private/demande")
@@ -33,7 +36,7 @@ public class DemandeController {
 
 		Demande demande = new Demande();
 		demande.setNumero(formDemande.getNumero());
-		// demande.setDate(formDemande.getDate());
+		demande.setDate(LocalDateTime.parse(formDemande.getDate()+ " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		demande.setEchantillon(formDemande.getEchantillon());
 		demande.setEssai(formDemande.getEssai());
 		demande.setObjectif(formDemande.getObjectif());
@@ -42,12 +45,14 @@ public class DemandeController {
 		demande.setUrgence(formDemande.getUrgence());
 		demande.setCode(formDemande.getCode());
 		demande.setAuxiliaire(formDemande.getAuxiliaire());
+		demande.setStatut(false);  // demande est ouverte
+		demande.setAttente(true);  // demande en attente de traitement
 
 		Integer demandeur = formDemande.getDemandeur();
 
 		Utilisateur utilisateur = userService.obtenirUser(demandeur);
 		demande.setDemandeur(utilisateur);
-
+		
 		demandeService.enregistrerDemande(demande);
 
 	}
@@ -108,5 +113,36 @@ public class DemandeController {
 		demandeService.enregistrerDemande(demande);
 
 	}
+	
+	@PostMapping("/reponse/enregistrer")
+	public void enregistrerReponse(@RequestBody FormDemande formDemande) {
+		
+		Integer id = formDemande.getId();
+		System.out.println("id demande récupéré: " + id);
+		
+		Demande demande = demandeService.obtenirDemandeParId(id);
+		demande.setAvis(formDemande.getAvis());
+		demande.setObservation(formDemande.getObservation());
+		demande.setReponse(LocalDateTime.parse(formDemande.getDateReponse()+ " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		Utilisateur technicien = userService.obtenirUser(formDemande.getTechnicien());
+		demande.setTechnicien(technicien);
+		demande.setStatut(true);
+		demande.setRapport(formDemande.getRapport());
+		demande.setAttente(false);
+		demandeService.enregistrerDemande(demande);
+		
+	}
+	
+	@GetMapping("/traiter/{id}")
+	public void traiterDemande(@PathVariable(name = "id") Integer id) {
+		
+		Demande demande = demandeService.obtenirDemandeParId(id);
+		demande.setAttente(false);
+		
+		demandeService.enregistrerDemande(demande);
+		
+	}
+	
+	
 
 }
