@@ -101,6 +101,7 @@ public class DemandeController {
 		demande.setObjectif(formDemande.getObjectif());
 		demande.setOrigine(formDemande.getOrigine());
 		demande.setProduit(formDemande.getProduit());
+		System.out.println("Nom de produit: " + demande.getProduit());
 		demande.setCode(formDemande.getCode());
 		demande.setAuxiliaire(formDemande.getAuxiliaire());
 		demande.setUrgence(formDemande.getUrgence());
