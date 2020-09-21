@@ -34,7 +34,7 @@ public class Fiche {
 	private String incidence;		// conséquences
 	private String solution; 		// proposition
 	private String domaine;			// électronique, mécanique
-	private String objet;  			// n° de carte, pièce mécanique
+	private String objet;  			// n° de carte, pièce mécanique, organe affecté
 	private String reponse;
 	
 	@ManyToOne
@@ -223,6 +223,30 @@ public class Fiche {
 
 	public void setDegre(String degre) {
 		this.degre = degre;
+	}
+
+
+
+	public String getService() {
+		return service;
+	}
+
+
+
+	public void setService(String service) {
+		this.service = service;
+	}
+
+
+
+	public String getDocument() {
+		return document;
+	}
+
+
+
+	public void setDocument(String document) {
+		this.document = document;
 	}
 
 	

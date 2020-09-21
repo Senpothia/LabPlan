@@ -1,5 +1,7 @@
 package com.michel.lab.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,15 +43,21 @@ public class FicheController {
 		Fiche fiche = new Fiche();
 		Utilisateur auteur = userService.obtenirUser(formFiche.getAuteur());
 		fiche.setAuteur(auteur);
+		fiche.setDate(LocalDateTime.parse(formFiche.getDate()+ " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		fiche.setCirconstance(formFiche.getCirconstance());
+		fiche.setService(formFiche.getService());
+		fiche.setDocument(formFiche.getDocument());
+		fiche.setDegre(formFiche.getDegre());
 		fiche.setCode(formFiche.getCode());
 		fiche.setDomaine(formFiche.getDomaine());
 		fiche.setIncidence(formFiche.getIncidence());
 		fiche.setNiveau(formFiche.getNiveau());
 		fiche.setNumero(formFiche.getNumero());
+		fiche.setDegre(formFiche.getDegre());
 		fiche.setObjet(formFiche.getObjet());
 		fiche.setObservation(formFiche.getObservation());
 		fiche.setProjet(formFiche.getProjet());
+		fiche.setProduit(formFiche.getProduit());
 		fiche.setSolution(formFiche.getSolution());
 		fiche.setReponse(formFiche.getReponse());
 		fiche.setStatut(true); 
@@ -68,7 +76,7 @@ public class FicheController {
 	public List<FicheAux> voirLesFiches(){
 		System.out.println("recherche fiches");
 		List<FicheAux> fiches = ficheService.voirLesFiches();
-		
+		System.out.println("taille liste des fiches: " + fiches.size());
 		return fiches;
 	}
 	
