@@ -23,12 +23,14 @@ public class Fiche {
 	private LocalDateTime date;
 	private boolean statut;			// Close, ouverte
 	private Integer niveau;			// gravité
-	private String degre;
+	private String service;
+	private String degre;			// degré de gravité
 	private String projet;
 	private String code;
 	private String produit;
 	private String circonstance;
 	private String observation;		// description du symptome, phénomène observé
+	private String document;		// documents joints
 	private String incidence;		// conséquences
 	private String solution; 		// proposition
 	private String domaine;			// électronique, mécanique

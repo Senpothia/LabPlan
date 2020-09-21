@@ -1,12 +1,13 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FormFiche {
 
 	private Integer id;
 	private Integer numero;
-	private LocalDateTime date;
+	private String date;
 	private boolean statut; // Close, ouverte
 	private String etat;
 	private Integer niveau; // gravité
@@ -23,16 +24,18 @@ public class FormFiche {
 	private Integer qualification;
 	private Integer auteur;
 	private String reponse;
+	private String document;
+	private String service;
 
 	public FormFiche() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FormFiche(Integer id, Integer numero, LocalDateTime date, boolean statut, String etat, Integer niveau,
-			String degre, String projet, String produit, String code, String circonstance, String observation,
-			String incidence, String solution, String domaine, String objet, Integer qualification, Integer auteur,
-			String reponse) {
+	public FormFiche(Integer id, Integer numero, String date, boolean statut, String etat, Integer niveau, String degre,
+			String projet, String produit, String code, String circonstance, String observation, String incidence,
+			String solution, String domaine, String objet, Integer qualification, Integer auteur, String reponse,
+			String document, String service) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -53,13 +56,19 @@ public class FormFiche {
 		this.qualification = qualification;
 		this.auteur = auteur;
 		this.reponse = reponse;
+		this.document = document;
+		this.service = service;
 	}
 
 	public FormFiche(Fiche fiche) {
 		super();
 		this.id = fiche.getId();
 		this.numero = fiche.getId();
-		this.date = fiche.getDate();
+		
+		
+		if (fiche.getDate() != null) {
+			this.date = fiche.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		}
 		this.statut = fiche.isStatut();
 		this.niveau = fiche.getNiveau();
 		this.degre = fiche.getDegre();
@@ -71,8 +80,16 @@ public class FormFiche {
 		this.solution = fiche.getSolution();
 		this.domaine = fiche.getDomaine();
 		this.objet = fiche.getObjet();
-		this.qualification = fiche.getQualification().getId();
-		this.auteur = fiche.getAuteur().getId();
+		if(fiche.getQualification() != null) {
+			
+			this.qualification = fiche.getQualification().getId();
+		}
+		
+		if(fiche.getAuteur() != null) {
+			
+			this.auteur = fiche.getAuteur().getId();
+		}
+		
 		this.reponse = fiche.getReponse();
 		this.produit = fiche.getProduit();
 
@@ -94,12 +111,30 @@ public class FormFiche {
 		this.numero = numero;
 	}
 
-	public LocalDateTime getDate() {
+	
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public String getDocument() {
+		return document;
+	}
+
+	public void setDocument(String document) {
+		this.document = document;
+	}
+
+	public String getService() {
+		return service;
+	}
+
+	public void setService(String service) {
+		this.service = service;
 	}
 
 	public Integer getNiveau() {
