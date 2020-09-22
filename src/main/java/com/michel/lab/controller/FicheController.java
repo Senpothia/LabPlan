@@ -146,7 +146,7 @@ public class FicheController {
 		Integer id = formFiche.getId();
 		System.out.println("Valeur id fiche: " + id);
 		Fiche fiche = ficheService.obtenirFicheParId(id);
-		
+		System.out.println("Auteur: " + formFiche.getAuteur());
 		Utilisateur auteur = userService.obtenirUser(formFiche.getAuteur());
 		fiche.setAuteur(auteur);
 		fiche.setCirconstance(formFiche.getCirconstance());
@@ -162,6 +162,7 @@ public class FicheController {
 		fiche.setReponse(formFiche.getReponse());
 		fiche.setStatut(true); 
 		Integer numQualification = formFiche.getQualification();
+		System.out.println("Qualification id: " + formFiche.getQualification());
 		if(numQualification != null) {
 			
 			Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
