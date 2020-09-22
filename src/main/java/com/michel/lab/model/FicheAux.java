@@ -11,6 +11,7 @@ public class FicheAux {
 	private boolean statut; // Close, ouverte
 	private String etat;
 	private Integer niveau; // gravité
+	private String degre;
 	private String projet;
 	private String produit;
 	private String code;
@@ -27,20 +28,16 @@ public class FicheAux {
 	private String reponse;
 	private String service;
 	private String document;
-	
 
 	public FicheAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-
-	public FicheAux(Integer id, Integer numero, String date, boolean statut, String etat, Integer niveau, String projet,
-			String produit, String code, String circonstance, String observation, String incidence, String solution,
-			String domaine, String objet, Integer qualification, Integer numQualification, Integer auteur,
-			String nomAuteur, String reponse, String service, String document) {
+	public FicheAux(Integer id, Integer numero, String date, boolean statut, String etat, Integer niveau, String degre,
+			String projet, String produit, String code, String circonstance, String observation, String incidence,
+			String solution, String domaine, String objet, Integer qualification, Integer numQualification,
+			Integer auteur, String nomAuteur, String reponse, String service, String document) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -48,6 +45,7 @@ public class FicheAux {
 		this.statut = statut;
 		this.etat = etat;
 		this.niveau = niveau;
+		this.degre = degre;
 		this.projet = projet;
 		this.produit = produit;
 		this.code = code;
@@ -66,9 +64,6 @@ public class FicheAux {
 		this.document = document;
 	}
 
-
-
-
 	public FicheAux(Fiche fiche) {
 
 		super();
@@ -79,6 +74,7 @@ public class FicheAux {
 		}
 		this.statut = fiche.isStatut();
 		this.niveau = fiche.getNiveau();
+		this.degre = fiche.getDegre();
 		this.projet = fiche.getProjet();
 		this.code = fiche.getCode();
 		this.circonstance = fiche.getCirconstance();
@@ -276,30 +272,28 @@ public class FicheAux {
 		this.numQualification = numQualification;
 	}
 
-
 	public String getService() {
 		return service;
 	}
-
 
 	public void setService(String service) {
 		this.service = service;
 	}
 
-
-
-
 	public String getDocument() {
 		return document;
 	}
 
-
-
-
 	public void setDocument(String document) {
 		this.document = document;
 	}
-	
-	
+
+	public String getDegre() {
+		return degre;
+	}
+
+	public void setDegre(String degre) {
+		this.degre = degre;
+	}
 
 }

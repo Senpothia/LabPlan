@@ -149,6 +149,7 @@ public class FicheController {
 		System.out.println("Auteur: " + formFiche.getAuteur());
 		Utilisateur auteur = userService.obtenirUser(formFiche.getAuteur());
 		fiche.setAuteur(auteur);
+		fiche.setDate(LocalDateTime.parse(formFiche.getDate()+ " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		fiche.setCirconstance(formFiche.getCirconstance());
 		fiche.setCode(formFiche.getCode());
 		fiche.setDomaine(formFiche.getDomaine());
@@ -160,6 +161,11 @@ public class FicheController {
 		fiche.setProjet(formFiche.getProjet());
 		fiche.setSolution(formFiche.getSolution());
 		fiche.setReponse(formFiche.getReponse());
+		fiche.setProduit(formFiche.getProduit());
+		fiche.setService(formFiche.getService());
+		fiche.setDocument(formFiche.getDocument());
+		fiche.setIncidence(formFiche.getIncidence());
+		fiche.setDegre(formFiche.getDegre());
 		fiche.setStatut(true); 
 		Integer numQualification = formFiche.getQualification();
 		System.out.println("Qualification id: " + formFiche.getQualification());
