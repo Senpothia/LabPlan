@@ -18,7 +18,7 @@ import com.michel.lab.security.JWTGenerator;
 import com.michel.lab.service.jpa.UserService;
 
 @RestController
-@RequestMapping("/lab-service/")
+@RequestMapping("/lab-service")
 public class TokenController {
 	
 	@Autowired
@@ -34,7 +34,7 @@ public class TokenController {
 		this.jwtGenerator = jwtGenerator;
 	}
 	
-	@PostMapping("connexion/")
+	@PostMapping("/connexion")
 	public ResponseEntity<UtilisateurAux> generate(@RequestBody final Login login){
 		
 		System.out.println("**Entrée POST service");

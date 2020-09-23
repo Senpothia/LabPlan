@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -167,7 +168,7 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/qualifications") // récupération de la liste de toutes les qualifications
-	public List<QualificationAux> toutesLesQualifications() {
+	public List<QualificationAux> toutesLesQualifications( @RequestHeader("Authorization") String token) {
 
 		List<QualificationAux> qualifications = qualificationService.tousLesQualifications();
 
@@ -183,7 +184,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/qualifications/{id}")
-	public List<QualificationAux> mesQualificationsEnCours(@PathVariable(name = "id") Integer id) {
+	public List<QualificationAux> mesQualificationsEnCours(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id) {
 
 		List<QualificationAux> qualifications = qualificationService.mesQualificationsEnCours(id);
 		return qualifications;

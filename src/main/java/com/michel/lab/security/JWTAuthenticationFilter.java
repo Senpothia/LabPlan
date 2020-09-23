@@ -29,7 +29,7 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
 */
 	public JWTAuthenticationFilter() {
 		//super("/aaaa/**");  // Solution fonctionnelle sans sécurité
-		super("/labplan/private/**");
+		super("/lab-service/private/**");
 	}
 
 	@Override

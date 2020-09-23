@@ -42,11 +42,11 @@ public class Echantillon {
 		this.caracteristique = caracteristique;
 		this.actif = actif;
 		this.sequences = sequences;
-	}
+	} 
 
 	public Integer getId() {
 		return id;
-	}
+	} 
 
 	public void setId(Integer id) {
 		this.id = id;

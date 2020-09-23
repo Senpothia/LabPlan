@@ -42,7 +42,7 @@ public class UtilisateurController {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
-	@PostMapping("compte/")
+	@PostMapping("/compte")
 	public void creerCompte (@RequestBody UtilisateurAux user) {
 		
 		Utilisateur utilisateur = new Utilisateur();
