@@ -89,7 +89,9 @@ public class QualificationController {
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:MM");
 
 	@PostMapping("/save/qualification")
-	public void saveQualification(@RequestBody FormQualif formQualif) {
+	public void saveQualification(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormQualif formQualif) {
 
 		Qualification qualification = new Qualification();
 		
@@ -119,7 +121,9 @@ public class QualificationController {
 	}
 
 	@PostMapping("/save/procedure")
-	public void saveProcedure(@RequestBody FormProcedure formProcedure) {
+	public void saveProcedure(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormProcedure formProcedure) {
 
 		Procedure procedure = new Procedure();
 		procedure.setNom(formProcedure.getNom());
@@ -160,7 +164,7 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/domaines") // récupération de la liste des domaines
-	public List<String> tousLesDomaines() {
+	public List<String> tousLesDomaines(@RequestHeader("Authorization") String token) {
 
 		List<String> nomsDomaines = domaineService.tousLesNomsDomaines();
 
@@ -168,7 +172,8 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/qualifications") // récupération de la liste de toutes les qualifications
-	public List<QualificationAux> toutesLesQualifications( @RequestHeader("Authorization") String token) {
+	public List<QualificationAux> toutesLesQualifications( 
+			@RequestHeader("Authorization") String token) {
 
 		List<QualificationAux> qualifications = qualificationService.tousLesQualifications();
 
@@ -176,7 +181,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/historique/{id}") // récupération de la liste de toutes les qualifications
-	public List<QualificationAux> mesQualifications(@PathVariable(name = "id") Integer id) {
+	public List<QualificationAux> mesQualifications(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id) {
 
 		List<QualificationAux> qualifications = qualificationService.mesQualifications(id);
 		return qualifications;
@@ -195,7 +202,9 @@ public class QualificationController {
 
 	@GetMapping("/private/qualification/{id}") // récupération de la liste de toutes les qualifications en cours par
 												// utilisateur
-	public QualificationAux obtenirQualification(@PathVariable(name = "id") Integer id) {
+	public QualificationAux obtenirQualification(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id) {
 
 		Qualification qualification = qualificationService.obtenirQualification(id);
 		QualificationAux qualifAux = new QualificationAux(qualification);
@@ -204,7 +213,9 @@ public class QualificationController {
 	}
 	
 	@GetMapping("/private/qualification/identifiant/{id}") 
-	public QualificationAux obtenirQualificationParId(Integer idQualification) {
+	public QualificationAux obtenirQualificationParId(
+			@RequestHeader("Authorization") String token,
+			Integer idQualification) {
 		
 		Qualification qualification = qualificationService.obtenirQualificationParIdentifiant(idQualification);
 		QualificationAux qualifAux = new QualificationAux(qualification);
@@ -214,7 +225,7 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/procedures")
-	public List<ProcedureAux> obtenirProcedures() {
+	public List<ProcedureAux> obtenirProcedures(@RequestHeader("Authorization") String token) {
 
 		List<Procedure> procedures = procedureService.obtenirProcedures();
 		List<ProcedureAux> listeProcedures = new ArrayList<ProcedureAux>();
@@ -230,7 +241,7 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/liste/domaines")
-	public List<DomaineAux> obtenirDomaines() {
+	public List<DomaineAux> obtenirDomaines(@RequestHeader("Authorization") String token) {
 
 		List<Domaine> domaines = domaineService.TousLesDomaines();
 		List<DomaineAux> listeDomaines = new ArrayList<DomaineAux>();
@@ -244,7 +255,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/liste/domaine/{id}")
-	public List<ProcedureAux> obtenirDomainesParDomaine(@PathVariable(name = "id") Integer id) {
+	public List<ProcedureAux> obtenirDomainesParDomaine(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id) {
 
 		List<Procedure> procedures = procedureService.obtenirProceduresDuDomaine(id);
 		List<ProcedureAux> listeProcedures = new ArrayList<ProcedureAux>();
@@ -261,7 +274,9 @@ public class QualificationController {
 	}
 
 	@PostMapping("/essai/ajouter/procedure/{id}/{qualification}/{idUser}")
-	public void ajouterProcedure(@PathVariable(name = "id") Integer id,
+	public void ajouterProcedure(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id,
 			@PathVariable(name = "qualification") Integer qualification,
 			@PathVariable(name = "idUser") Integer idUser) {
 
@@ -294,7 +309,9 @@ public class QualificationController {
 	}
 
 	@PostMapping("/private/liste/procedure/selection")
-	public List<Integer> obtenirSelectionProcedure(@RequestBody Groupe groupe) { // id = identifiant du domaine
+	public List<Integer> obtenirSelectionProcedure(
+			@RequestHeader("Authorization") String token,
+			@RequestBody Groupe groupe) { // id = identifiant du domaine
 
 		Integer idDomaine = groupe.getDomaine();
 		Integer numero = groupe.getQualification();
@@ -334,7 +351,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/liste/essais/{id}")
-	public List<EssaiAux> obtenirEssaisParQualification(@PathVariable(name = "id") Integer id) {
+	public List<EssaiAux> obtenirEssaisParQualification(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id) {
 
 		System.out.println("*** Entrée méthode obtenirEssaisParQualification - service");
 		System.out.println("Numéro qualif reçu: " + id);
@@ -346,14 +365,18 @@ public class QualificationController {
 	}
 
 	@PostMapping("private/echantillon/save") // Enregistrement d'une procédure
-	public void saveEchantillon(@RequestBody FormEchantillon formEchantillon) {
+	public void saveEchantillon(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormEchantillon formEchantillon) {
 
 		echantillonService.enregistrerEchantillon(formEchantillon);
 
 	}
 
 	@GetMapping("/private/echantillon/voir/{id}")
-	public List<EchantillonAux> obtenirEchantillonsParQualification(@PathVariable(name = "id") Integer id) {
+	public List<EchantillonAux> obtenirEchantillonsParQualification(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id) {
 
 		List<Echantillon> echantillons = echantillonService.obtenirEchantillonParQualification(id);
 		List<EchantillonAux> echantillonsAux = new ArrayList<EchantillonAux>();
@@ -367,7 +390,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/echantillon/voir")
-	public List<EchantillonAux> obtenirEchantillonsParQualification2(@RequestParam(name = "id") Integer id) {
+	public List<EchantillonAux> obtenirEchantillonsParQualification2(
+			@RequestHeader("Authorization") String token,
+			@RequestParam(name = "id") Integer id) {
 
 		List<Echantillon> echantillons = echantillonService.obtenirEchantillonParQualification(id);
 		List<EchantillonAux> echantillonsAux = new ArrayList<EchantillonAux>();
@@ -382,14 +407,18 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/echantillon/activer/{id}/{qualification}")
-	public void activerEchantillon(@PathVariable(name = "id") Integer id,
+	public void activerEchantillon(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id,
 			@PathVariable(name = "qualification") Integer qualification) {
 
 		echantillonService.setActif(id, true);
 	}
 
 	@GetMapping("/private/echantillon/desactiver/{id}/{qualification}")
-	public void desactiverEchantillon(@PathVariable(name = "id") Integer id,
+	public void desactiverEchantillon(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id,
 			@PathVariable(name = "qualification") Integer qualification) {
 
 		echantillonService.setActif(id, false);
@@ -398,7 +427,9 @@ public class QualificationController {
 
 
 	@GetMapping("/private/sequences/voir/{id}/{num}")
-	public List<SequenceAux> obtenirSequencesParEssai(@PathVariable(name = "id") Integer id,
+	public List<SequenceAux> obtenirSequencesParEssai(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id,
 			@PathVariable(name = "num") Integer num) {
 	
 		List<Sequence> sequences = sequenceService.obtenirSequencesParEssai(num);
@@ -450,7 +481,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/essai/{num}")
-	public EssaiAux obtenirEssaiParNumero(@PathVariable(name = "num") Integer num) {
+	public EssaiAux obtenirEssaiParNumero(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "num") Integer num) {
 
 		Essai es = essaiService.obtenirEssaiParNum(num);
 		EssaiAux essai = new EssaiAux(es);
@@ -458,7 +491,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/qualification/numero/{id}")
-	public QualificationAux obtenirQualificationParNumero(@PathVariable(name = "id") Integer id) {
+	public QualificationAux obtenirQualificationParNumero(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id) {
 
 		Qualification qual = qualificationService.obtenirQualificationParNumero(id);
 		QualificationAux qualification = new QualificationAux(qual);
@@ -468,7 +503,9 @@ public class QualificationController {
 	}
 
 	@PostMapping("private/sequence/save")
-	public void enregistrerSequence(@RequestBody FormSequence formSequence) {
+	public void enregistrerSequence(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormSequence formSequence) {
 
 		System.out.println("méthode enregistrerSequence ");
 		System.out.println(formSequence.toString());
@@ -477,7 +514,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("private/sequence/{id}")
-	public SequenceAux obtenirSequenceParId(@PathVariable(name = "id") Integer id) {
+	public SequenceAux obtenirSequenceParId(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id) {
 
 		Sequence seq = sequenceService.obtenirSequenceParId(id);
 		SequenceAux sequence = new SequenceAux(seq);
@@ -529,7 +568,9 @@ public class QualificationController {
 	}
 
 	@PostMapping("private/sequence/modifier")
-	public void modifierSequence(@RequestBody FormSequence formSequence) {
+	public void modifierSequence(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormSequence formSequence) {
 
 		System.out.println("méthode enregistrerSequence ");
 		System.out.println(formSequence.toString());
@@ -559,7 +600,9 @@ public class QualificationController {
 	}
 
 	@PostMapping("private/echantillon/retirer/{echantillon}/{qualification}/{sequence}")
-	public void retirerEchantillon(@PathVariable(name = "echantillon") Integer idEchantillon,
+	public void retirerEchantillon(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "echantillon") Integer idEchantillon,
 			@PathVariable(name = "qualification") Integer numQualification,
 			@PathVariable(name = "sequence") Integer idSequence) {
 
@@ -600,6 +643,7 @@ public class QualificationController {
 
 	@GetMapping("/private/echantillon/sequence/selection/{qualification}/{sequence}")
 	public List<EchantillonAux> obtenirEchantillonSelectionParSequence(
+			@RequestHeader("Authorization") String token,
 			@PathVariable(name = "qualification") Integer num, @PathVariable(name = "sequence") Integer idSequence) {
 
 		List<Echantillon> echsSelection = sequenceService.obtenirSelectionEchantillon(idSequence);
@@ -624,7 +668,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("/private/echantillon/modifier/{id}")
-	public EchantillonAux obtenirEchantillon(@PathVariable(name = "id") Integer id) {
+	public EchantillonAux obtenirEchantillon(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id) {
 
 		Echantillon ech = echantillonService.obtenirEchantillonParId(id);
 		EchantillonAux echantillon = new EchantillonAux(ech);
@@ -635,7 +681,7 @@ public class QualificationController {
 
 	@PostMapping("/private/echantillon/modifier")
 	public void modifierEchantillon(
-
+			@RequestHeader("Authorization") String token,
 			@RequestBody FormEchantillon formEchantillon) {
 
 		Integer id = formEchantillon.getId();
@@ -653,7 +699,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("private/qualification/modifier/statut/{id}")
-	public void modifierStatutQualification(@PathVariable(name = "id") Integer numQualification) {
+	public void modifierStatutQualification(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer numQualification) {
 
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
 		qualificationService.modifierStatutQualification(qualification);
@@ -661,7 +709,9 @@ public class QualificationController {
 	}
 
 	@GetMapping("private/qualification/modifier/resultat/{id}")
-	public void modifierResultatQualification(@PathVariable(name = "id") Integer numQualification) {
+	public void modifierResultatQualification(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer numQualification) {
 
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
 		qualificationService.modifierResultatQualification(qualification);
@@ -669,7 +719,9 @@ public class QualificationController {
 	}
 
 	@PostMapping("/private/qualification/modifier")
-	public void modifierQualification(@RequestBody FormQualif formQualif) {
+	public void modifierQualification(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormQualif formQualif) {
 
 		Integer numQualification = formQualif.getNumero();
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
@@ -707,7 +759,9 @@ public class QualificationController {
 	}
 
 	@PostMapping("/private/sequence/supprimer/{id}")
-	public void supprimerSequence(@PathVariable(name = "id") Integer idSequence) {
+	public void supprimerSequence(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer idSequence) {
 
 		Sequence sequence = sequenceService.obtenirSequenceParId(idSequence);
 		sequenceService.supprimerSequence(sequence);
@@ -715,7 +769,9 @@ public class QualificationController {
 	}
 
 	@PostMapping("/private/essai/modifier")
-	public void modifierEssai(@RequestBody FormEssai formEssai) {
+	public void modifierEssai(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormEssai formEssai) {
 
 		essaiService.modifierEssai(formEssai);
 
@@ -723,7 +779,9 @@ public class QualificationController {
 
 	@GetMapping("/private/sequence/recuperation/{id}") // Utiliser pour réparer les enregistrements défectueux de
 														// séquences
-	public void recupererSequence(@PathVariable("id") Integer id) {  // id = id de la séquence déféctueuse
+	public void recupererSequence(
+			@RequestHeader("Authorization") String token,
+			@PathVariable("id") Integer id) {  // id = id de la séquence déféctueuse
 
 		Sequence seq = sequenceService.obtenirSequenceParId(id);
 		seq.setDebut(LocalDateTime.now());
@@ -735,7 +793,9 @@ public class QualificationController {
 	
 	
 	@GetMapping("/private/rapport/liste/{num}")
-	public List<RapportAux> obtenirRapportsParQualification(@PathVariable(name = "num") Integer numQualification){
+	public List<RapportAux> obtenirRapportsParQualification(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "num") Integer numQualification){
 		
 		System.out.println("Num qualif récupéré: " + numQualification);
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
@@ -753,7 +813,9 @@ public class QualificationController {
 	}
 	
 	@GetMapping("/private/rapport/{id}")
-	public RapportAux obtenirRapportsParId(@PathVariable(name = "id") Integer idRapport) {
+	public RapportAux obtenirRapportsParId(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer idRapport) {
 		
 		RapportAux rapport = rapportService.obtenirRapportParId(idRapport);
 		
@@ -762,7 +824,9 @@ public class QualificationController {
 	}
 	
 	@GetMapping("/private/qualification/id/{id}") 
-	public List<EssaiAux> obtenirEssaisParQualificationId(@PathVariable(name = "id") Integer qualification){
+	public List<EssaiAux> obtenirEssaisParQualificationId(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer qualification){
 		
 		Qualification qual = qualificationService.obtenirQualificationParIdentifiant(qualification);
 		List<Essai> essais = qual.getEssais();
@@ -779,7 +843,9 @@ public class QualificationController {
 	}
 	
 	@GetMapping("/private/echantillons/qualification/id/{qualification}")
-	public List<EchantillonAux> obtenirEchantillonParIdQualification(@PathVariable(name = "qualification") Integer qualification){
+	public List<EchantillonAux> obtenirEchantillonParIdQualification(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "qualification") Integer qualification){
 		
 		List<EchantillonAux> echantillons = echantillonService.obtenirEchantillonParQualificationId(qualification);
 		
@@ -789,7 +855,9 @@ public class QualificationController {
 	
 	
 	@PostMapping("/private/rapport/enregistrer")   // ajout en version pour test!
-	public Integer enregistrerInitRapport2(@RequestBody FormInitRapport formInitRapport) {
+	public Integer enregistrerInitRapport2(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormInitRapport formInitRapport) {
 		
 		
 		System.out.println("***  Enregistrer init rapport 2  ***");
@@ -798,7 +866,9 @@ public class QualificationController {
 	}
 	
 	@GetMapping("/private/rapport/echantillons/{id}")
-	public List<EchantillonAux> obtenirEchantillonsParRapportId(@PathVariable(name = "id")Integer idRapport){
+	public List<EchantillonAux> obtenirEchantillonsParRapportId(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id")Integer idRapport){
 		
 		Rapport rapport = rapportService.obtenirRapport(idRapport);
 		List<EchantillonData> echantillons = rapport.getEchantillons();
@@ -815,7 +885,9 @@ public class QualificationController {
 	}
 	
 	@GetMapping("/private/rapport/essais/{id}")
-	public List<EssaiAux> obtenirEssaisParRapportId(@PathVariable(name = "id")Integer idRapport){
+	public List<EssaiAux> obtenirEssaisParRapportId(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id")Integer idRapport){
 		
 		Rapport rapport = rapportService.obtenirRapport(idRapport);
 		List<EssaiData> essais = rapport.getEssais();
@@ -834,14 +906,18 @@ public class QualificationController {
 	}
 	
 	@GetMapping("/private/rapport/supprimer/{id}")
-	public void supprimerRapportsParId(@PathVariable("id") Integer idRapport) {
+	public void supprimerRapportsParId(
+			@RequestHeader("Authorization") String token,
+			@PathVariable("id") Integer idRapport) {
 		
 		rapportService.supprimerRapport(idRapport);
 		
 	}
 	
 	@GetMapping("/private/note/liste/{id}")
-	public List<NoteAux> obtenirListeNotesParQualification(@PathVariable(name = "id") Integer numQualification){
+	public List<NoteAux> obtenirListeNotesParQualification(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer numQualification){
 		
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
 		List<Note> notes = qualification.getNotes();
@@ -858,7 +934,9 @@ public class QualificationController {
 	}
 	
 	@PostMapping("/private/note/enregistrer")
-	public void ajouterNote(@RequestBody FormNote formNote) {
+	public void ajouterNote(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormNote formNote) {
 		 
 	System.out.println("Méthode ajouterNote");
 	
@@ -892,7 +970,9 @@ public class QualificationController {
 	}
 	
 	@GetMapping("/private/note/voir/{id}")
-	public NoteAux obtenirNote(@PathVariable(name = "id") Integer idNote) {
+	public NoteAux obtenirNote(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer idNote) {
 		
 		NoteAux note = noteService.obtenirNoteParId(idNote);
 		
@@ -901,14 +981,18 @@ public class QualificationController {
 	
 	
 	@GetMapping("/private/note/supprimer/{id}")
-	public void supprimerNote(@PathVariable(name = "id") Integer idNote) {
+	public void supprimerNote(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer idNote) {
 		
 		noteService.supprimerNote(idNote);
 		
 	}
 	
 	@PostMapping("/private/note/modifier")
-	public void modifierNote(@RequestBody FormNote formNote) {
+	public void modifierNote(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormNote formNote) {
 		
 		Integer idNote = formNote.getId();
 		Note note = noteService.obtenirNoteReelleParId(idNote);
@@ -919,14 +1003,18 @@ public class QualificationController {
 	
 	
 	@GetMapping("/private/procedure/liste/domaine/{domaine}")
-	public List<ProcedureAux> obtenirProceduresParDomaine(@PathVariable(name = "domaine") String domaine){
+	public List<ProcedureAux> obtenirProceduresParDomaine(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "domaine") String domaine){
 		
 		List<ProcedureAux> procedures = procedureService.obtenirProceduresParDomaine(domaine);
 		return procedures;
 	}
 	
 	@GetMapping("/private/procedure/obtenir/{id}")
-	public ProcedureAux obtenirUneProcedure(@PathVariable(name = "id") Integer id) {
+	public ProcedureAux obtenirUneProcedure(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id) {
 		
 		Procedure procedure = procedureService.obtenirProcedure(id);
 		ProcedureAux proAux = new ProcedureAux(procedure);
@@ -935,9 +1023,9 @@ public class QualificationController {
 	}
 	
 	@PostMapping("/private/procedure/modifier")
-	public void modifierProcedure(@RequestBody FormProcedure formProcedure) {
-		
-		
+	public void modifierProcedure(
+			@RequestHeader("Authorization") String token,
+			@RequestBody FormProcedure formProcedure) {
 		
 		procedureService.modifierProcedure(formProcedure);
 		
