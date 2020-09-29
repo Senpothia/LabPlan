@@ -56,7 +56,7 @@ import com.michel.lab.service.jpa.SequenceService;
 import com.michel.lab.service.jpa.UserService;
 
 @RestController
-@RequestMapping("/lab-service")
+//@RequestMapping("/lab-service")
 public class QualificationController {
 
 	@Autowired

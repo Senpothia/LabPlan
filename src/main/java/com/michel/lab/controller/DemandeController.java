@@ -22,7 +22,7 @@ import com.michel.lab.service.jpa.UserService;
 import com.zaxxer.hikari.metrics.micrometer.MicrometerMetricsTracker;
 
 @RestController
-@RequestMapping("/lab-service/private/demande")
+@RequestMapping("/private/demande")
 public class DemandeController {
 
 	@Autowired

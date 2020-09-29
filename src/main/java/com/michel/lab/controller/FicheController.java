@@ -25,7 +25,7 @@ import com.michel.lab.service.jpa.QualificationService;
 import com.michel.lab.service.jpa.UserService;
 
 @RestController
-@RequestMapping("/lab-service/private/fiche")
+@RequestMapping("/private/fiche")
 public class FicheController {
 	
 	@Autowired
@@ -100,27 +100,33 @@ public class FicheController {
 		Fiche fiche = new Fiche();
 		Utilisateur auteur = userService.obtenirUser(formFiche.getAuteur());
 		fiche.setAuteur(auteur);
+		fiche.setDate(LocalDateTime.parse(formFiche.getDate()+ " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		fiche.setCirconstance(formFiche.getCirconstance());
+		fiche.setService(formFiche.getService());
+		fiche.setDocument(formFiche.getDocument());
+		fiche.setDegre(formFiche.getDegre());
 		fiche.setCode(formFiche.getCode());
 		fiche.setDomaine(formFiche.getDomaine());
 		fiche.setIncidence(formFiche.getIncidence());
 		fiche.setNiveau(formFiche.getNiveau());
 		fiche.setNumero(formFiche.getNumero());
+		fiche.setDegre(formFiche.getDegre());
 		fiche.setObjet(formFiche.getObjet());
 		fiche.setObservation(formFiche.getObservation());
 		fiche.setProjet(formFiche.getProjet());
+		fiche.setProduit(formFiche.getProduit());
 		fiche.setSolution(formFiche.getSolution());
 		fiche.setReponse(formFiche.getReponse());
 		fiche.setStatut(true); 
-		Integer numQualification = formFiche.getQualification();
-		if(numQualification != null) {
+		Integer idQualification = formFiche.getQualification();
+		if(idQualification != null) {
 			
-			Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
+			Qualification qualification = qualificationService.obtenirQualificationParIdentifiant(idQualification);
 			fiche.setQualification(qualification);
 		}
 			
 		ficheService.enregistrerFiche(fiche);
-
+	
 	}
 	
 	@GetMapping("/voir/{id}")
