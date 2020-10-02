@@ -34,6 +34,12 @@ public class Utilisateur {
 	
 	@OneToMany(mappedBy = "demandeur")
 	private List<Demande> demandes;
+	
+	@OneToMany(mappedBy = "commercial")
+	private List<Defaut> defauts;
+	
+	@OneToMany(mappedBy = "commercial")
+	private List<Site> sites;
 
 	public Utilisateur() {
 		super();
