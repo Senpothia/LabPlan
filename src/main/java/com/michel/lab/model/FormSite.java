@@ -1,17 +1,7 @@
 package com.michel.lab.model;
 
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-
-@Entity
-public class Site {
+public class FormSite {
 	
-	@Id
 	private Integer id;
 	private String nom;
 	private Integer numero;
@@ -21,21 +11,17 @@ public class Site {
 	private String secteur;
 	private Integer departement;
 	private String region;
+	private Integer commercial;
 	
-	@ManyToOne
-	private Utilisateur commercial;
-	
-
-	@OneToMany(mappedBy="site")
-	private List<Recurrence> recurrences;
-	
-	public Site() {
+	public FormSite() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Site(Integer id, String nom, Integer numero, String voie, String ville, Integer codePostal, String secteur,
-			Integer departement, String region, Utilisateur commercial, List<Recurrence> recurrences) {
+	
+	
+	public FormSite(Integer id, String nom, Integer numero, String voie, String ville, Integer codePostal,
+			String secteur, Integer departement, String region, Integer commercial) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -47,23 +33,22 @@ public class Site {
 		this.departement = departement;
 		this.region = region;
 		this.commercial = commercial;
-		this.recurrences = recurrences;
 	}
-	
-	public Site(FormSite formSite) {
-		super();
+
+
+
+	public FormSite(Site site) {
 		
-		this.nom = formSite.getNom();
-		this.numero = formSite.getNumero();
-		this.voie = formSite.getVoie();
-		this.ville = formSite.getVille();
-		this.codePostal = formSite.getCodePostal();
-		this.secteur = formSite.getSecteur();
-		this.departement = formSite.getDepartement();
-		this.region = formSite.getRegion();
-		Utilisateur commercial = new Utilisateur();
-		commercial.setId(formSite.getId());
-		this.commercial = commercial;
+		this.id = site.getId();
+		this.nom = site.getNom();
+		this.numero = site.getNumero();
+		this.voie = site.getVoie();
+		this.ville = site.getVoie();
+		this.codePostal = site.getCodePostal();
+		this.secteur = site.getSecteur();
+		this.departement = site.getDepartement();
+		this.region = site.getRegion();
+		this.commercial = site.getCommercial().getId();
 		
 	}
 
@@ -139,24 +124,17 @@ public class Site {
 		this.region = region;
 	}
 
-	public Utilisateur getCommercial() {
+
+
+	public Integer getCommercial() {
 		return commercial;
 	}
 
-	public void setCommercial(Utilisateur commercial) {
+
+
+	public void setCommercial(Integer commercial) {
 		this.commercial = commercial;
 	}
-
-	public List<Recurrence> getRecurrences() {
-		return recurrences;
-	}
-
-	public void setRecurrences(List<Recurrence> recurrences) {
-		this.recurrences = recurrences;
-	}
 	
 	
-
-	
-
 }
