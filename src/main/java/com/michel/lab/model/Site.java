@@ -3,6 +3,7 @@ package com.michel.lab.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 public class Site {
 	
 	@Id
+	@GeneratedValue
 	private Integer id;
 	private String nom;
 	private Integer numero;
@@ -50,7 +52,7 @@ public class Site {
 		this.recurrences = recurrences;
 	}
 	
-	public Site(FormSite formSite) {
+	public Site(FormSite formSite, Utilisateur commercial) {
 		super();
 		
 		this.nom = formSite.getNom();
@@ -61,8 +63,6 @@ public class Site {
 		this.secteur = formSite.getSecteur();
 		this.departement = formSite.getDepartement();
 		this.region = formSite.getRegion();
-		Utilisateur commercial = new Utilisateur();
-		commercial.setId(formSite.getId());
 		this.commercial = commercial;
 		
 	}

@@ -1,6 +1,7 @@
 package com.michel.lab.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -8,6 +9,7 @@ import javax.persistence.ManyToOne;
 public class Recurrence {
 	
 	@Id
+	@GeneratedValue
 	private Integer id;
 	
 	@ManyToOne

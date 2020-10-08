@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 public class Defaut {
 	
 	@Id
+	@GeneratedValue
 	private Integer id;
 	private Integer numero;
 	private LocalDateTime date;

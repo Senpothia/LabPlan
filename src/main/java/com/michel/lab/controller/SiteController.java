@@ -31,7 +31,9 @@ public class SiteController {
 	public void enregistrerSite(@RequestBody FormSite formSite) {
 		
 	System.out.println("Entrée enregistrement site");	
-	Site site = new Site(formSite);
+	Integer idCommercial = formSite.getCommercial();
+	Utilisateur commercial = userService.obtenirUser(idCommercial);
+	Site site = new Site(formSite, commercial);
 	
 	siteService.enregistrerSite(site);
 	
