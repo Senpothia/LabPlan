@@ -1,5 +1,8 @@
 package com.michel.lab.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,5 +41,19 @@ public class SiteController {
 	siteService.enregistrerSite(site);
 	
 		
+	}
+	
+	@GetMapping("/liste")
+	public List<FormSite> obtenirListeSites(){
+		
+		List<Site> sites = siteService.obtenirListeSites();
+		List<FormSite> listeSites = new ArrayList<FormSite>();
+		for(Site s: sites) {
+			
+			FormSite f = new FormSite(s);
+			listeSites.add(f);
+		}
+		
+		return listeSites;
 	}
 }
