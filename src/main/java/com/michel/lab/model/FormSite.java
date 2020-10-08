@@ -37,7 +37,7 @@ public class FormSite {
 
 
 
-	public FormSite(Site site) {
+	public FormSite(Site2 site) {
 		
 		this.id = site.getId();
 		this.nom = site.getNom();

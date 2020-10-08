@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.michel.lab.model.FormSite;
-import com.michel.lab.model.Site;
+
+import com.michel.lab.model.Site2;
 import com.michel.lab.model.Utilisateur;
-import com.michel.lab.service.jpa.SiteService;
+
+import com.michel.lab.service.jpa.SiteService2;
 import com.michel.lab.service.jpa.UserService;
 
 @RestController
@@ -24,16 +26,16 @@ public class SiteController {
 	UserService userService;
 	
 	@Autowired
-	SiteService siteService;
+	SiteService2 siteService2;
 
 	
 	@PostMapping("/enregistrer")
 	public void enregistrerSite(@RequestBody FormSite formSite) {
 		
 	System.out.println("Entrée enregistrement site");	
-	Site site = new Site(formSite);
+	Site2 site = new Site2(formSite);
 	
-	siteService.enregistrerSite(site);
+	siteService2.enregistrerSite(site);
 	
 		
 	}

@@ -1,5 +1,5 @@
 package com.michel.lab.service;
 
-public interface ISiteService {
+public interface ISiteService2 {
 
 }

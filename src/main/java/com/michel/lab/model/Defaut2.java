@@ -4,15 +4,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
 @Entity
-public class Defaut {
+public class Defaut2 {
 	
 	@Id
+	@GeneratedValue
 	private Integer id;
 	private Integer numero;
 	private LocalDateTime date;
@@ -24,16 +26,17 @@ public class Defaut {
 	@ManyToOne
 	private Utilisateur commercial;
 	
-	@OneToMany(mappedBy="defaut")
-	private List<Recurrence> recurrences;
 
-	public Defaut() {
+
+	public Defaut2() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Defaut(Integer id, Integer numero, LocalDateTime date, String produit, String code, String description,
-			Utilisateur commercial, List<Recurrence> recurrences) {
+	
+
+	public Defaut2(Integer id, Integer numero, LocalDateTime date, String produit, String code, String description,
+			Utilisateur commercial) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -42,8 +45,9 @@ public class Defaut {
 		this.code = code;
 		this.description = description;
 		this.commercial = commercial;
-		this.recurrences = recurrences;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -101,13 +105,6 @@ public class Defaut {
 		this.commercial = commercial;
 	}
 
-	public List<Recurrence> getRecurrences() {
-		return recurrences;
-	}
-
-	public void setRecurrences(List<Recurrence> recurrences) {
-		this.recurrences = recurrences;
-	}
 
 
 }

@@ -3,15 +3,17 @@ package com.michel.lab.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
 @Entity
-public class Site {
+public class Site2 {
 	
 	@Id
+	@GeneratedValue
 	private Integer id;
 	private String nom;
 	private Integer numero;
@@ -25,17 +27,17 @@ public class Site {
 	@ManyToOne
 	private Utilisateur commercial;
 	
-
-	@OneToMany(mappedBy="site")
-	private List<Recurrence> recurrences;
 	
-	public Site() {
+
+	public Site2() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Site(Integer id, String nom, Integer numero, String voie, String ville, Integer codePostal, String secteur,
-			Integer departement, String region, Utilisateur commercial, List<Recurrence> recurrences) {
+	
+	
+	public Site2(Integer id, String nom, Integer numero, String voie, String ville, Integer codePostal, String secteur,
+			Integer departement, String region, Utilisateur commercial) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -47,10 +49,11 @@ public class Site {
 		this.departement = departement;
 		this.region = region;
 		this.commercial = commercial;
-		this.recurrences = recurrences;
 	}
-	
-	public Site(FormSite formSite) {
+
+
+
+	public Site2(FormSite formSite) {
 		super();
 		
 		this.nom = formSite.getNom();
@@ -147,14 +150,7 @@ public class Site {
 		this.commercial = commercial;
 	}
 
-	public List<Recurrence> getRecurrences() {
-		return recurrences;
-	}
 
-	public void setRecurrences(List<Recurrence> recurrences) {
-		this.recurrences = recurrences;
-	}
-	
 	
 
 	

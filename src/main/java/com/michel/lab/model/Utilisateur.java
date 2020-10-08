@@ -36,10 +36,10 @@ public class Utilisateur {
 	private List<Demande> demandes;
 	
 	@OneToMany(mappedBy = "commercial")
-	private List<Defaut> defauts;
+	private List<Defaut2> defauts;
 	
 	@OneToMany(mappedBy = "commercial")
-	private List<Site> sites;
+	private List<Site2> sites;
 
 	public Utilisateur() {
 		super();
