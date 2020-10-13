@@ -1,6 +1,7 @@
 package com.michel.lab.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -46,6 +47,19 @@ public class Defaut {
 		this.commercial = commercial;
 		this.recurrences = recurrences;
 	}
+	
+	public Defaut(FormIncident formIncident, Utilisateur commercial) {
+		super();
+	
+	
+		this.date = LocalDateTime.parse(formIncident.getDate()+ " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		this.produit = formIncident.getProduit();
+		this.code = formIncident.getCode() ;
+		this.description = formIncident.getDescription();
+		this.commercial = commercial;
+		this.recurrences = null;
+	}
+
 
 	public Integer getId() {
 		return id;

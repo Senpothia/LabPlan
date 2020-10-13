@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.michel.lab.model.Defaut;
+import com.michel.lab.model.FormIncident;
 import com.michel.lab.model.FormSite;
 import com.michel.lab.model.Site;
 import com.michel.lab.model.Utilisateur;
+import com.michel.lab.service.jpa.DefautService;
 import com.michel.lab.service.jpa.SiteService;
 import com.michel.lab.service.jpa.UserService;
 
@@ -29,6 +32,8 @@ public class SiteController {
 	@Autowired
 	SiteService siteService;
 
+	@Autowired
+	DefautService defautService;
 	
 	@PostMapping("/enregistrer")
 	public void enregistrerSite(@RequestBody FormSite formSite) {
@@ -56,4 +61,60 @@ public class SiteController {
 		
 		return listeSites;
 	}
+	
+	
+	@PostMapping("/defaut/enregistrer")
+	public void enregistrerIncident(@RequestBody FormIncident formIncident)
+	{
+		Integer idCommercial = formIncident.getCommercial();
+		Utilisateur commercial = userService.obtenirUser(idCommercial);
+		Defaut defaut = new Defaut(formIncident, commercial);
+		defautService.enregistrerDefaut(defaut);
+		
+		
+	}
+	
+	@GetMapping("/defaut/liste")
+	public List<FormIncident> obtenirListeIncident() {
+		
+		List<Defaut> defauts = defautService.obtenirListeDefauts();
+		List<FormIncident> listeDefauts = new ArrayList<FormIncident>();
+		
+		for(Defaut d :defauts) {
+			
+			FormIncident f = new FormIncident(d);
+			listeDefauts.add(f);
+			
+		}
+		
+		return listeDefauts;
+		
+	}
+	
+	@PostMapping("/defaut/produit")
+	public List<FormIncident> obtenirDefautParProduit(@RequestBody String produit){
+		
+		List<Defaut> defauts = defautService.obtenirDefautParProduit(produit);
+		List<FormIncident> incidents = new ArrayList<FormIncident>();
+		for(Defaut d: defauts) {
+			
+			FormIncident f = new FormIncident(d);
+			incidents.add(f);
+			
+		}
+		
+		return incidents;
+	}
+	
+	@PostMapping("/defaut/produit/voir")
+	public FormIncident obtenirDefautParId(@RequestBody Integer id) {
+		
+		
+		Defaut defaut = defautService.obtenirDefautParId(id);
+		FormIncident incident = new FormIncident(defaut);
+
+		return incident;
+		
+	}
+	
 }
