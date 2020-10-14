@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.michel.lab.model.Defaut;
 import com.michel.lab.model.FormIncident;
 import com.michel.lab.model.FormSite;
+import com.michel.lab.model.Recurrence;
+import com.michel.lab.model.RecurrenceAux;
 import com.michel.lab.model.Site;
 import com.michel.lab.model.Utilisateur;
 import com.michel.lab.service.jpa.DefautService;
+import com.michel.lab.service.jpa.RecurrenceService;
 import com.michel.lab.service.jpa.SiteService;
 import com.michel.lab.service.jpa.UserService;
 
@@ -34,6 +37,9 @@ public class SiteController {
 
 	@Autowired
 	DefautService defautService;
+	
+	@Autowired
+	RecurrenceService recurrenceService;
 	
 	@PostMapping("/enregistrer")
 	public void enregistrerSite(@RequestBody FormSite formSite) {
@@ -116,5 +122,29 @@ public class SiteController {
 		return incident;
 		
 	}
+	
+	@PostMapping("/get")
+	public FormSite obtenirSiteParId(@RequestBody Integer idSite) {
+		
+		Site site = siteService.obtenirSiteParId(idSite);
+		FormSite formSite = new FormSite(site);
+		return formSite;
+		
+	}
+	
+	@PostMapping("/ajouter/recurrence")
+	public void ajouterRecurrence(@RequestBody RecurrenceAux recurrenceAux) {
+		
+		Recurrence recurrence = new Recurrence();
+		Site site = siteService.obtenirSiteParId(recurrenceAux.getSite());
+		Defaut defaut = defautService.obtenirDefautParId(recurrenceAux.getDefaut());
+		recurrence.setDefaut(defaut);
+		recurrence.setSite(site);
+		recurrence.setTotal(recurrenceAux.getNombre());
+		recurrenceService.ajouterRecurrence(recurrence);
+		
+		
+	}
+	
 	
 }

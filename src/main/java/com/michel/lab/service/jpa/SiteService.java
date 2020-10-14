@@ -28,6 +28,11 @@ public class SiteService implements ISiteService{
 		return sites;
 	}
 
+	public Site obtenirSiteParId(Integer idSite) {
+		Site site = siteRepo.getOne(idSite);
+		return site;
+	}
+
 	
 
 }
