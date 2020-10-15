@@ -179,6 +179,7 @@ public class SiteController {
 			
 			Defaut d = r.getDefaut();
 			FormIncident f = new FormIncident(d);
+			f.setRecurrence(r.getTotal());
 			listeDefauts.add(f);
 		}
 		
