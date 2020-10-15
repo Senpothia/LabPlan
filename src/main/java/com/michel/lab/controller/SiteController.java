@@ -142,8 +142,47 @@ public class SiteController {
 		recurrence.setSite(site);
 		recurrence.setTotal(recurrenceAux.getNombre());
 		recurrenceService.ajouterRecurrence(recurrence);
+	
+	}
+	
+	@PostMapping("/defaut/cartographier")
+	public List<FormSite> cartographier(@RequestBody Integer idDefaut){
 		
 		
+		Defaut defaut = defautService.obtenirDefautParId(idDefaut);
+		
+	
+		List<Recurrence> recurrences = recurrenceService.obtenirSites(defaut);
+		
+		
+		List<FormSite> listeSites = new ArrayList<FormSite>();
+		for(Recurrence r: recurrences) {
+			
+			Site s = r.getSite();
+			FormSite f = new FormSite(s);
+			listeSites.add(f);
+			
+		}
+
+		return listeSites;
+	
+	}
+	
+	@PostMapping("/defauts")
+	public List<FormIncident> obtenirDefautsParSite(@RequestBody Integer id){
+		
+		Site site = siteService.obtenirSiteParId(id);
+		List<Recurrence> recurrences = recurrenceService.obtenirDefautParSite(site);
+		List<FormIncident> listeDefauts = new ArrayList<FormIncident>();
+		for(Recurrence r: recurrences) {
+			
+			
+			Defaut d = r.getDefaut();
+			FormIncident f = new FormIncident(d);
+			listeDefauts.add(f);
+		}
+		
+ 		return listeDefauts;
 	}
 	
 	
