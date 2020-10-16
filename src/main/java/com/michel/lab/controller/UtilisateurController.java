@@ -20,7 +20,7 @@ import com.michel.lab.model.UtilisateurAux;
 import com.michel.lab.service.jpa.UserService;
 
 @RestController
-//@RequestMapping("/lab-service")
+@RequestMapping("/lab-service")
 public class UtilisateurController {
 
 	@Autowired
