@@ -44,7 +44,7 @@ public class UsineController {
 	}
 	
 	@PostMapping("/of/voir")
-	public FormOf obtenirOfParId(@RequestHeader("Authorization")  String token, Integer id) {
+	public FormOf obtenirOfParId(@RequestHeader("Authorization")  String token, @RequestBody Integer id) {
 		
 		Of of = ofService.obtenirOfParId(id);
 		FormOf formOf = new FormOf(of);
