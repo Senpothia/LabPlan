@@ -96,6 +96,28 @@ public class UsineController {
 		return formAnomalie;
 	}
 	
+	@PostMapping("/anomalie/produits")
+	public List<String> listeProduitsAvecAnomalie(@RequestHeader("Authorization") String token){
+		
+		List<String> produits = anomalieService.obtenirListeProduits();
+		
+		return produits;
+	}
+	
+	@PostMapping("/anomalie/produit")
+	public List<FormAnomalie> obtenirAnomaliesParProduit(@RequestHeader("Authorization") String token, @RequestBody String produit){
+		
+		List<Anomalie> anomalies = anomalieService.obtenirListeAnomalieProduit(produit);
+		List<FormAnomalie> listeAnomalies = new ArrayList<FormAnomalie>();
+		for(Anomalie a: anomalies) {
+			
+			FormAnomalie f = new FormAnomalie(a);
+			listeAnomalies.add(f);
+		}
+		return listeAnomalies;
+	}
+
+	
 	
 	
 }
