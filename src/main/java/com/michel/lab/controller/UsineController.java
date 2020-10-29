@@ -15,9 +15,12 @@ import com.michel.lab.model.Anomalie;
 import com.michel.lab.model.FormAnomalie;
 import com.michel.lab.model.FormOf;
 import com.michel.lab.model.Of;
+import com.michel.lab.model.Repetition;
+import com.michel.lab.model.RepetitionAux;
 import com.michel.lab.model.Utilisateur;
 import com.michel.lab.service.jpa.AnomalieService;
 import com.michel.lab.service.jpa.OfService;
+import com.michel.lab.service.jpa.RepetitionService;
 import com.michel.lab.service.jpa.UserService;
 
 @RestController
@@ -32,6 +35,9 @@ public class UsineController {
 	
 	@Autowired
 	AnomalieService anomalieService;
+	
+	@Autowired
+	RepetitionService repetitionService;
 	
 	@PostMapping("/of/enregistrer")
 	public void enregistrerOf(@RequestHeader("Authorization") String token, @RequestBody FormOf formOf) {
@@ -116,7 +122,41 @@ public class UsineController {
 		}
 		return listeAnomalies;
 	}
-
+	
+	@PostMapping("/of/anomalies")
+	public List<FormAnomalie> obtenirAnomalieParOf(@RequestHeader("Authorization") String token, @RequestBody Integer id){
+		
+		
+		return null;
+	}
+	
+	@PostMapping("/of/produit")
+	public List<FormOf> obtenirOfsParProduit(@RequestHeader("Authorization") String token, @RequestBody String produit){
+		
+		List<Of> ofs = ofService.obtenirOfsParProduit(produit);
+		List<FormOf> listeOfs = new ArrayList<FormOf>();
+		for(Of o: ofs) {
+			
+			FormOf f = new FormOf(o);
+			listeOfs.add(f);
+					
+		}
+		
+		return listeOfs;
+	}
+	
+	@PostMapping("/enregistrer/repetition")
+	public void enregistrerRepetition(@RequestHeader("Authorization") String token, @RequestBody RepetitionAux repetitionAux) {
+		
+		Repetition repetition = new Repetition();
+		Anomalie anomalie = anomalieService.obtenirAnomalieParId(repetitionAux.getAnomalie());
+		Of of = ofService.obtenirOfParId(repetitionAux.getOf());
+		repetition.setAnomalie(anomalie);
+		repetition.setOf(of);
+		repetition.setTotal(repetitionAux.getTotal());
+		repetitionService.enregistrerRepetition(repetition);
+	
+	}
 	
 	
 	

@@ -42,4 +42,11 @@ public class OfService  implements IOfService{
 		return of;
 	}
 
+	public List<Of> obtenirOfsParProduit(String produit) {
+		
+		List<Of> ofs = ofRepo.findByProduit(produit);
+		
+		return ofs;
+	}
+
 }

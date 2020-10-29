@@ -16,7 +16,7 @@ public class Repetition {
 	private Of of;
 	
 	@ManyToOne
-	private Defaut anomalie;
+	private Anomalie anomalie;
 	
 	private Integer total;    // nombre de défaut recenser sur un of  (recurrence du défaut par of)
 
@@ -25,13 +25,17 @@ public class Repetition {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Repetition(Integer id, Of of, Defaut anomalie, Integer total) {
+	
+
+	public Repetition(Integer id, Of of, Anomalie anomalie, Integer total) {
 		super();
 		this.id = id;
 		this.of = of;
 		this.anomalie = anomalie;
 		this.total = total;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -49,13 +53,19 @@ public class Repetition {
 		this.of = of;
 	}
 
-	public Defaut getAnomalie() {
+	
+
+	public Anomalie getAnomalie() {
 		return anomalie;
 	}
 
-	public void setAnomalie(Defaut anomalie) {
+
+
+	public void setAnomalie(Anomalie anomalie) {
 		this.anomalie = anomalie;
 	}
+
+
 
 	public Integer getTotal() {
 		return total;
