@@ -201,7 +201,17 @@ public class UsineController {
 		ofService.supprimerOfParId(id);
 	}
 	
+	@PostMapping("/modifier/anomalie")
+	public void modifierAnomalie(@RequestHeader("Authorization") String token, @RequestBody FormAnomalie formAnomalie) {
 	
+	anomalieService.modifierAnomalie(formAnomalie);
+	}
+	
+	@PostMapping("/supprimer/anomalie")
+	public void supprimerAnomalie(@RequestHeader("Authorization") String token, @RequestBody Integer id) {
+		
+		anomalieService.supprimerAnomalie(id);
+	}
 	
 	
 }

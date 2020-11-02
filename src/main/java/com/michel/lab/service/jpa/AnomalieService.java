@@ -1,5 +1,7 @@
 package com.michel.lab.service.jpa;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.michel.lab.model.Anomalie;
+import com.michel.lab.model.FormAnomalie;
 import com.michel.lab.repository.AnomalieRepo;
 import com.michel.lab.service.IAnomalieService;
 
@@ -52,6 +55,25 @@ public class AnomalieService implements IAnomalieService {
 		
 		List<Anomalie> anomalies = anomalieRepo.findByProduit(produit);
 		return anomalies;
+	}
+
+	public void modifierAnomalie(FormAnomalie formAnomalie) {
+		
+		Integer id = formAnomalie.getId();
+		Anomalie anomalie = anomalieRepo.getOne(id);
+		anomalie.setCode(formAnomalie.getCode());
+		anomalie.setDate(LocalDateTime.parse(formAnomalie.getDate()+ " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		anomalie.setDescription(formAnomalie.getDescription());
+		anomalie.setNumero(formAnomalie.getNumero());
+		anomalie.setProduit(formAnomalie.getProduit());
+		anomalieRepo.save(anomalie);
+	}
+
+	public void supprimerAnomalie(Integer id) {
+		
+		Anomalie anomalie = anomalieRepo.getOne(id);
+		anomalieRepo.delete(anomalie);
+		
 	}
 	
 	
