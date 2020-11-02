@@ -49,4 +49,17 @@ public class OfService  implements IOfService{
 		return ofs;
 	}
 
+	public void modifierOf(Of of) {
+		
+		ofRepo.save(of);
+		
+	}
+
+	public void supprimerOfParId(Integer id) {
+		
+		Of of = ofRepo.getOne(id);
+		ofRepo.delete(of);
+		
+	}
+
 }

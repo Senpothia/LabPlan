@@ -1,5 +1,7 @@
 package com.michel.lab.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,8 +128,15 @@ public class UsineController {
 	@PostMapping("/of/anomalies")
 	public List<FormAnomalie> obtenirAnomalieParOf(@RequestHeader("Authorization") String token, @RequestBody Integer id){
 		
-		
-		return null;
+		List<Repetition> repetitions = repetitionService.obtenirRepetitionsParOf(id);
+		List<FormAnomalie> anomalies = new ArrayList<FormAnomalie>();
+		for(Repetition r: repetitions) {
+			
+			Anomalie a = r.getAnomalie();
+			FormAnomalie f = new FormAnomalie(a);
+			anomalies.add(f);		}
+	
+		return anomalies;
 	}
 	
 	@PostMapping("/of/produit")
@@ -157,6 +166,41 @@ public class UsineController {
 		repetitionService.enregistrerRepetition(repetition);
 	
 	}
+	
+	@PostMapping("/repetitions/of")
+	public List<RepetitionAux> obtenirRepetitionsParOf(@RequestHeader("Authorization") String token, @RequestBody Integer of) {
+		
+		List<Repetition> repetitions = repetitionService.obtenirRepetitionsParOf(of);
+		List<RepetitionAux> listeRepetitions = new ArrayList<RepetitionAux>();
+		for(Repetition r: repetitions) {
+			
+			RepetitionAux rep = new RepetitionAux(r);
+			listeRepetitions.add(rep);
+			
+		}
+		
+		return listeRepetitions;
+	}
+	
+	@PostMapping("/modifier/of")
+	public void modifierOf(@RequestHeader("Authorization") String token,  @RequestBody FormOf formOf) {
+	
+	Of of = ofService.obtenirOfParId(formOf.getId());
+	of.setCode(formOf.getCode());
+	of.setDate(LocalDateTime.parse(formOf.getDate()+ " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+	of.setNumero(formOf.getNumero());
+	of.setProduit(formOf.getProduit());
+	of.setTaille(formOf.getTaille());
+	ofService.modifierOf(of);
+
+	}
+	
+	@PostMapping("/supprimer/of")
+	public void supprimerOf(@RequestHeader("Authorization") String token, @RequestBody Integer id) {
+		
+		ofService.supprimerOfParId(id);
+	}
+	
 	
 	
 	

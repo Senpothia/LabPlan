@@ -12,14 +12,17 @@ public class FormAnomalie {
 	private String code;
 	private String description;
 	private Integer controleur;
+	private Integer total;
 
 	public FormAnomalie() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public FormAnomalie(Integer id, Integer numero, String date, String produit, String code, String description,
-			Integer controleur) {
+			Integer controleur, Integer total) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -28,7 +31,10 @@ public class FormAnomalie {
 		this.code = code;
 		this.description = description;
 		this.controleur = controleur;
+		this.total = total;
 	}
+
+
 
 	public FormAnomalie(Anomalie anomalie) {
 		super();
@@ -96,5 +102,19 @@ public class FormAnomalie {
 	public void setControleur(Integer controleur) {
 		this.controleur = controleur;
 	}
+
+
+
+	public Integer getTotal() {
+		return total;
+	}
+
+
+
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+	
+	
 
 }

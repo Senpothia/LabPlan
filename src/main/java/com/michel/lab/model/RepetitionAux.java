@@ -21,6 +21,15 @@ public class RepetitionAux {
 		this.produit = produit;
 		this.total = total;
 	}
+	
+	public RepetitionAux(Repetition repetition) {
+		super();
+		this.id = repetition.getId();
+		this.anomalie = repetition.getAnomalie().getId();
+		this.of = repetition.getOf().getId();
+		this.produit = repetition.getOf().getProduit();
+		this.total = repetition.getTotal();
+	}
 
 	public Integer getId() {
 		return id;
