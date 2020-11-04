@@ -34,17 +34,29 @@ public class Utilisateur {
 	
 	@OneToMany(mappedBy = "demandeur")
 	private List<Demande> demandes;
+	
+	@OneToMany(mappedBy = "commercial")
+	private List<Defaut> defauts;
+	
+	@OneToMany(mappedBy = "commercial")
+	private List<Site> sites;
+	
+	@OneToMany(mappedBy = "createur")
+	private List<Of> ofs;
+	
+	@OneToMany(mappedBy = "controleur")
+	private List<Anomalie> anomalies;
 
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
 
 	public Utilisateur(Integer id, String nom, String prenom, String role, String email, String password,
 			boolean enabled, List<Rapport> rapports, List<Qualification> qualifications, List<Note> notes,
-			List<Fiche> fiches, List<Demande> demandes) {
+			List<Fiche> fiches, List<Demande> demandes, List<Defaut> defauts, List<Site> sites, List<Of> ofs,
+			List<Anomalie> anomalies) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -58,6 +70,10 @@ public class Utilisateur {
 		this.notes = notes;
 		this.fiches = fiches;
 		this.demandes = demandes;
+		this.defauts = defauts;
+		this.sites = sites;
+		this.ofs = ofs;
+		this.anomalies = anomalies;
 	}
 
 
@@ -168,6 +184,46 @@ public class Utilisateur {
 
 	public void setDemandes(List<Demande> demandes) {
 		this.demandes = demandes;
+	}
+
+
+	public List<Defaut> getDefauts() {
+		return defauts;
+	}
+
+
+	public void setDefauts(List<Defaut> defauts) {
+		this.defauts = defauts;
+	}
+
+
+	public List<Site> getSites() {
+		return sites;
+	}
+
+
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
+	}
+
+
+	public List<Of> getOfs() {
+		return ofs;
+	}
+
+
+	public void setOfs(List<Of> ofs) {
+		this.ofs = ofs;
+	}
+
+
+	public List<Anomalie> getAnomalies() {
+		return anomalies;
+	}
+
+
+	public void setAnomalies(List<Anomalie> anomalies) {
+		this.anomalies = anomalies;
 	}
 	
 	
