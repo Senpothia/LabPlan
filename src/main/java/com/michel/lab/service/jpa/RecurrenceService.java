@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.michel.lab.model.Defaut;
 import com.michel.lab.model.Recurrence;
 import com.michel.lab.model.Site;
+import com.michel.lab.repository.DefautRepo;
 import com.michel.lab.repository.RecurrenceRepo;
+import com.michel.lab.repository.SiteRepo;
 import com.michel.lab.service.IRecurrenceService;
 
 
@@ -17,6 +19,12 @@ public class RecurrenceService implements IRecurrenceService{
 	
 	@Autowired
 	RecurrenceRepo recurrenceRepo;
+	
+	@Autowired
+	SiteRepo siteRepo;
+	
+	@Autowired
+	DefautRepo defautRepo;
 
 	public void ajouterRecurrence(Recurrence recurrence) {
 		
@@ -33,6 +41,13 @@ public class RecurrenceService implements IRecurrenceService{
 	public List<Recurrence> obtenirDefautParSite(Site site) {
 		List<Recurrence> recurrences = recurrenceRepo.findBySite(site);
 		return recurrences;
+	}
+
+	public Recurrence obtenirDefautParSiteProduit(Integer id, Integer idProduit) {
+		Site site = siteRepo.getOne(id);
+		Defaut defaut = defautRepo.getOne(idProduit);
+		Recurrence recurrence = recurrenceRepo.findByDefautAndSite(defaut, site);
+		return null;
 	}
 
 	

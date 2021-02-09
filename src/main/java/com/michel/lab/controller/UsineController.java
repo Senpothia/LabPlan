@@ -134,6 +134,7 @@ public class UsineController {
 			
 			Anomalie a = r.getAnomalie();
 			FormAnomalie f = new FormAnomalie(a);
+			f.setTotal(r.getTotal());
 			anomalies.add(f);		}
 	
 		return anomalies;

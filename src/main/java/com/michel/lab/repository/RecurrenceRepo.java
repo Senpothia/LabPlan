@@ -15,8 +15,10 @@ public interface RecurrenceRepo extends JpaRepository<Recurrence, Integer> {
 
 	List<Recurrence> findBySite(Site site);
 
-	
+	Recurrence findByDefautAndSite(Defaut defaut, Site site);
 
+	
+ 
 
 
 }
