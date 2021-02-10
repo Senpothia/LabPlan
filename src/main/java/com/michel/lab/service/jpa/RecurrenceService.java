@@ -43,11 +43,11 @@ public class RecurrenceService implements IRecurrenceService{
 		return recurrences;
 	}
 
-	public Recurrence obtenirDefautParSiteProduit(Integer id, Integer idProduit) {
-		Site site = siteRepo.getOne(id);
-		Defaut defaut = defautRepo.getOne(idProduit);
+	public Recurrence obtenirDefautParSiteProduit(Integer idDefaut, Integer idSite) {
+		Site site = siteRepo.getOne(idSite);
+		Defaut defaut = defautRepo.getOne(idDefaut);
 		Recurrence recurrence = recurrenceRepo.findByDefautAndSite(defaut, site);
-		return null;
+		return recurrence;
 	}
 
 	

@@ -185,17 +185,12 @@ public class SiteController {
  		return listeDefauts;
 	}
 	
-	@PostMapping("/private/activite/site/defaut/produit/recurrence")
-	public FormIncident obtenirDefautParIdPourProduit(@RequestHeader("Authorization")String token, @RequestBody Integer id, @RequestBody Integer idProduit) {
-		
-		
-		Defaut defaut = defautService.obtenirDefautParId(id);
-		FormIncident incident = new FormIncident(defaut);
-		// chercher la recurrence pour le defaut et pour le produit
-		
-		Recurrence recurrence = recurrenceService.obtenirDefautParSiteProduit(id, idProduit);
-		incident.setRecurrence(recurrence.getTotal());
-		return incident;
+	@PostMapping("/defaut/produit/recurrence")
+	public FormIncident obtenirDefautParIdPourProduit(@RequestBody FormIncident formIncident) {
+			
+		Recurrence recurrence = recurrenceService.obtenirDefautParSiteProduit(formIncident.getId(), formIncident.getSite());
+		formIncident.setRecurrence(recurrence.getTotal());
+		return formIncident;
 	}
 	
 	

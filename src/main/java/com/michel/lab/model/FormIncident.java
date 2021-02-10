@@ -11,14 +11,17 @@ public class FormIncident {
 	private String code;
 	private String description;
 	private Integer recurrence;
+	private Integer site;
 
 	public FormIncident() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public FormIncident(Integer id, Integer commercial, String date, String produit, String code, String description,
-			Integer recurrence) {
+			Integer recurrence, Integer site) {
 		super();
 		this.id = id;
 		this.commercial = commercial;
@@ -27,7 +30,10 @@ public class FormIncident {
 		this.code = code;
 		this.description = description;
 		this.recurrence = recurrence;
+		this.site = site;
 	}
+
+
 
 	public FormIncident(Defaut defaut) {
 
@@ -38,6 +44,7 @@ public class FormIncident {
 		this.code = defaut.getCode();
 		this.description = defaut.getDescription();
 		this.recurrence = 0;
+		this.site = null;
 	}
 
 	
@@ -97,5 +104,19 @@ public class FormIncident {
 	public void setRecurrence(Integer recurrence) {
 		this.recurrence = recurrence;
 	}
+
+
+
+	public Integer getSite() {
+		return site;
+	}
+
+
+
+	public void setSite(Integer site) {
+		this.site = site;
+	}
+	
+	
 
 }
