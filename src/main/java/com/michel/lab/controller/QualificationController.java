@@ -161,7 +161,7 @@ public class QualificationController {
 
 		}
 
-	}
+	 }
 
 	@GetMapping("/private/domaines") // récupération de la liste des domaines
 	public List<String> tousLesDomaines(@RequestHeader("Authorization") String token) {

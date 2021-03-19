@@ -51,7 +51,7 @@ public class SiteController {
 	siteService.enregistrerSite(site);
 	
 		
-	}
+ 	}
 	
 	@GetMapping("/liste")
 	public List<FormSite> obtenirListeSites(){

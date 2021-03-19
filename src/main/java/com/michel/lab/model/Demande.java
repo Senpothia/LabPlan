@@ -60,7 +60,7 @@ public class Demande {
 		this.statut = statut;
 		this.attente = attente;
 		this.urgence = urgence;
-		this.produit = produit;
+	 	this.produit = produit; 
 		this.echantillon = echantillon;
 		this.origine = origine;
 		this.essai = essai;
@@ -75,7 +75,7 @@ public class Demande {
 		this.technicien = technicien;
 	}
 
-
+ 
 	public Integer getId() {
 		return id;
 	}

@@ -58,7 +58,7 @@ public class TokenController {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		}
 		
-	}
+	} 
 	
 	private Utilisateur existUtilisateur(Login login) {
 		
