@@ -308,6 +308,43 @@ public class QualificationController {
 
 	}
 
+	/*
+	@PostMapping("/essai/supprimer/procedure/{id}/{qualification}/{idUser}")
+	public void supprimerProcedure(
+			@RequestHeader("Authorization") String token,
+			@PathVariable(name = "id") Integer id,
+			@PathVariable(name = "qualification") Integer qualification,
+			@PathVariable(name = "idUser") Integer idUser) {
+
+		Utilisateur technicien = userService.obtenirUser(idUser);
+		Qualification qualif = qualificationService.obtenirQualificationParNumero(qualification);
+		Procedure procedure = procedureService.obtenirProcedure(id);
+		
+		List<Essai> listeEssais = qualif.getEssais();
+		int nombreEssais = 0;
+		if (listeEssais.isEmpty()) {
+			
+			nombreEssais = 0;
+		} else {
+			
+			nombreEssais = listeEssais.size();
+		}
+		
+		
+		Essai essai = new Essai();
+		essai.setNumero(nombreEssais + 1);
+		essai.setQualification(qualif);
+		essai.setTechnicien(technicien);
+		essai.setResultat(false); // En cours ou non conforme
+		essai.setStatut(true); // l'essai est en cours
+		essai.setProcedure(procedure);
+		essai.setDate(LocalDateTime.now());
+
+		essaiService.ajouterEssai(essai);
+
+	}
+
+	*/
 	@PostMapping("/private/liste/procedure/selection")
 	public List<Integer> obtenirSelectionProcedure(
 			@RequestHeader("Authorization") String token,
