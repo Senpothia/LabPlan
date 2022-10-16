@@ -82,7 +82,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>lab-service-localhost</finalName>
+		<finalName>lab-service2</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
