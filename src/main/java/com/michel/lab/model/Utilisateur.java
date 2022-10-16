@@ -53,6 +53,9 @@ public class Utilisateur {
 	}
 
 
+	
+
+
 	public Utilisateur(Integer id, String nom, String prenom, String role, String email, String password,
 			boolean enabled, List<Rapport> rapports, List<Qualification> qualifications, List<Note> notes,
 			List<Fiche> fiches, List<Demande> demandes, List<Defaut> defauts, List<Site> sites, List<Of> ofs,
@@ -75,6 +78,8 @@ public class Utilisateur {
 		this.ofs = ofs;
 		this.anomalies = anomalies;
 	}
+
+
 
 
 
