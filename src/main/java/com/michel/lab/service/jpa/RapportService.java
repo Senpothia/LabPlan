@@ -51,10 +51,9 @@ public class RapportService implements IRapportService {
 	@Override
 	public Integer enregistrerRapport(FormInitRapport formInitRapport) {
 		
-		System.out.println("rapportService  - Enregistrement rapport");
 		Rapport rapport = new Rapport();
 		Integer idAuteur = formInitRapport.getAuteur();
-		System.out.println("idAuteur: " + idAuteur);
+	
 		
 		Utilisateur auteur = userService.obtenirUser(idAuteur);
 		
@@ -69,7 +68,7 @@ public class RapportService implements IRapportService {
 		
 		
 		Integer numQualification = formInitRapport.getQualification();
-		System.out.println("Num qualification: " + numQualification);
+		
 		
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
 		
@@ -79,16 +78,15 @@ public class RapportService implements IRapportService {
 		
 		LocalDateTime dateConvertie = LocalDateTime.parse(date, formatter);
 		
-		System.out.println("date convertie: " + dateConvertie);
+	
 		rapport.setDate(dateConvertie);
 		
 		rapportRepo.save(rapport);
 		
 		Integer idRapport = rapport.getId();
-		System.out.println("IdRapport enregistré: " + idRapport);
+	
 		
 		List<Echantillon> echantillons = echantillonService.obtenirEchantillonParQualification(numQualification);
-		System.out.println("Taille de la liste des échantillons de la qualification: " + echantillons.size());
 		
 		for(Echantillon e : echantillons) {
 			

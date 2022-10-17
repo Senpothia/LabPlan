@@ -74,9 +74,9 @@ public class FicheController {
 	
 	@GetMapping("/voir")
 	public List<FicheAux> voirLesFiches(){
-		System.out.println("recherche fiches");
+	
 		List<FicheAux> fiches = ficheService.voirLesFiches();
-		System.out.println("taille liste des fiches: " + fiches.size());
+	
 		return fiches;
 	}
 	
@@ -150,9 +150,9 @@ public class FicheController {
 	public void modifierLaFiche(@RequestBody FormFiche formFiche) {
 		
 		Integer id = formFiche.getId();
-		System.out.println("Valeur id fiche: " + id);
+	
 		Fiche fiche = ficheService.obtenirFicheParId(id);
-		System.out.println("Auteur: " + formFiche.getAuteur());
+	
 		Utilisateur auteur = userService.obtenirUser(formFiche.getAuteur());
 		fiche.setAuteur(auteur);
 		fiche.setDate(LocalDateTime.parse(formFiche.getDate()+ " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -174,7 +174,7 @@ public class FicheController {
 		fiche.setDegre(formFiche.getDegre());
 		fiche.setStatut(true); 
 		Integer numQualification = formFiche.getQualification();
-		System.out.println("Qualification id: " + formFiche.getQualification());
+	
 		if(numQualification != null) {
 			
 			Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);

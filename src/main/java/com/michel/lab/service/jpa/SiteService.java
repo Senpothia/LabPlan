@@ -19,7 +19,7 @@ public class SiteService implements ISiteService{
 	public void enregistrerSite(Site site) {
 		
 		siteRepo.save(site);
-		System.out.println("enregistrement site");
+		
 		
 	}
 

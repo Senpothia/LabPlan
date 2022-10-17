@@ -37,7 +37,7 @@ public class TokenController {
 	@PostMapping("/connexion")
 	public ResponseEntity<UtilisateurAux> generate(@RequestBody final Login login){
 		
-		System.out.println("**Entrée POST service");
+	
 		Utilisateur jwtUser = new Utilisateur();
 		jwtUser = existUtilisateur(login);
 		
@@ -62,20 +62,18 @@ public class TokenController {
 	
 	private Utilisateur existUtilisateur(Login login) {
 		
-		System.out.println("Login user: " + login.getUser());
-		System.out.println("Login user: " + login.getPassword());
-		System.out.println("Login user: " + passwordEncoder.encode(login.getPassword()));
+	
 		
 		try {
 			
 		Utilisateur utilisateur = userService.obtenirUserParlogin(login.getUser(), login.getPassword());
 		utilisateur.setRole("Admin");
-		System.out.println("Connexion réussion: " + utilisateur.getPrenom() + " " + utilisateur.getNom());
+	
 		return utilisateur;
 		
 		} catch (Exception e) {
 			
-			System.out.println("Utilisateur non identifié");
+			
 			return null;
 		}
 

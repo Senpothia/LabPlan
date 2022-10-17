@@ -90,7 +90,7 @@ public class DemandeController {
 	public void modifierDemande(@RequestBody FormDemande formDemande) {
 
 		Integer id = formDemande.getId();
-		System.out.println("id demande récupéré: " + id);
+		
 		
 		Demande demande = demandeService.obtenirDemandeParId(id);
 
@@ -101,7 +101,7 @@ public class DemandeController {
 		demande.setObjectif(formDemande.getObjectif());
 		demande.setOrigine(formDemande.getOrigine());
 		demande.setProduit(formDemande.getProduit());
-		System.out.println("Nom de produit: " + demande.getProduit());
+		
 		demande.setCode(formDemande.getCode());
 		demande.setAuxiliaire(formDemande.getAuxiliaire());
 		demande.setUrgence(formDemande.getUrgence());
@@ -119,7 +119,7 @@ public class DemandeController {
 	public void enregistrerReponse(@RequestBody FormDemande formDemande) {
 		
 		Integer id = formDemande.getId();
-		System.out.println("id demande récupéré: " + id);
+	
 		
 		Demande demande = demandeService.obtenirDemandeParId(id);
 		demande.setAvis(formDemande.getAvis());

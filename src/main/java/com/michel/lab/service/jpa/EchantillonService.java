@@ -36,12 +36,12 @@ public class EchantillonService implements IEchantillonService{
 	public void enregistrerEchantillon(FormEchantillon formEchantillon) {
 		
 		Qualification qualification = qualificationRepo.findByNumero(formEchantillon.getQualification());
-	    System.out.println("numero qualification enregistrement ech: " + qualification.getId());
+	  
 		Echantillon echantillon = new Echantillon();
 		echantillon.setActif(true);
 		echantillon.setCaracteristique(formEchantillon.getCaracteristique());
 		String date = formEchantillon.getDate();
-		System.out.println("Date échantillon récupérée: " + date);
+		
 		echantillon.setDate(LocalDateTime.parse(date + " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 		echantillon.setNumero(formEchantillon.getNumero());
 		echantillon.setVersion(formEchantillon.getVersion());

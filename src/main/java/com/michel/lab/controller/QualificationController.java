@@ -132,16 +132,14 @@ public class QualificationController {
 
 		String nomDomaine = formProcedure.getDomaine();
 
-		System.out.println("nom du domaine récupéré: " + nomDomaine);
-
+	
 		List<Domaine> domaines = domaineService.obtenirDomaine(nomDomaine);
 		
-		System.out.println("Taille liste des domaines: " + domaines.size());
 		
 		
 		if (domaines.isEmpty() || domaines == null) {
 
-			System.out.println("Liste domaines vides");
+		
 			Domaine domaine = new Domaine();
 			domaine.setNom(formProcedure.getDomaine());
 			domaineService.ajouterDomaine(domaine);
@@ -151,8 +149,7 @@ public class QualificationController {
 	
 		} else {
 
-			System.out.println("taille domaines: " + domaines.size());
-			System.out.println("nom domaine: " + domaines.get(0).getNom());
+		
 			Domaine domaine = new Domaine();
 			domaine.setNom(domaines.get(0).getNom());
 			procedure.setDomaine(domaines.get(0));
@@ -353,10 +350,7 @@ public class QualificationController {
 		Integer idDomaine = groupe.getDomaine();
 		Integer numero = groupe.getQualification();
 
-		System.out.println("***  Méthode obtenirSelectionProcedure ***");
-		System.out.println("Domaine: " + idDomaine);
-		System.out.println("Qualification: " + numero);
-
+	
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numero);
 		List<Essai> essais = qualification.getEssais();
 		List<Integer> idEssais = new ArrayList<Integer>();
@@ -392,9 +386,7 @@ public class QualificationController {
 			@RequestHeader("Authorization") String token,
 			@PathVariable(name = "id") Integer id) {
 
-		System.out.println("*** Entrée méthode obtenirEssaisParQualification - service");
-		System.out.println("Numéro qualif reçu: " + id);
-
+	
 		List<EssaiAux> essais = essaiService.obtenirEssaisParQualification(id);
 
 		return essais;
@@ -502,7 +494,7 @@ public class QualificationController {
 			try {
 
 				Duration duration = Duration.between(s.getDebut(), s.getFin());
-				System.out.println("durée: " + duration.toHours() + " hours");
+			
 				long duree = duration.toHours();
 				s.setDuree(duree);
 
@@ -544,8 +536,7 @@ public class QualificationController {
 			@RequestHeader("Authorization") String token,
 			@RequestBody FormSequence formSequence) {
 
-		System.out.println("méthode enregistrerSequence ");
-		System.out.println(formSequence.toString());
+	
 		sequenceService.enregistrerSequence(formSequence);
 
 	}
@@ -585,13 +576,10 @@ public class QualificationController {
 		sequence.setFinText(dateFin);
 		
 		long duree =0;
-		
-	    System.out.println("Valeur debut: " + sequence.getDebut());	
-	    System.out.println("Valeur fin: " + sequence.getFin());	
-	    
+	
 	    if (sequence.getDebut() != null && sequence.getFin() != null ) {
 		Duration duration = Duration.between(sequence.getDebut(), sequence.getFin());
-		System.out.println("durée: "  + duration.toHours() + " hours");
+	
 	
 		duree = duration.toHours(); 
 		
@@ -609,8 +597,7 @@ public class QualificationController {
 			@RequestHeader("Authorization") String token,
 			@RequestBody FormSequence formSequence) {
 
-		System.out.println("méthode enregistrerSequence ");
-		System.out.println(formSequence.toString());
+	
 		sequenceService.modifierSequence(formSequence);
 
 	}
@@ -645,9 +632,7 @@ public class QualificationController {
 
 		Sequence seq = sequenceService.obtenirSequenceParId(idSequence);
 		List<Echantillon> echantillons = seq.getEchantillons();
-		System.out.println("taille liste echantillons avant:  " + echantillons.size());
-		System.out.println("id de ech: " + idEchantillon);
-
+	
 		boolean ok = false;
 
 		int i = 0;
@@ -661,17 +646,17 @@ public class QualificationController {
 
 			}
 
-			System.out.println("indice i avant sortie" + i);
+			
 			i++;
 		}
 
-		System.out.println("indice i après sortie" + i);
+		
 		int j;
 		Echantillon ech = echantillons.get(j = i < 0 ? i - 1 : 0);
 		// ech.setId(idEchantillon);
 		echantillons.remove(ech);
 
-		System.out.println("taille liste echantillons après:  " + echantillons.size());
+	
 		seq.setEchantillons(echantillons);
 
 		sequenceService.retirerEchantillon(seq);
@@ -698,7 +683,7 @@ public class QualificationController {
 		for (EchantillonAux ech : echantillonsAux) {
 
 			ech.setSelection(echsSelection);
-			System.out.println("statut de l'échantillon: " + ech.isSelection() + " - " + ech.getId());
+			
 		}
 
 		return echantillonsAux;
@@ -728,7 +713,7 @@ public class QualificationController {
 		echantillon.setNumero(formEchantillon.getNumero());
 		echantillon.setVersion(formEchantillon.getVersion());
 		String date = formEchantillon.getDate();
-		System.out.println("Date échantillon récupérée: " + date);
+		
 		echantillon.setDate(LocalDateTime.parse(date + " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
 		echantillonService.modifierEchantillon(echantillon);
@@ -769,9 +754,7 @@ public class QualificationController {
 		qualification.setObjet(formQualif.getObjet());
 		String statut = formQualif.getStatut();
 		String resultat = formQualif.getResultat();
-		System.out.println("statut récupéré formulaire modif qualif: " + statut);
-		System.out.println("resultat récupéré formulaire modif qualif: " + resultat);
-
+		
 		if (statut.equals("Clôturée")) {
 
 			qualification.setStatut(false);
@@ -824,7 +807,7 @@ public class QualificationController {
 		seq.setDebut(LocalDateTime.now());
 		seq.setFin(LocalDateTime.now());
 		sequenceService.ajouterSequence(seq);
-		System.out.println("Enregistrement sequence id=" + id);
+		
 	}
 	
 	
@@ -834,7 +817,7 @@ public class QualificationController {
 			@RequestHeader("Authorization") String token,
 			@PathVariable(name = "num") Integer numQualification){
 		
-		System.out.println("Num qualif récupéré: " + numQualification);
+		
 		Qualification qualification = qualificationService.obtenirQualificationParNumero(numQualification);
 		List<Rapport> rapports = qualification.getRapports();
 		List<RapportAux> listeRapports = new ArrayList<RapportAux>();
@@ -897,7 +880,7 @@ public class QualificationController {
 			@RequestBody FormInitRapport formInitRapport) {
 		
 		
-		System.out.println("***  Enregistrer init rapport 2  ***");
+	
 		Integer idRapport = rapportService.enregistrerRapport(formInitRapport);
 		return idRapport;
 	}
@@ -975,7 +958,7 @@ public class QualificationController {
 			@RequestHeader("Authorization") String token,
 			@RequestBody FormNote formNote) {
 		 
-	System.out.println("Méthode ajouterNote");
+	
 	
 	Note note = new Note();
 	note.setActive(true);
@@ -987,7 +970,7 @@ public class QualificationController {
 	
 	int nbreDeNotes = qualification.getNotes().size();
 	
-	System.out.println("liste notes vide? " + qualification.getNotes().isEmpty());
+	
 	if (qualification.getNotes().isEmpty()) {
 		
 		nbreDeNotes = 0;
@@ -999,7 +982,7 @@ public class QualificationController {
 	note.setTexte(formNote.getTexte());
 	
 	String date = formNote.getDate();
-	System.out.println("Date note récupérée: " + date);
+	
 	note.setDate(LocalDateTime.parse(date + " " + "00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 	
 	noteService.ajouterNote(note);

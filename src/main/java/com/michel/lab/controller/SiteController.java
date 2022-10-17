@@ -43,7 +43,7 @@ public class SiteController {
 	@PostMapping("/enregistrer")
 	public void enregistrerSite(@RequestBody FormSite formSite) {
 		
-	System.out.println("Entrée enregistrement site");	
+	
 	Integer idCommercial = formSite.getCommercial();
 	Utilisateur commercial = userService.obtenirUser(idCommercial);
 	Site site = new Site(formSite, commercial);

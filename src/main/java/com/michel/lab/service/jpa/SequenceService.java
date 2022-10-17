@@ -49,9 +49,7 @@ public class SequenceService {
 
 	public void enregistrerSequence(FormSequence formSequence) {
 
-		System.out.println("méthode enregistrerSequence dans le service");
-		System.out.println(formSequence.toString());
-
+		
 		Sequence sequence = new Sequence();
 		sequence.setNumero(formSequence.getNumero());
 		sequence.setNom(formSequence.getNom());
@@ -97,7 +95,7 @@ public class SequenceService {
 		sequence.setCommentaire(formSequence.getCommentaire());
 		
 		String actif = formSequence.getActif();
-		System.out.println("Actif: " + actif);
+	
 		if (actif.equals("Ouverte")) {
 
 			sequence.setStatut(true);

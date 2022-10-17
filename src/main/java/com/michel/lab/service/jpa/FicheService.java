@@ -31,7 +31,7 @@ public class FicheService implements IFicheService {
 
 	public List<FicheAux> voirLesFiches() {
 		
-		System.out.println("recherche liste des fiches");
+	
 		List<Fiche> fiches = ficheRepo.findAll();
 		List<FicheAux> fichesAux = new ArrayList<FicheAux>();
 		

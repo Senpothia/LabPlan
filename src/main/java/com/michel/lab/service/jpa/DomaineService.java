@@ -21,34 +21,32 @@ public class DomaineService implements IDomaineService{
 	@Override
 	public void ajouterDomaine(Domaine domaine) {
 		
-		System.out.println("Méthode ajouterDomaine");
+		
 
 		List<Domaine> domaines = domaineRepo.findAll();
 
-		System.out.println("nom domaine récupéré:" + domaine.getNom());
-		System.out.println("Taille liste des domaines récupérée: " + domaines.size());
 		
 		if (domaines.size() != 0) {
 
 			for (Domaine dom : domaines) {
 
-				System.out.println("nom domaine dom:" + dom.getNom());
+				
 
 				if (domaines.size() != 0) {
 
 					if (dom.getNom().equals(domaine.getNom())) {
 
-						System.out.println("Le domaine existe déjà");
+					
 
 					} else {
 
-						System.out.println("Enregistrement du domaine");
+						
 						domaineRepo.save(domaine);
 					}
 
 				} else {
 
-					System.out.println("Enregistrement du domaine");
+				
 					domaineRepo.save(domaine);
 				}
 
@@ -56,7 +54,7 @@ public class DomaineService implements IDomaineService{
 
 		} else {
 			
-			System.out.println("Enregistrement du domaine quand taille liste domaine = 0");
+			
 			domaineRepo.save(domaine);
 		}
 		
