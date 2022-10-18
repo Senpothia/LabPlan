@@ -2,6 +2,7 @@ package com.michel.lab.service.jpa;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +100,7 @@ public class RapportService implements IRapportService {
 		
 		
 		List<Essai> essaiReel = qualification.getEssais();
-		
+		Collections.sort(essaiReel);
 		for(Essai ess: essaiReel) {
 			
 			EssaiAux esAux = new EssaiAux(ess);

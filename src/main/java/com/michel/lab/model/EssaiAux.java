@@ -3,7 +3,7 @@ package com.michel.lab.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EssaiAux {
+public class EssaiAux implements Comparable<EssaiAux>{
 
 	private Integer id; // identifiant de l'Essai associé à cette EssaiAux
 	private Integer numero;
@@ -160,6 +160,13 @@ public class EssaiAux {
 
 	public void setSequences(List<SequenceAux> sequences) {
 		this.sequences = sequences;
+	}
+
+	@Override
+	public int compareTo(EssaiAux o) {
+		
+		return (this.numero - o.numero);
+		
 	}
 
 }

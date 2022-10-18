@@ -1,6 +1,7 @@
 package com.michel.lab.service.jpa;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,7 @@ public class EssaiService  implements IEssaiService{
 			
 		}
 		
+		Collections.sort(listeEssais);
 		return listeEssais;
 	}
 

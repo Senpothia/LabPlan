@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 
 @Entity
-public class Essai {
+public class Essai implements Comparable<Essai>{
 	
 	@Id
 	@GeneratedValue
@@ -124,6 +124,12 @@ public class Essai {
 
 	public void setStatut(boolean statut) {
 		this.statut = statut;
+	}
+
+	@Override
+	public int compareTo(Essai o) {
+		
+		return (this.numero - o.numero);
 	}
 
 	
