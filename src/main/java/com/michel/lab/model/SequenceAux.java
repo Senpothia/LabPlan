@@ -1,20 +1,22 @@
 package com.michel.lab.model;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class SequenceAux {
-	
-	private Integer id;    // identifiant de la Sequence associée à cette SequenceAux
+
+	private Integer id; // identifiant de la Sequence associée à cette SequenceAux
 	private String commentaire;
 	private LocalDateTime debut;
 	private String debutText;
 	private LocalDateTime fin;
 	private String finText;
 	private long duree;
+	private String dureeText;
 	private String niveau;
 	private String nom;
-	private Integer numero;  		// numéro de la séquence
+	private Integer numero; // numéro de la séquence
 	private String profil;
 	private Integer essai;
 	private String nomEssais;
@@ -22,20 +24,19 @@ public class SequenceAux {
 	private String nomDomaine;
 	private boolean statut;
 	private String actif;
-	private Integer qualification;  // numéro de la qualification
+	private Integer qualification; // numéro de la qualification
 	private boolean resultat;
-	private String avis;            // ex: conforme, non conforme
-	
+	private String avis; // ex: conforme, non conforme
+
 	public SequenceAux() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	public SequenceAux(Integer id, String commentaire, LocalDateTime debut, String debutText, LocalDateTime fin,
-			String finText, long duree, String niveau, String nom, Integer numero, String profil, Integer essai,
-			String nomEssais, Integer domaine, String nomDomaine, boolean statut, String actif, Integer qualification,
-			boolean resultat, String avis) {
+			String finText, long duree, String dureeText, String niveau, String nom, Integer numero, String profil,
+			Integer essai, String nomEssais, Integer domaine, String nomDomaine, boolean statut, String actif,
+			Integer qualification, boolean resultat, String avis) {
 		super();
 		this.id = id;
 		this.commentaire = commentaire;
@@ -44,6 +45,7 @@ public class SequenceAux {
 		this.fin = fin;
 		this.finText = finText;
 		this.duree = duree;
+		this.dureeText = dureeText;
 		this.niveau = niveau;
 		this.nom = nom;
 		this.numero = numero;
@@ -60,7 +62,7 @@ public class SequenceAux {
 	}
 
 	public SequenceAux(Sequence sequence) {
-		
+
 		this.id = sequence.getId();
 		this.commentaire = sequence.getCommentaire();
 		this.debut = sequence.getDebut();
@@ -75,38 +77,63 @@ public class SequenceAux {
 		this.nomEssais = sequence.getEssai().getProcedure().getNom();
 		this.domaine = sequence.getEssai().getProcedure().getDomaine().getId();
 		this.nomDomaine = sequence.getEssai().getProcedure().getDomaine().getNom();
+		this.dureeText = getDureeText(sequence);
 		this.statut = sequence.isStatut();
-		
+
 		if (sequence.isStatut()) {
-			
+
 			this.actif = "En cours";
 			this.avis = "En cours";
-			
-		}else {
-			
+
+		} else {
+
 			this.actif = "Terminée";
 		}
-		
+
 		this.qualification = sequence.getEssai().getQualification().getId();
-		
+
 		this.resultat = sequence.isResultat();
-		
+
 		if (this.resultat && !sequence.isStatut()) {
-			
+
 			this.avis = "Conforme";
-			
+
 		}
-		
-		if (!this.resultat && !sequence.isStatut()){
-			
+
+		if (!this.resultat && !sequence.isStatut()) {
+
 			this.avis = "Non conforme";
 		}
-		
-		
+
 	}
-	
+
+	private String getDureeText(Sequence sequence) {
+
+		Duration duration = Duration.between(sequence.getDebut(), sequence.getFin());
+		long duree = duration.toHours();
+		long minutes = duration.toMinutes();
+		long minutesRestantes = 0;
+		try {
+			minutesRestantes = minutes % duree * 60;
+			String intercalaire = "";
+			if (minutesRestantes < 10) {
+				intercalaire = "0";
+			}
+
+			String dureeText = Long.toString(duree) + ":" + intercalaire + Long.toString(minutesRestantes);
+
+			return dureeText;
+
+		} catch (Exception e) {
+
+			return "00:" + minutes;
+
+		}
+
+	}
+
 	public SequenceAux(SequenceData s) {
-		
+
 		this.id = s.getSequence();
 		this.commentaire = s.getCommentaire();
 		this.debut = s.getDebut();
@@ -127,7 +154,7 @@ public class SequenceAux {
 		this.qualification = s.getQualification();
 		this.resultat = s.isResultat();
 		this.avis = s.getAvis();
-		
+
 	}
 
 	public Integer getId() {
@@ -266,18 +293,13 @@ public class SequenceAux {
 		this.avis = avis;
 	}
 
-
-
 	public String getDebutText() {
 		return debutText;
 	}
 
-
-
 	public void setDebutText(String debutText) {
 		this.debutText = debutText;
 	}
-
 
 	public String getFinText() {
 		return finText;
@@ -291,11 +313,16 @@ public class SequenceAux {
 		return duree;
 	}
 
-
 	public void setDuree(long duree) {
 		this.duree = duree;
 	}
 
-	
+	public String getDureeText() {
+		return dureeText;
+	}
+
+	public void setDureeText(String dureeText) {
+		this.dureeText = dureeText;
+	}
 
 }

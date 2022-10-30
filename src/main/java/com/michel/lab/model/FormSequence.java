@@ -9,7 +9,9 @@ public class FormSequence {
 	private LocalDateTime debut;
 	private LocalDateTime fin;
 	private String debutText;
+	private String debutHeureText;
 	private String finText;
+	private String finHeureText;
 	private String niveau;
 	private String nom;
 	private Integer numero;  // numéro de la séquence
@@ -31,17 +33,21 @@ public class FormSequence {
 
 	
 
+	
+
 	public FormSequence(Integer id, String commentaire, LocalDateTime debut, LocalDateTime fin, String debutText,
-			String finText, String niveau, String nom, Integer numero, String profil, Integer essai, String nomEssais,
-			Integer domaine, String nomDomaine, boolean statut, String actif, Integer qualification, boolean resultat,
-			String avis) {
+			String debutHeureText, String finText, String finHeureText, String niveau, String nom, Integer numero,
+			String profil, Integer essai, String nomEssais, Integer domaine, String nomDomaine, boolean statut,
+			String actif, Integer qualification, boolean resultat, String avis) {
 		super();
 		this.id = id;
 		this.commentaire = commentaire;
 		this.debut = debut;
 		this.fin = fin;
 		this.debutText = debutText;
+		this.debutHeureText = debutHeureText;
 		this.finText = finText;
+		this.finHeureText = finHeureText;
 		this.niveau = niveau;
 		this.nom = nom;
 		this.numero = numero;
@@ -56,6 +62,7 @@ public class FormSequence {
 		this.resultat = resultat;
 		this.avis = avis;
 	}
+
 
 
 	public Integer getId() {
@@ -220,11 +227,35 @@ public class FormSequence {
 
 
 
+	public String getDebutHeureText() {
+		return debutHeureText;
+	}
+
+
+
+	public void setDebutHeureText(String debutHeureText) {
+		this.debutHeureText = debutHeureText;
+	}
+
+
+
+	public String getFinHeureText() {
+		return finHeureText;
+	}
+
+
+
+	public void setFinHeureText(String finHeureText) {
+		this.finHeureText = finHeureText;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "FormSequence [id=" + id + ", essai=" + essai + "]";
 	}
 	
-
+	
 
 }

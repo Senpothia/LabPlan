@@ -49,18 +49,12 @@ public class SequenceService {
 
 	public void enregistrerSequence(FormSequence formSequence) {
 
-		
 		Sequence sequence = new Sequence();
 		sequence.setNumero(formSequence.getNumero());
 		sequence.setNom(formSequence.getNom());
 		sequence.setNiveau(formSequence.getNiveau());
-		sequence.setDebut(formSequence.getDebut()); // à modifier
-		sequence.setFin(formSequence.getFin()); // à modifier
-
-		// sequence.setDebut(LocalDateTime.parse(formSequence.getDebutText(),
-		// formatter)); // ajouter
-		// sequence.setFin(LocalDateTime.parse(formSequence.getFinText(), formatter));
-		// // ajouter
+		sequence.setDebut(makeDateFromStrings(formSequence, 0)); 
+		sequence.setFin(makeDateFromStrings(formSequence, 1)); 
 
 		sequence.setProfil(formSequence.getProfil());
 		sequence.setStatut(true);
@@ -89,29 +83,31 @@ public class SequenceService {
 		sequence.setNumero(formSequence.getNumero());
 		sequence.setNom(formSequence.getNom());
 		sequence.setNiveau(formSequence.getNiveau());
-		sequence.setDebut(formSequence.getDebut());
-		sequence.setFin(formSequence.getFin());
+		
+		sequence.setDebut(makeDateFromStrings(formSequence, 0)); // à modifier
+		sequence.setFin(makeDateFromStrings(formSequence, 1)); // à modifier
+	
 		sequence.setProfil(formSequence.getProfil());
 		sequence.setCommentaire(formSequence.getCommentaire());
-		
+
 		String actif = formSequence.getActif();
-	
+
 		if (actif.equals("Ouverte")) {
 
 			sequence.setStatut(true);
-			
+
 		}
-		
+
 		if (actif.equals("Clôturée")) {
 
 			sequence.setStatut(false);
-			
+
 		}
-		
+
 		String avis = formSequence.getAvis();
 		if (avis.equals("Active")) {
 
-			//sequence.setStatut(true);
+			// sequence.setStatut(true);
 			sequence.setResultat(false);
 		}
 
@@ -120,13 +116,12 @@ public class SequenceService {
 			sequence.setStatut(false);
 			sequence.setResultat(true);
 		}
-		
+
 		if (avis.equals("Non-conforme")) {
 
 			sequence.setStatut(false);
 			sequence.setResultat(false);
 		}
-		
 
 		sequenceRepo.save(sequence);
 
@@ -173,6 +168,29 @@ public class SequenceService {
 
 		sequenceDataRepo.delete(s);
 
+	}
+
+	private LocalDateTime makeDateFromStrings(FormSequence sequence, int i) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime localDateTime = null;
+		String date = null;
+		switch (i) {
+		case 0:
+
+			date = sequence.getDebutText() + " " + sequence.getDebutHeureText();
+			break;
+
+		case 1:
+			date = sequence.getFinText() + " " + sequence.getFinHeureText();
+			break;
+
+		default:
+			break;
+		}
+
+		localDateTime = LocalDateTime.parse(date, formatter);
+		return localDateTime;
 	}
 
 }
